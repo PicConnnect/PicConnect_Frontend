@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 const PostCard = ({url}) => {
       const navigate = useNavigate();
 
+      //allows to navigate to single
       const handleViewClick = () => {
-        navigate(`/view-post/1`);
+        navigate(`/viewPost/`);//add variable postID
       }
 
 
