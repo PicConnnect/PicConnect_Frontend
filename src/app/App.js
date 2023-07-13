@@ -7,6 +7,9 @@ import Upload from './../Pages/Upload';
 import Profile from './../Pages/Profile';
 import SignIn from './../Pages/SignIn';
 import SignUp from './../Pages/SignUp';
+import ViewPost from '../Pages/ViewPost';
+
+
 function App() {
   return (
    <Router>
@@ -34,6 +37,9 @@ function App() {
             <Route path="/Profile" element={<Profile></Profile>}></Route>
             <Route path="/SignIn" element={<SignIn />}></Route>
             <Route path="/SignUp" element={<SignUp />}></Route>
+            <Route path="/viewPost/" element={<ViewPost />}></Route>
+            {/* Delete line 40 uncomment line 42 when backend is working */}
+            {/* <Route path="/viewPost/:postID" element={<ViewPost />}></Route> */}
           </Routes>
           
       </div>
