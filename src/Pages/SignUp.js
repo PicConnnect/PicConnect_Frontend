@@ -5,6 +5,7 @@ export default function SignUp() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [passwordVerification, setPasswordVerification] = useState('');
 
     const handleNameChange = (event) => {
         setName(event.target.value);
@@ -17,6 +18,9 @@ export default function SignUp() {
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
     };
+    const handlePasswordVerificationChange = (event) => {
+        setPasswordVerification(event.target.value);
+    };
     //when sign button is click call this function
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -27,6 +31,7 @@ export default function SignUp() {
         setName('');
         setEmail('');
         setPassword('');
+        setPasswordVerification('');
     };
     return (
         <div className="bg-[#EAE6DE] h-screen">
@@ -48,8 +53,8 @@ export default function SignUp() {
                         <input type="password" value={password} onChange={handlePasswordChange} required className="w-full h-10"/>
                     </div>
                     <div className="w-full pt-6">
-                        <label for="password" className="block text-left font-bold">Confirm Your Password</label>
-                        <input type="password" value={password} onChange={handlePasswordChange} required className="w-full h-10"/>
+                        <label for="passwordVerification" className="block text-left font-bold">Confirm Your Password</label>
+                        <input type="password" value={passwordVerification} onChange={handlePasswordVerificationChange} required className="w-full h-10"/>
                     </div>
                     <button type="submit" className="w-full h-10 mt-10 bg-black text-white">Sign Up</button>
                     <span className="italic">By continuing you agree to the <a href="" className="underline">Terms of Services</a> and <a href="" className="underline"> Privacy</a></span>
