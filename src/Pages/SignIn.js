@@ -1,4 +1,4 @@
-import { signInWithGoogle } from "../firebase";
+import { signInWithGoogle } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
