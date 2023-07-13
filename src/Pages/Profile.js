@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { auth } from '../firebase'
+import { auth } from '../firebase/firebase'
 import { Link } from 'react-router-dom';
 
 export default function Profile() {
