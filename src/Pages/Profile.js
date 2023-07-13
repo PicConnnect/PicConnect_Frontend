@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { auth } from '../firebase'
+import { Link } from 'react-router-dom';
 
 export default function Profile() {
   //initial state null (not logged in)
@@ -14,5 +15,14 @@ export default function Profile() {
     //cleanup (when component unmounts) to avoid memory leaks
     return () => unsubscribeFromAuthChange();
   }, [])
+
+  if (!user) {
+    return (
+      <div>
+        <p>You're not logged in! Please <Link to="/signin">Sign In</Link> or 
+        <Link to="/signup"> Sign Up</Link> to continue.</p>
+      </div>
+    )
+  }
 
 }
