@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const PostCard = () => {
+const PostCard = ({url}) => {
       const navigate = useNavigate();
 
       const handleViewClick = () => {
@@ -15,7 +15,7 @@ const PostCard = () => {
                 <div className="card" style={{ width: '25rem' }}>
                     <div className="cardButton" onClick={()=>{handleViewClick()}} >
                         <img className="mainImage"
-                            src="https://img.freepik.com/free-photo/colorful-heart-air-balloon-shape-collection-concept-isolated-color-background-beautiful-heart-ball-event_90220-1047.jpg"
+                            src={url}
                             // className="card-img-top"
                             alt="..."
                         />
@@ -34,3 +34,4 @@ const PostCard = () => {
 };
 
 export default PostCard;
+
