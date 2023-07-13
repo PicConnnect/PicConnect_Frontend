@@ -27,7 +27,7 @@ export const signInWithGoogle = () => {
 }
 
 export const signInWithFacebook = () => {
-    return signInWithPopup(auth, facebookProvider)
+    signInWithPopup(auth, facebookProvider)
     .then((result) => {
         console.log(result);
     })
