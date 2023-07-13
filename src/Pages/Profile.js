@@ -15,7 +15,7 @@ export default function Profile() {
     //cleanup (when component unmounts) to avoid memory leaks
     return () => unsubscribeFromAuthChange();
   }, [])
-
+  //handle user not logged in
   if (!user) {
     return (
       <div>
@@ -24,5 +24,11 @@ export default function Profile() {
       </div>
     )
   }
+
+  return (
+    <div>
+      This is profile of {user.displayName}
+    </div>
+  )
 
 }
