@@ -5,6 +5,8 @@ import Home from "./Pages/Home";
 import Following from './Pages/Following';
 import Upload from './Pages/Upload';
 import Profile from './Pages/Profile';
+import SignIn from './Pages/SignIn';
+import SignUp from './Pages/SignUp';
 function App() {
   return (
    <Router>
@@ -30,6 +32,8 @@ function App() {
             <Route path="/Following" element={<Following></Following>}></Route>
             <Route path="/Upload" element={<Upload></Upload>}></Route>
             <Route path="/Profile" element={<Profile></Profile>}></Route>
+            <Route path="/SignIn" element={<SignIn />}></Route>
+            <Route path="/SignUp" element={<SignUp />}></Route>
           </Routes>
           
       </div>
