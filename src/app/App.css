@@ -36,3 +36,37 @@
     transform: rotate(360deg);
   }
 }
+.cardButton {
+
+}
+
+.cardButton:hover{
+  background-color: #bbc6cd7d;
+  border-radius: 3%;
+
+}
+
+.cardButton:active{
+  background-color: #bbc6cdb6;
+  border-radius: 3%;
+}
+
+.leftCentered {
+  padding-left: 1rem;
+  text-align: left;
+}
+.mainImage {
+  border-radius: 3%;
+  
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  margin: 10px
+
+}
