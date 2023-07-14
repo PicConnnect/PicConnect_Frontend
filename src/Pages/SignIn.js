@@ -1,4 +1,4 @@
-import { signInWithGoogle, signInWithFacebook } from "../firebase/firebase";
+import { signInWithGoogle, signInWithFacebook, signInWithEmail } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 
@@ -16,7 +16,18 @@ export default function SignIn() {
     setPassword(event.target.value);
   };
 
-  const handleSignIn = async (signInMethod) => {
+  const handleSignIn = async (event) => {
+    event.preventDefault();
+    try {
+      await signInWithEmail(email, password); 
+      navigate("/profile"); 
+    } catch (error) {
+      console.error("Error signing in", error);
+      // Display this error in UI later
+    }
+  };
+
+  const handleSignInWithProvider = async (signInMethod) => {
     try {
       await signInMethod(); //try to sign in with google
       navigate("/profile"); // If sign in is successful, navigate to the profile page
@@ -28,10 +39,10 @@ export default function SignIn() {
     <div className="bg-[#EAE6DE] h-screen">
       <h1 className="text-4xl p-5">Login</h1>
       <div className="flex justify-center">
-        <form className="flex flex-col w-1/2">
+        <form onSubmit={handleSignIn} className="flex flex-col w-1/2">
 
           <div className="w-full pt-6">
-            <label for="email" className="block text-left font-bold">
+            <label htmlFor="email" className="block text-left font-bold">
               Email Address
             </label>
             <input
@@ -44,7 +55,7 @@ export default function SignIn() {
           </div>
 
           <div className="w-full pt-6">
-            <label for="password" className="block text-left font-bold">
+            <label htmlFor="password" className="block text-left font-bold">
               Password
             </label>
             <input
@@ -74,11 +85,11 @@ export default function SignIn() {
             </a>
           </span>
 
-          <button onClick={() => handleSignIn(signInWithGoogle)}>
+          <button onClick={() => handleSignInWithProvider(signInWithGoogle)}>
             Sign in with Google
           </button>
           <br></br>
-          <button onClick={() => handleSignIn(signInWithFacebook)}>
+          <button onClick={() => handleSignInWithProvider(signInWithFacebook)}>
             Sign in with Facebook
           </button>
 
