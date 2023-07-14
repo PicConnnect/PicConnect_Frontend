@@ -1,7 +1,6 @@
 import "./../index.css";
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase/firebase";
+import { auth, signUpWithEmail } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
 export default function SignUp() {
   //states that stores the user data
@@ -37,7 +36,7 @@ export default function SignUp() {
     }
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      await signUpWithEmail(email, password);
       navigate("/profile");
 
       // Reset the form only if sign up is successful
@@ -46,8 +45,8 @@ export default function SignUp() {
       setPassword("");
       setPasswordVerification("");
     } catch (error) {
-        console.error("Error signing up", error);
-        //Display this error in UI later
+      console.error("Error signing up", error);
+      //Display this error in UI later
     }
   };
   return (
@@ -56,7 +55,7 @@ export default function SignUp() {
       <div className="flex justify-center">
         <form onSubmit={handleSubmit} className="flex flex-col w-1/2">
           <div className="w-full">
-            <label for="name" className="block text-left font-bold">
+            <label htmlFor="name" className="block text-left font-bold">
               Full Name
             </label>
             <input
@@ -69,7 +68,7 @@ export default function SignUp() {
           </div>
 
           <div className="w-full pt-6">
-            <label for="email" className="block text-left font-bold">
+            <label htmlFor="email" className="block text-left font-bold">
               Email Address
             </label>
             <input
@@ -82,7 +81,7 @@ export default function SignUp() {
           </div>
 
           <div className="w-full pt-6">
-            <label for="password" className="block text-left font-bold">
+            <label htmlFor="password" className="block text-left font-bold">
               Create Your Password
             </label>
             <input
@@ -95,7 +94,7 @@ export default function SignUp() {
           </div>
           <div className="w-full pt-6">
             <label
-              for="passwordVerification"
+              htmlFor="passwordVerification"
               className="block text-left font-bold"
             >
               Confirm Your Password
