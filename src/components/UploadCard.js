@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { auth } from "../firebase/firebase";
-import { useAuth } from "../hooks/useAuth";
+import React, { useState } from "react";
 import { useIfNotAuthenticated } from "../hooks/useIfNotAuthenticated";
 
 const UploadCard = ({ url }) => {
-  const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState("");
   const [inputValues, setInputValues] = useState({
     author: "",
@@ -15,7 +11,6 @@ const UploadCard = ({ url }) => {
     location: "",
   });
 
-  const user = useAuth();
   //check to see if user logged in
   const RedirectMessage = useIfNotAuthenticated();
   //if not logged in
