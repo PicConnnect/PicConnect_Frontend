@@ -16,7 +16,9 @@ export default function SignIn() {
     setPassword(event.target.value);
   };
 
+  //function to handle form submission (Email, Password)
   const handleSignIn = async (event) => {
+    //prevent default behavior of automatically refreshing page
     event.preventDefault();
     try {
       await signInWithEmail(email, password); 
@@ -26,7 +28,7 @@ export default function SignIn() {
       // Display this error in UI later
     }
   };
-
+  //function to handle sign in with google or facebook
   const handleSignInWithProvider = async (signInMethod) => {
     try {
       await signInMethod(); //try to sign in with google
