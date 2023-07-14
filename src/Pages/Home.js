@@ -1,6 +1,6 @@
-import React from 'react'
-import PostCard from '../components/postCard'
-import SingleView from '../components/singleView'
+import React from 'react';
+import PostCard from '../components/PostCard';
+
 
 export default function Home() {
   return (

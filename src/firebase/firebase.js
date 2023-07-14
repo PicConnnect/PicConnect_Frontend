@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import { getAuth, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth"
 //web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyC6vRLOnoMHmVJlz7xqh3XV01J2PP4wuBM",
@@ -15,12 +15,34 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
-const provider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
 
 export const signInWithGoogle = () => {
-    signInWithPopup(auth, provider).then((result) => {
+    signInWithPopup(auth, googleProvider).then((result) => {
         console.log(result);
     }).catch((error) => {
         console.log(error);
     })
 }
+
+export const signInWithFacebook = () => {
+    signInWithPopup(auth, facebookProvider)
+    .then((result) => {
+        console.log(result);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+}
+export const signUpWithEmail = async (email, password, displayName) => {
+    const { user } = await createUserWithEmailAndPassword(auth, email, password);
+    if (user) {
+        await updateProfile(user, {displayName})
+        await sendEmailVerification(user);
+    }
+};
+
+export const signInWithEmail = (email, password) => {
+    return signInWithEmailAndPassword(auth, email, password);
+};

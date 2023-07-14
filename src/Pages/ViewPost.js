@@ -1,5 +1,5 @@
 import React from 'react'
-import SingleView from '../components/singleView'
+import SingleView from '../components/SingleView'
 
 export default function ViewPost() {
   return (
