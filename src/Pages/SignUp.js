@@ -1,6 +1,7 @@
 import "./../index.css";
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
 export default function SignUp() {
   //states that stores the user data
@@ -26,22 +27,28 @@ export default function SignUp() {
     setPasswordVerification(event.target.value);
   };
   //when sign button is click call this function
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (password !== passwordVerification) {
-        console.log("The passwords do not match");
-        //dispaly the error in UI later
-        return; //terminate early if password doesn't match
+      console.log("The passwords do not match");
+      //dispaly the error in UI later
+      return; //terminate early if password doesn't match
     }
 
-    // Perform sign-up logic here (e.g., send data to server)
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      navigate("/profile");
 
-    // Reset the form
-    setName("");
-    setEmail("");
-    setPassword("");
-    setPasswordVerification("");
+      // Reset the form only if sign up is successful
+      setName("");
+      setEmail("");
+      setPassword("");
+      setPasswordVerification("");
+    } catch (error) {
+        console.error("Error signing up", error);
+        //Display this error in UI later
+    }
   };
   return (
     <div className="bg-[#EAE6DE] h-screen">
