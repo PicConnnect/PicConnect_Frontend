@@ -141,3 +141,60 @@
   border: 2px solid black;
   border-radius: 3px;
 }
+
+.formInput {
+  margin: 10px;
+  align-items: end;
+  list-style-position: inside;
+}
+
+.submitButton {
+  margin-top: 10px;
+  background-color: transparent;
+  border-color: black;
+  border: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  line-height: 1;
+  width: 100%; /* Large, mobile-friendly touch target */
+  border-radius: 3px;
+
+  /* Media Queries */
+  @media (min-width: 37.5em) {
+    width: auto; 
+    padding:0.4rem 2rem;
+  }
+}
+
+.submitButton:hover{
+  border: 2;
+  background-color: #bcf7e2b6;
+}
+
+.submitButton:active{
+  background-color:#bcf7e2;
+}
+
+.image-preview img{
+  max-width: '300px';
+  max-height: '300px';
+  padding-top: '5px';
+
+}
+
+.imageUpload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-color: black;
+}
+
+.imageInput {
+  display:block;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-left: 20%;
+}
