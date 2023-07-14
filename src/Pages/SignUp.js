@@ -36,9 +36,11 @@ export default function SignUp() {
     }
 
     try {
-      await signUpWithEmail(email, password, name);
-      navigate("/profile");
-
+      const { user } = await signUpWithEmail(email, password, name);
+      await user.sendEmailVerification();
+      //DOOOO: Show message to user to check their email for verification
+      //ALSO DECIDE ON WHERE TO NAVIGATE USER
+      
       // Reset the form only if sign up is successful
       setName("");
       setEmail("");
