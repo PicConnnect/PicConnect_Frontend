@@ -45,16 +45,18 @@ const UploadCard = ({ url }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    //get the file from the form
     const file = event.target.image.files[0];
     if (file) {
+      //reference to the file in firebase storage
       const storageRef = ref(storage, "images/" + file.name);
-
+      //start uploading the file
       const uploadTask = uploadBytesResumable(storageRef, file);
-
+      //monitor upload task
       uploadTask.on(
         "state_changed",
         (snapshot) => {
+          //log upload progress as a percentage
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log("Upload is " + progress + "% done");
@@ -91,10 +93,9 @@ const UploadCard = ({ url }) => {
           }
         },
         () => {
-            // Use the download URL to save to database or use in application
+          // Use the download URL to save to database or use in application
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             console.log("File available at", downloadURL);
-            
           });
         }
       );
