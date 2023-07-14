@@ -1,11 +1,15 @@
 import "./../index.css";
 import React, { useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 export default function SignUp() {
   //states that stores the user data
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVerification, setPasswordVerification] = useState("");
+
+  const navigate = useNavigate();
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -24,6 +28,12 @@ export default function SignUp() {
   //when sign button is click call this function
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (password !== passwordVerification) {
+        console.log("The passwords do not match");
+        //dispaly the error in UI later
+        return; //terminate early if password doesn't match
+    }
 
     // Perform sign-up logic here (e.g., send data to server)
 
