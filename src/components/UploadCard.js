@@ -23,15 +23,15 @@ const UploadCard = ({ url }) => {
     //first file in the list
     const file = event.target.files[0];
     //if file selected,
-    if (file) { 
-        const reader = new FileReader();
-        //when FileReader finishes reading the file data, this will be executed
-        reader.onload = function (e) {
-            //data url representing the file's data
-            setImageUrl(e.target.result);
-        };
-        //can use this as a source in an img tag to preveiw the picture
-        reader.readAsDataURL(file);
+    if (file) {
+      const reader = new FileReader();
+      //when FileReader finishes reading the file data, this will be executed
+      reader.onload = function (e) {
+        //data url representing the file's data
+        setImageUrl(e.target.result);
+      };
+      //can use this as a source in an img tag to preveiw the picture
+      reader.readAsDataURL(file);
     }
   };
 
@@ -48,22 +48,56 @@ const UploadCard = ({ url }) => {
 
     const file = event.target.image.files[0];
     if (file) {
-        const storageRef = ref(storage, 'images/' + file.name)
+      const storageRef = ref(storage, "images/" + file.name);
 
-        const uploadTask = uploadBytesResumable(storageRef, file);
+      const uploadTask = uploadBytesResumable(storageRef, file);
 
-        uploadTask.on('state_changed', (snapshot) => {
-            //Maybe add a percentage bar here later 
-        }, (error) => {
-            console.log(error);
-        }, () => {
-            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                console.log('File available at', downloadURL);
-                // You can use the download URL to save to your database or use in your application
-                // Consider updating the UI here to provide feedback that the upload is complete
-              });
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+          switch (snapshot.state) {
+            case "paused":
+              console.log("Upload is paused");
+              break;
+            case "running":
+              console.log("Upload is running");
+              break;
+            default:
+              console.log("Unknown state");
+              break;
+          }
+        },
+        (error) => {
+          switch (error.code) {
+            case "storage/unauthorized":
+              // User doesn't have permission to access the object
+              break;
+            case "storage/canceled":
+              // User canceled the upload
+              break;
+
+            // ...
+
+            case "storage/unknown":
+              // Unknown error occurred, inspect error.serverResponse
+              break;
+
+            default:
+              console.log("Unknown error occured, inspect error.code");
+              break;
+          }
+        },
+        () => {
+            // Use the download URL to save to database or use in application
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log("File available at", downloadURL);
+            
+          });
         }
-        )
+      );
     }
   };
 
@@ -88,17 +122,17 @@ const UploadCard = ({ url }) => {
               </h3>
             </legend>
           </center>
-            <div className="formInput">
-              <label htmlFor="">Upload Image</label>
-              <div className="imageInput">
-                <input
-                  type="file"
-                  name="image"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                />
-              </div>
+          <div className="formInput">
+            <label htmlFor="uploadImage">Upload Image</label>
+            <div className="imageInput">
+              <input
+                type="file"
+                name="image"
+                accept="image/*"
+                onChange={handleFileChange}
+              />
             </div>
+          </div>
 
           <div className="image-preview">
             {imageUrl && (
