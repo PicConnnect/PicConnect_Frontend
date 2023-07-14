@@ -1,5 +1,5 @@
 import React from 'react'
-import UploadCard from '../components/uploadCard'
+import UploadCard from '../components/UploadCard'
 
 export default function Upload() {
   return (
