@@ -62,15 +62,6 @@ export default function SignIn() {
           >
             Sign In
           </button>
-
-          <button onClick={() => handleSignIn(signInWithGoogle)}>
-            Sign in with Google
-          </button>
-          <br></br>
-          <button onClick={() => handleSignIn(signInWithFacebook)}>
-            Sign in with Facebook
-          </button>
-
           <span className="italic">
             By continuing you agree to the{" "}
             <a href="#" className="underline">
@@ -82,6 +73,15 @@ export default function SignIn() {
               Privacy
             </a>
           </span>
+
+          <button onClick={() => handleSignIn(signInWithGoogle)}>
+            Sign in with Google
+          </button>
+          <br></br>
+          <button onClick={() => handleSignIn(signInWithFacebook)}>
+            Sign in with Facebook
+          </button>
+
         </form>
       </div>
     </div>
