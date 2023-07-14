@@ -1,6 +1,6 @@
 import "./../index.css";
 import React, { useState } from "react";
-import { auth, signUpWithEmail } from "../firebase/firebase";
+import { signUpWithEmail, signInWithGoogle, signInWithFacebook } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
 export default function SignUp() {
   //states that stores the user data
@@ -9,7 +9,7 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [passwordVerification, setPasswordVerification] = useState("");
 
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -40,7 +40,7 @@ export default function SignUp() {
       await user.sendEmailVerification();
       //DOOOO: Show message to user to check their email for verification
       //ALSO DECIDE ON WHERE TO NAVIGATE USER
-      
+
       // Reset the form only if sign up is successful
       setName("");
       setEmail("");
@@ -126,6 +126,19 @@ export default function SignUp() {
               Privacy
             </a>
           </span>
+          <button
+            onClick={() => signInWithGoogle()}
+            className="w-full h-10 mt-10 bg-black text-white"
+          >
+            Continue with Google
+          </button>
+
+          <button
+            onClick={() => signInWithFacebook()}
+            className="w-full h-10 mt-10 bg-black text-white"
+          >
+            Continue with Facebook
+          </button>
         </form>
       </div>
     </div>
