@@ -1,9 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../firebase/firebase";
+import { useAuth } from "../hooks/useAuth";
+import { useIfNotAuthenticated } from "../hooks/useIfNotAuthenticated";
 
 const UploadCard = ({ url }) => {
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState("");
+  const [inputValues, setInputValues] = useState({
+    author: "",
+    tags: "",
+    description: "",
+    photoDetails: "",
+    location: "",
+  });
+
+  const user = useAuth();
+  //check to see if user logged in
+  const RedirectMessage = useIfNotAuthenticated();
+  //if not logged in
+  if (RedirectMessage) {
+    return RedirectMessage;
+  }
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -18,14 +36,6 @@ const UploadCard = ({ url }) => {
       reader.readAsDataURL(file);
     }
   };
-
-  const [inputValues, setInputValues] = useState({
-    author: "",
-    tags: "",
-    description: "",
-    photoDetails: "",
-    location: "",
-  });
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
