@@ -36,7 +36,7 @@ export default function SignUp() {
     }
 
     try {
-      await signUpWithEmail(email, password);
+      await signUpWithEmail(email, password, name);
       navigate("/profile");
 
       // Reset the form only if sign up is successful
