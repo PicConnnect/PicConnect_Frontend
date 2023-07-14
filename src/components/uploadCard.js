@@ -58,9 +58,9 @@ const UploadCard = ({ url }) => {
                     onSubmit={handleSubmit}>
                     <center><legend><h3><b>Upload Registration</b></h3></legend></center>
                     <form>
-                        <div className='imageInput'>
-                            <label htmlFor="imageUpload">Upload Image:</label>
-                            <div class="testing">
+                        <div className='formInput'>
+                            <label htmlFor="">Upload Image</label>
+                            <div class="imageInput">
                                 <input type="file" name="image" accept="image/*" onChange={handleFileChange} />
                             </div>
                         </div>
