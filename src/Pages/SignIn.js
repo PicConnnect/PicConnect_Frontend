@@ -87,11 +87,13 @@ export default function SignIn() {
             </a>
           </span>
 
-          <button onClick={() => handleSignInWithProvider(signInWithGoogle)}>
+          <button onClick={() => handleSignInWithProvider(signInWithGoogle)}
+          className="w-full h-10 mt-10 bg-black text-white">
             Sign in with Google
           </button>
           <br></br>
-          <button onClick={() => handleSignInWithProvider(signInWithFacebook)}>
+          <button onClick={() => handleSignInWithProvider(signInWithFacebook)}
+          className="w-full h-10 mt-10 bg-black text-white">
             Sign in with Facebook
           </button>
 
