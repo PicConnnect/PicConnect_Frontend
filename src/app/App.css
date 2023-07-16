@@ -198,3 +198,19 @@
   text-align: center;
   padding-left: 20%;
 }
+
+.home-link:hover {
+  border-bottom: 2px solid #4fa4df;
+}
+
+.following-link:hover {
+  border-bottom: 2px solid #5cd8a3;
+}
+
+.upload-link:hover {
+  border-bottom: 2px solid #f5c45a;
+}
+
+.profile-link:hover {
+  border-bottom: 2px solid #4249eb;
+}

@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { useIfNotAuthenticated } from "../hooks/useIfNotAuthenticated";
-import { storage } from "../firebase/firebase";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-const UploadCard = ({ url }) => {
+import { uploadToStorage } from "../utils/firebaseUtils";
+import ImagePreview from "./ImagePreview";
+import FormInput from "./FormInput";
+import "../styles/UploadCard.css";
+
+const UploadCard = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [inputValues, setInputValues] = useState({
     author: "",
@@ -43,88 +46,28 @@ const UploadCard = ({ url }) => {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     //get the file from the form
     const file = event.target.image.files[0];
     if (file) {
-      //reference to the file in firebase storage
-      const storageRef = ref(storage, "images/" + file.name);
-      //start uploading the file
-      const uploadTask = uploadBytesResumable(storageRef, file);
-      //monitor upload task
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          //log upload progress as a percentage
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("Upload is " + progress + "% done");
-          switch (snapshot.state) {
-            case "paused":
-              console.log("Upload is paused");
-              break;
-            case "running":
-              console.log("Upload is running");
-              break;
-            default:
-              console.log("Unknown state");
-              break;
-          }
-        },
-        (error) => {
-          switch (error.code) {
-            case "storage/unauthorized":
-              // User doesn't have permission to access the object
-              break;
-            case "storage/canceled":
-              // User canceled the upload
-              break;
-
-            // ...
-
-            case "storage/unknown":
-              // Unknown error occurred, inspect error.serverResponse
-              break;
-
-            default:
-              console.log("Unknown error occured, inspect error.code");
-              break;
-          }
-        },
-        () => {
-          // Use the download URL to save to database or use in application
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            console.log("File available at", downloadURL);
-          });
-        }
-      );
+      const downloadURL = await uploadToStorage(file, "images");
+      console.log("File available at", downloadURL);
     }
   };
 
   return (
     <center>
       <div className="form-group">
-        <form
-          className="form-group"
-          style={{
-            backgroundColor: "#C8DDD3",
-            display: "inline-block",
-            padding: "1rem 2rem",
-            borderRadius: "10px",
-            margin: "5px",
-          }}
-          onSubmit={handleSubmit}
-        >
+        <form className="form-group" onSubmit={handleSubmit}>
           <center>
             <legend>
               <h3>
-                <b>Upload Registration</b>
+                <b>Upload Image</b>
               </h3>
             </legend>
           </center>
           <div className="formInput">
-            <label htmlFor="uploadImage">Upload Image</label>
             <div className="imageInput">
               <input
                 type="file"
@@ -135,79 +78,43 @@ const UploadCard = ({ url }) => {
             </div>
           </div>
 
-          <div className="image-preview">
-            {imageUrl && (
-              <img
-                src={imageUrl}
-                style={{
-                  paddingTop: "5px",
-                  maxWidth: "700px",
-                  maxHeight: "700px",
-                }}
-                alt="Preview"
-              />
-            )}
-          </div>
+          <ImagePreview imageUrl={imageUrl} />
 
-          <div className="formInput">
-            <label>Author</label>
-            <div>
-              <input
-                type="text"
-                name="author"
-                value={inputValues.author}
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
+          <FormInput
+            label="Author"
+            name="author"
+            value={inputValues.author}
+            onChange={handleInputChange}
+          />
 
-          <div className="formInput">
-            <label>Tags</label>
-            <div>
-              <input
-                type="text"
-                name="tags"
-                value={inputValues.tags}
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
+          <FormInput
+            label="Tags"
+            name="tags"
+            value={inputValues.tags}
+            onChange={handleInputChange}
+          />
 
-          <div className="formInput">
-            <label>Description</label>
-            <div>
-              <input
-                type="text"
-                name="description"
-                value={inputValues.description}
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
+          <FormInput
+            label="Description"
+            name="description"
+            value={inputValues.description}
+            onChange={handleInputChange}
+          />
 
-          <div className="formInput">
-            <label>Camera Details:</label>
-            <div>
-              <input
-                type="text"
-                name="photoDetails"
-                value={inputValues.photoDetails}
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
+          <FormInput
+            label="Camera Details"
+            name="photoDetails"
+            value={inputValues.photoDetails}
+            onChange={handleInputChange}
+          />
 
-          <div>
-            <label>Location</label>
-            <div>
-              <input
-                type="text"
-                name="location"
-                value={inputValues.location}
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
+          <FormInput
+            label="Location"
+            name="location"
+            value={inputValues.location}
+            onChange={handleInputChange}
+          />
+
           <div>
             <input className="submitButton" type="submit" value="Submit" />
           </div>
