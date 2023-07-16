@@ -108,11 +108,14 @@ const UploadCard = ({ url }) => {
         <form
           className="form-group"
           style={{
-            backgroundColor: "#C8DDD3",
+            backgroundColor: "#f8f8f8",
             display: "inline-block",
             padding: "1rem 2rem",
             borderRadius: "10px",
             margin: "5px",
+            borderColor: "#ddd",
+            borderWidth: "1px",
+            borderStyle: "solid",
           }}
           onSubmit={handleSubmit}
         >
@@ -153,6 +156,13 @@ const UploadCard = ({ url }) => {
             <label>Author</label>
             <div>
               <input
+                style={{
+                  borderColor: "#d8d8d8",
+                  borderWidth: "1px",
+                  borderStyle: "solid",
+                  borderRadius: "5px",
+                  padding: "5px",
+                }}
                 type="text"
                 name="author"
                 value={inputValues.author}
@@ -165,6 +175,13 @@ const UploadCard = ({ url }) => {
             <label>Tags</label>
             <div>
               <input
+                style={{
+                  borderColor: "#d8d8d8",
+                  borderWidth: "1px",
+                  borderStyle: "solid",
+                  borderRadius: "5px",
+                  padding: "5px",
+                }}
                 type="text"
                 name="tags"
                 value={inputValues.tags}
@@ -177,6 +194,13 @@ const UploadCard = ({ url }) => {
             <label>Description</label>
             <div>
               <input
+                style={{
+                  borderColor: "#d8d8d8",
+                  borderWidth: "1px",
+                  borderStyle: "solid",
+                  borderRadius: "5px",
+                  padding: "5px",
+                }}
                 type="text"
                 name="description"
                 value={inputValues.description}
@@ -189,6 +213,13 @@ const UploadCard = ({ url }) => {
             <label>Camera Details:</label>
             <div>
               <input
+                style={{
+                  borderColor: "#d8d8d8",
+                  borderWidth: "1px",
+                  borderStyle: "solid",
+                  borderRadius: "5px",
+                  padding: "5px",
+                }}
                 type="text"
                 name="photoDetails"
                 value={inputValues.photoDetails}
@@ -201,6 +232,13 @@ const UploadCard = ({ url }) => {
             <label>Location</label>
             <div>
               <input
+                style={{
+                  borderColor: "#d8d8d8",
+                  borderWidth: "1px",
+                  borderStyle: "solid",
+                  borderRadius: "5px",
+                  padding: "5px",
+                }}
                 type="text"
                 name="location"
                 value={inputValues.location}
@@ -209,7 +247,23 @@ const UploadCard = ({ url }) => {
             </div>
           </div>
           <div>
-            <input className="submitButton" type="submit" value="Submit" />
+            <input
+              className="submitButton"
+              style={{
+                backgroundColor: "#f6f6f6",
+                borderColor: "#d8d8d8",
+                borderWidth: "1px",
+                borderStyle: "solid",
+                borderRadius: "5px",
+                padding: "5px",
+                cursor: "pointer",
+                width: "100px",
+                height: "30px",
+          
+              }}
+              type="submit"
+              value="Submit"
+            />
           </div>
         </form>
       </div>
