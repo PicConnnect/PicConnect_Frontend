@@ -63,12 +63,11 @@ const UploadCard = () => {
           <center>
             <legend>
               <h3>
-                <b>Upload Registration</b>
+                <b>Upload Image</b>
               </h3>
             </legend>
           </center>
           <div className="formInput">
-            <label htmlFor="uploadImage">Upload Image</label>
             <div className="imageInput">
               <input
                 type="file"
