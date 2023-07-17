@@ -18,7 +18,7 @@ const PostCard = ({url, size, title, postId}) => {
   return (
     <center>
       <div>
-        <div className="card" style={{ widthth: `${width}rem` }}>
+        <div className="card" style={{ width: `${width}rem` }}>
           <div
             className="cardButton"
             onClick={() => {
