@@ -112,6 +112,7 @@
   width: 100%;
   /* Large, mobile-friendly touch target */
   border-radius: 3px;
+  margin-bottom: 3%;
 
   /* Media Queries */
   @media (min-width: 37.5em) {
@@ -395,8 +396,7 @@
 .footer {
   display: flex;
   justify-content: center;
-  background: #f0f0f0;
-  padding: 20px;
+  background: #f1eeee;
   position: fixed;
   bottom: 0;
   width: 100%;
