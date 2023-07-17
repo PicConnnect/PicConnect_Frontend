@@ -397,7 +397,7 @@
   justify-content: center;
   background: #f0f0f0;
   padding: 20px;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
 }
