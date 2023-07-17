@@ -32,21 +32,21 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
-.cardButton {
 
-}
+.cardButton {}
 
-.cardButton:hover{
+.cardButton:hover {
   background-color: #bbc6cd7d;
   border-radius: 1%;
 
 }
 
-.cardButton:active{
+.cardButton:active {
   background-color: #bbc6cdb6;
   border-radius: 1%;
 }
@@ -55,11 +55,11 @@
   padding-left: 1rem;
   text-align: left;
 }
+
 .mainImage {
   /* border-radius: 1%; */
   object-fit: cover;
   width: 100%;
-  height: 250px;
 }
 
 .cards {
@@ -70,7 +70,6 @@
 
 .card {
   margin: 10px
-
 }
 
 .singleImage {
@@ -84,22 +83,25 @@
   /* border: 2px solid black; */
 
 }
-.singleViewBody p{
+
+.singleViewBody p {
   background-color: antiquewhite;
   border: 2px double black;
   margin: 3px;
 }
+
 .commentBox {
   background-color: antiquewhite;
   border: 2px double black;
   margin: 3px;
 }
 
-.commentBox p{
+.commentBox p {
   border: none;
   padding-left: 2rem;
   text-align: left;
 }
+
 .backButton {
   background-color: transparent;
   border-color: black;
@@ -107,23 +109,24 @@
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
   line-height: 1;
-  width: 100%; /* Large, mobile-friendly touch target */
+  width: 100%;
+  /* Large, mobile-friendly touch target */
   border-radius: 3px;
 
   /* Media Queries */
   @media (min-width: 37.5em) {
-    width: auto; 
-    padding:0.4rem 2rem;
+    width: auto;
+    padding: 0.4rem 2rem;
   }
 }
 
-.backButton:hover{
+.backButton:hover {
   border: 2;
   background-color: #C8DDD3;
 }
 
-.backButton:active{
-  background-color:#bcdff7;
+.backButton:active {
+  background-color: #bcdff7;
 }
 
 .heading {
@@ -133,7 +136,7 @@
 }
 
 
-.singleCard img{
+.singleCard img {
   border: 2px solid black;
 }
 
@@ -156,26 +159,27 @@
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
   line-height: 1;
-  width: 100%; /* Large, mobile-friendly touch target */
+  width: 100%;
+  /* Large, mobile-friendly touch target */
   border-radius: 3px;
 
   /* Media Queries */
   @media (min-width: 37.5em) {
-    width: auto; 
-    padding:0.4rem 2rem;
+    width: auto;
+    padding: 0.4rem 2rem;
   }
 }
 
-.submitButton:hover{
+.submitButton:hover {
   border: 2;
   background-color: #bcf7e2b6;
 }
 
-.submitButton:active{
-  background-color:#bcf7e2;
+.submitButton:active {
+  background-color: #bcf7e2;
 }
 
-.image-preview img{
+.image-preview img {
   max-width: '300px';
   max-height: '300px';
   padding-top: '5px';
@@ -192,7 +196,7 @@
 }
 
 .imageInput {
-  display:block;
+  display: block;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -213,4 +217,174 @@
 
 .profile-link:hover {
   border-bottom: 2px solid #4249eb;
+}
+
+.userProfileContainer {
+  margin-top: 25px;
+  margin-left: 5rem;
+  /* display: flex; */
+  text-align: center;
+  width: 500px;
+  background-color: #D9D9D9;
+  
+}
+
+.userProfileContainer img {
+  margin: 0 auto;
+  border-radius: 50%;
+  width: 300px;
+  height: 300px;
+}
+
+.badgeContainer {
+  margin-left: 5rem;
+  margin-top: 32px;
+  padding-top: 12px;
+  text-align: center;
+  width: 500px;
+  height: 50px;
+  background-color: #D9D9D9;
+}
+
+.aboutContainer {
+  margin-left: 5rem;
+  margin-top: 2rem;
+  padding-top: 12px;
+  text-align: center;
+  width: 500px;
+  height: 230px;
+  background-color: #D9D9D9;
+}
+
+.aboutContainer p {
+  padding-left: 3rem;
+  text-align: left;
+}
+.editAboutMeButton {
+  margin-top: 10px;
+  padding: 0 10px;
+  border-radius: 5%;
+}
+
+.editAboutMeButton:hover {
+  border: 2;
+  background-color: #5959593d;
+}
+
+
+.editAboutMeButton:active {
+  border: 2;
+  background-color: #3a39393d;
+
+}
+
+.signOutContainer {
+  margin-left: 5rem;
+  margin-top: 2rem;
+  padding-top: 12px;
+  text-align: center;
+  width: 500px;
+  height: 50px;
+  background-color: #D9D9D9;
+}
+.signOutContainer :hover {
+  background-color: #282c34;
+
+}
+
+.signOutButton {
+  margin-top: 2px;
+  padding: 2px 15px;
+  border-radius: 5%;
+}
+
+.signOutButton:hover {
+  border: 2;
+  background-color: #5959593d;
+}
+
+
+.signOutButton:active {
+  border: 2;
+  background-color: #3a39393d;
+
+}
+.leftContainer {
+  float: left;
+
+}
+
+.rightContainer {
+  float: right
+}
+
+.usersPhotos {
+  margin-top: 0;
+  padding-top: 0%;
+  margin-right: 5rem;
+  background-color: #D9D9D9;
+}
+
+.usersLikedPhotos {
+  margin-top: 2rem;
+  margin-right: 5rem;
+  background-color: #D9D9D9;
+
+
+}
+
+.miniPosts {
+  text-align: center;
+  width: 740px;
+  height: 354px; /* Set the desired height */
+  overflow: auto; /* Enable scrolling for overflowing content */
+
+}
+
+.followerContainer {
+  margin: 10px 10px;
+  height: 100px;
+  width: 650px;
+  background-color: #D9D9D9;
+  display: flex;
+}
+
+.followerContainer img {
+  margin: auto 15px;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+
+.followerContainer h1{
+  margin-top: 40px;;
+}
+
+.followerContainer h2{
+  font-size: small;
+  margin-top: 42px;
+  margin-left: 50px;
+}
+
+.followerContainer button{
+  margin-top: 35px;
+  display: block;
+  width: 100px;
+  height: 30px;
+  margin-left: 200px;
+  font-size: medium;
+  padding: 2px 15px;
+  border-radius: 5%;
+}
+
+.followerContainer button:hover {
+  border: 2;
+  background-color: #5959593d;
+}
+
+
+.followerContainer button:active {
+  border: 2;
+  background-color: #3a39393d;
+
 }

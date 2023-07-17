@@ -1,5 +1,6 @@
 import { useAuth } from "../hooks/useAuth";
 import { useIfNotAuthenticated } from "../hooks/useIfNotAuthenticated";
+import UserProfile from "../components/UserProfile";
 
 export default function Profile() {
   const user = useAuth();
@@ -10,5 +11,15 @@ export default function Profile() {
     return RedirectMessage;
   }
 
-  return <div>This is profile of {user.displayName}</div>;
+  return (
+    <div>
+      {/* <div>This is profile of {user.displayName}</div> */}
+      <h1 className="heading">Profile</h1>
+      <UserProfile />
+
+    </div>
+
+
+
+  );
 }

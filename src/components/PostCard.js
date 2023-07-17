@@ -1,7 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const PostCard = ({ url }) => {
+const PostCard = ({ url, size }) => {
+  let wid = 25; //width
+  let hei = 250; //height
+  if(size === "small"){
+    wid = wid/2;
+    hei = hei/2;
+  }
   const navigate = useNavigate();
 
   //allows to navigate to single
@@ -12,7 +18,7 @@ const PostCard = ({ url }) => {
   return (
     <center>
       <div>
-        <div className="card" style={{ width: "25rem" }}>
+        <div className="card" style={{ width: `${wid}rem` }}>
           <div
             className="cardButton"
             onClick={() => {
@@ -20,7 +26,7 @@ const PostCard = ({ url }) => {
             }}
           >
             <img
-              className="mainImage"
+              className="mainImage" style={{  height: `${hei}px`}}
               src={url}
               // className="card-img-top"
               alt="..."
