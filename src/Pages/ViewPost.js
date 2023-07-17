@@ -27,7 +27,7 @@ export default function ViewPost() {
   return (
     <div>
       <h1 className="heading">ViewPost</h1>
-      <SingleView url={postCardData.urls} title={postCardData.title} author={postCardData.user}/>
+      <SingleView url={postCardData.urls}/>
       <Footer />
     </div>
   )
