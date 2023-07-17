@@ -45,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "firebase-tools": "^12.4.4",
     "tailwindcss": "^3.3.2"
   }
 }
