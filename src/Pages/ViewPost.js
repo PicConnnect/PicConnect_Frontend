@@ -6,7 +6,7 @@ export default function ViewPost() {
   const currentPath = window.location.pathname;
   const currentId = currentPath.substring(currentPath.lastIndexOf("/") + 1);
   
-  const fetchPostCardList = async () => {
+  const fetchPostCardData = async () => {
     try {
       await axios.get(`http://localhost:8000/api/photos/${currentId}`).then((response) => {
         setPostCardData(response.data);
@@ -19,13 +19,13 @@ export default function ViewPost() {
   }
 
   useEffect(() => {
-    fetchPostCardList();
-    console.log("this is th eid", currentId);
+    fetchPostCardData();
+    console.log("this is th eid",postCardData.user.about);
   },[])
   return (
     <div>
       <h1 className="heading">ViewPost</h1>
-      <SingleView url={postCardData.urls}/>
+      <SingleView url={postCardData.urls} title={postCardData.title} author={postCardData.user}/>
     </div>
   )
 }
