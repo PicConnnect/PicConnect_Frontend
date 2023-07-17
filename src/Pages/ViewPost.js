@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import SingleView from '../components/SingleView';
+import Footer from "../components/Footer";
 import axios from 'axios';
+
 export default function ViewPost() {
   const [postCardData, setPostCardData] = useState([]);
   const currentPath = window.location.pathname;
@@ -26,6 +28,7 @@ export default function ViewPost() {
     <div>
       <h1 className="heading">ViewPost</h1>
       <SingleView url={postCardData.urls} title={postCardData.title} author={postCardData.user}/>
+      <Footer />
     </div>
   )
 }
