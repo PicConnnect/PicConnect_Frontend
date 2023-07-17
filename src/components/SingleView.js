@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const SingleView = ({url, title, author, Tags, description}) => {
+const SingleView = ({url, title, author, Tags, description, cameraDetails}) => {
   const navigate = useNavigate();
 
   //navigate to home page
@@ -22,12 +22,12 @@ const SingleView = ({url, title, author, Tags, description}) => {
             <div className="card-body">
               <p>{title}</p>
               <div className="singleViewBody">
-                <p className="leftCentered">Author: Unknown</p>
+                <p className="leftCentered">Author: {author}</p>
 
                 <p className="leftCentered">#Tags</p>
-                <p className="leftCentered">Description</p>
+                <p className="leftCentered">{description}</p>
                 <p className="leftCentered">
-                  Camera Details, filters, settings, etc
+                  Camera Details: filters, settings, etc
                 </p>
                 <div className="commentBox">
                   <h2 className="leftCentered">Comments</h2>
