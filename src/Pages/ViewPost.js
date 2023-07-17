@@ -22,12 +22,12 @@ export default function ViewPost() {
 
   useEffect(() => {
     fetchPostCardData();
-    console.log("this is th eid",postCardData.user.about);
   },[])
+
   return (
     <div>
       <h1 className="heading">ViewPost</h1>
-      <SingleView url={postCardData.urls}/>
+      <SingleView url={postCardData.urls} title={postCardData.title} author={postCardData?.user?.name} description={postCardData.description}/>
       <Footer />
     </div>
   )
