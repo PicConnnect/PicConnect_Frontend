@@ -1,8 +1,27 @@
 import React from "react";
 import PostCard from "../components/PostCard";
+import {  signOut } from "firebase/auth";
+import {auth}  from "../firebase/firebase";
+import { useNavigate } from 'react-router-dom';
 
 
-const UserProfile = () => (
+
+
+const UserProfile = () => {
+    const navigate = useNavigate();
+ 
+    const handleLogout = () => {               
+        signOut(auth).then(() => {
+        // Sign-out successful.
+            navigate("/");
+            console.log("Signed out successfully")
+        }).catch((error) => {
+        // An error happened.
+        });
+    }
+
+    return (
+    
     <div>
         <div className="leftContainer">
             <div class="userProfileContainer">
@@ -31,7 +50,7 @@ const UserProfile = () => (
             </div>
 
             <div className="signOutContainer">
-                <button className="signOutButton">Sign Out</button>
+                <button className="signOutButton" onClick={handleLogout}>Sign Out</button>
             </div>
         </div>
         <div className="rightContainer">
@@ -83,6 +102,7 @@ const UserProfile = () => (
             </div>
         </div>
     </div>
-);
+    );
+};
 
 export default UserProfile;
