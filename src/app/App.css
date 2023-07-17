@@ -220,6 +220,7 @@
 }
 
 .userProfileContainer {
+  margin-top: 25px;
   margin-left: 5rem;
   /* display: flex; */
   text-align: center;
@@ -237,7 +238,7 @@
 
 .badgeContainer {
   margin-left: 5rem;
-  margin-top: 2rem;
+  margin-top: 32px;
   padding-top: 12px;
   text-align: center;
   width: 500px;
@@ -317,12 +318,26 @@
   float: right
 }
 
-.userPhotos {
+.usersPhotos {
+  margin-top: 0;
+  padding-top: 0%;
   margin-right: 5rem;
   /* display: flex; */
+  background-color: #D9D9D9;
+}
+
+.usersLikedPhotos {
+  margin-top: 2rem;
+  margin-right: 5rem;
+  background-color: #D9D9D9;
+
+
+}
+
+.miniPosts {
   text-align: center;
   width: 740px;
-  background-color: #D9D9D9;
-  
+  height: 354px; /* Set the desired height */
+  overflow: auto; /* Enable scrolling for overflowing content */
 
 }
