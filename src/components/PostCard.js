@@ -12,7 +12,7 @@ const PostCard = ({url, size, title, postId}) => {
 
   //allows to navigate to single
   const handleViewClick = () => {
-    navigate(`/viewPost/${postId}`); //add variable postID
+    navigate(`/photos/${postId}`); //add variable postID
   };
 
   return (
