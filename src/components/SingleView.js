@@ -4,10 +4,7 @@ import { useNavigate } from "react-router-dom";
 const SingleView = ({ url }) => {
   const navigate = useNavigate();
 
-  //allows to navigate to singleView Page
-  const handleViewClick = () => {
-    navigate(`/viewpost/`);
-  };
+  //navigate to home page
   const handleBackClick = () => {
     navigate(`/`);
   };
@@ -16,12 +13,6 @@ const SingleView = ({ url }) => {
     <center>
       <div>
         <div className="singleCard" style={{ width: "50rem" }}>
-          <div
-            className=""
-            onClick={() => {
-              handleViewClick();
-            }}
-          >
             <img
               className="singleImage"
               src={url}
@@ -47,7 +38,6 @@ const SingleView = ({ url }) => {
                 <p className="leftCentered">Location - google map api?</p>
               </div>
             </div>
-          </div>
         </div>
         <button className="backButton" onClick={() => handleBackClick()}>
           Back
