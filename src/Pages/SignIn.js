@@ -1,6 +1,7 @@
 import { signInWithGoogle, signInWithFacebook, signInWithEmail } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
+import Footer from "../components/Footer";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -99,6 +100,8 @@ export default function SignIn() {
 
         </form>
       </div>
+      <Footer />
+
     </div>
   );
 }

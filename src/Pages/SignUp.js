@@ -2,6 +2,9 @@ import "./../index.css";
 import React, { useState } from "react";
 import { signUpWithEmail, signInWithGoogle, signInWithFacebook } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/Footer";
+
+
 export default function SignUp() {
   //states that stores the user data
   const [name, setName] = useState("");
@@ -141,6 +144,7 @@ export default function SignUp() {
           </button>
         </form>
       </div>
+      <Footer />
     </div>
   );
 }

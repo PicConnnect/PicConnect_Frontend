@@ -1,5 +1,7 @@
 import React from 'react'
 import Follower from '../components/Follower'
+import Footer from "../components/Footer";
+
 
 export default function Following() {
   return (
@@ -11,7 +13,7 @@ export default function Following() {
 
     </div>
 
-
+    <Footer />
     </div>
   )
 }

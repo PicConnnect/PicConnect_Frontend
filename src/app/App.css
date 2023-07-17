@@ -395,15 +395,18 @@
 .footer {
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin-top: 3rem;
+  background: #f0f0f0;
+  padding: 20px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
 .footer img{
-  display: flex;
   background-color: transparent;
   height: 30px;
   mix-blend-mode: multiply;
+  margin-right: "10px"
 
 }
 
