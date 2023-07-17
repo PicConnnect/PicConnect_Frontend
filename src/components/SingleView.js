@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const SingleView = ({ url }) => {
+const SingleView = ({url, title, author, Tags, description}) => {
   const navigate = useNavigate();
 
   //navigate to home page
@@ -20,7 +20,7 @@ const SingleView = ({ url }) => {
               alt="..."
             />
             <div className="card-body">
-              <p>Photo Title</p>
+              <p>{title}</p>
               <div className="singleViewBody">
                 <p className="leftCentered">Author: Unknown</p>
 
