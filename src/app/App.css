@@ -322,7 +322,6 @@
   margin-top: 0;
   padding-top: 0%;
   margin-right: 5rem;
-  /* display: flex; */
   background-color: #D9D9D9;
 }
 
@@ -339,5 +338,13 @@
   width: 740px;
   height: 354px; /* Set the desired height */
   overflow: auto; /* Enable scrolling for overflowing content */
+
+}
+
+.followerContainer {
+  margin: 10px 10px;
+  height: 100px;
+  width: 650px;
+  background-color: #D9D9D9;
 
 }
