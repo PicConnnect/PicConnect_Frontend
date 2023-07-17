@@ -1,24 +1,24 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const PostCard = ({ url, size }) => {
-  let wid = 25; //width
-  let hei = 250; //height
+const PostCard = ({url, size, title, postId}) => {
+  let width = 25; //width
+  let height = 250; //height
   if(size === "small"){
-    wid = wid/2;
-    hei = hei/2;
+    width = width/2;
+    height = height/2;
   }
   const navigate = useNavigate();
 
   //allows to navigate to single
   const handleViewClick = () => {
-    navigate(`/viewPost/`); //add variable postID
+    navigate(`/viewPost/${postId}`); //add variable postID
   };
 
   return (
     <center>
       <div>
-        <div className="card" style={{ width: `${wid}rem` }}>
+        <div className="card" style={{ width: `${width}rem` }}>
           <div
             className="cardButton"
             onClick={() => {
@@ -26,13 +26,13 @@ const PostCard = ({ url, size }) => {
             }}
           >
             <img
-              className="mainImage" style={{  height: `${hei}px`}}
+              className="mainImage" style={{  height: `${height}px`}}
               src={url}
               // className="card-img-top"
-              alt="..."
+              alt="image not found"
             />
             <div className="card-body">
-              <p>Photo Title</p>
+              <p>{title}</p>
               {/* <p className="leftCentered">#Tags</p> */}
             </div>
           </div>
