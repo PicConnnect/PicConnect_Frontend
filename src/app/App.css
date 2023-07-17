@@ -232,11 +232,13 @@
 .userProfileContainer img {
   margin: 0 auto;
   border-radius: 50%;
-  width: 300px;
-  height: 300px;
+  width: 350px;
+  height: 350px;
 }
 
 .badgeContainer {
+    /* display: flex; */
+
   margin-left: 5rem;
   margin-top: 32px;
   padding-top: 12px;
@@ -260,19 +262,19 @@
   padding-left: 3rem;
   text-align: left;
 }
-.editAboutMeButton {
-  margin-top: 10px;
+.editButton {
+  margin-top: 15px;
   padding: 0 10px;
   border-radius: 5%;
 }
 
-.editAboutMeButton:hover {
+.editButton:hover {
   border: 2;
   background-color: #5959593d;
 }
 
 
-.editAboutMeButton:active {
+.editButton:active {
   border: 2;
   background-color: #3a39393d;
 
@@ -312,6 +314,7 @@
 .leftContainer {
   float: left;
 
+
 }
 
 .rightContainer {
@@ -336,7 +339,7 @@
 .miniPosts {
   text-align: center;
   width: 740px;
-  height: 354px; /* Set the desired height */
+  height: 407px; /* Set the desired height */
   overflow: auto; /* Enable scrolling for overflowing content */
 
 }
@@ -387,4 +390,23 @@
   border: 2;
   background-color: #3a39393d;
 
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+}
+
+.footer img{
+  display: flex;
+  background-color: transparent;
+  height: 30px;
+  mix-blend-mode: multiply;
+
+}
+
+.aboutMeCategories{
+  float: left;
 }

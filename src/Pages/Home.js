@@ -1,5 +1,6 @@
 import React from 'react';
 import PostCard from '../components/PostCard';
+import Footer from '../components/Footer';
 
 
 export default function Home() {
@@ -18,6 +19,8 @@ export default function Home() {
       <PostCard url = "https://images.pexels.com/photos/8218382/pexels-photo-8218382.jpeg?cs=srgb&dl=pexels-monica-turlui-8218382.jpg&fm=jpg"/>
       
       </div>
+      
+      <Footer />
 
 
     </div>
