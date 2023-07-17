@@ -346,5 +346,45 @@
   height: 100px;
   width: 650px;
   background-color: #D9D9D9;
+  display: flex;
+}
+
+.followerContainer img {
+  margin: auto 15px;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+
+.followerContainer h1{
+  margin-top: 40px;;
+}
+
+.followerContainer h2{
+  font-size: small;
+  margin-top: 42px;
+  margin-left: 50px;
+}
+
+.followerContainer button{
+  margin-top: 35px;
+  display: block;
+  width: 100px;
+  height: 30px;
+  margin-left: 200px;
+  font-size: medium;
+  padding: 2px 15px;
+  border-radius: 5%;
+}
+
+.followerContainer button:hover {
+  border: 2;
+  background-color: #5959593d;
+}
+
+
+.followerContainer button:active {
+  border: 2;
+  background-color: #3a39393d;
 
 }
