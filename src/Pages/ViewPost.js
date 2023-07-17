@@ -1,13 +1,33 @@
-import React from 'react'
-import SingleView from '../components/SingleView'
+import React, { useEffect, useState } from 'react';
+import SingleView from '../components/SingleView';
 import Footer from "../components/Footer";
+import axios from 'axios';
 
+export default function ViewPost() {
+  const [postCardData, setPostCardData] = useState([]);
+  const currentPath = window.location.pathname;
+  const currentId = currentPath.substring(currentPath.lastIndexOf("/") + 1);
+  
+  const fetchPostCardData = async () => {
+    try {
+      await axios.get(`http://localhost:8000/api/photos/${currentId}`).then((response) => {
+        setPostCardData(response.data);
+        console.log(postCardData)
+      })
+      
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
-export default function ViewPost({url}) {
+  useEffect(() => {
+    fetchPostCardData();
+  },[])
+
   return (
     <div>
       <h1 className="heading">ViewPost</h1>
-      <SingleView url="https://images.unsplash.com/photo-1660943372149-8a66d2e1a42a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE4fHx8ZW58MHx8fHx8&w=1000&q=80"/>
+      <SingleView url={postCardData.urls} title={postCardData.title} author={postCardData?.user?.name} description={postCardData.description}/>
       <Footer />
     </div>
   )

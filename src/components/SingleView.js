@@ -1,13 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const SingleView = ({ url }) => {
+const SingleView = ({url, title, author, Tags, description, cameraDetails}) => {
   const navigate = useNavigate();
 
-  //allows to navigate to singleView Page
-  const handleViewClick = () => {
-    navigate(`/viewpost/`);
-  };
+  //navigate to home page
   const handleBackClick = () => {
     navigate(`/`);
   };
@@ -16,12 +13,6 @@ const SingleView = ({ url }) => {
     <center>
       <div>
         <div className="singleCard" style={{ width: "50rem" }}>
-          <div
-            className=""
-            onClick={() => {
-              handleViewClick();
-            }}
-          >
             <img
               className="singleImage"
               src={url}
@@ -29,14 +20,14 @@ const SingleView = ({ url }) => {
               alt="..."
             />
             <div className="card-body">
-              <p>Photo Title</p>
+              <p>{title}</p>
               <div className="singleViewBody">
-                <p className="leftCentered">Author: Unknown</p>
+                <p className="leftCentered">Author: {author}</p>
 
                 <p className="leftCentered">#Tags</p>
-                <p className="leftCentered">Description</p>
+                <p className="leftCentered">{description}</p>
                 <p className="leftCentered">
-                  Camera Details, filters, settings, etc
+                  Camera Details: filters, settings, etc
                 </p>
                 <div className="commentBox">
                   <h2 className="leftCentered">Comments</h2>
@@ -47,7 +38,6 @@ const SingleView = ({ url }) => {
                 <p className="leftCentered">Location - google map api?</p>
               </div>
             </div>
-          </div>
         </div>
         <button className="backButton" onClick={() => handleBackClick()}>
           Back

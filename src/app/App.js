@@ -44,7 +44,7 @@ function App() {
           <Route path="/Profile" element={<Profile></Profile>}></Route>
           <Route path="/SignIn" element={<SignIn />}></Route>
           <Route path="/SignUp" element={<SignUp />}></Route>
-          <Route path="/viewPost/:postId" element={<ViewPost />}></Route>
+          <Route path="/photos/:postId" element={<ViewPost />}></Route>
           {/* Delete line 40 uncomment line 42 when backend is working */}
           {/* <Route path="/viewPost/:postID" element={<ViewPost />}></Route> */}
         </Routes>
