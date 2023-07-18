@@ -1,7 +1,6 @@
 import { useAuth } from "../hooks/useAuth";
 import { useIfNotAuthenticated } from "../hooks/useIfNotAuthenticated";
 import UserProfile from "../components/UserProfile";
-import Footer from "../components/Footer"
 
 export default function Profile() {
   const user = useAuth();
@@ -13,7 +12,7 @@ export default function Profile() {
   }
 
   return (
-    <div style={{marginBottom: "1%"}}>
+    <div style={{marginBottom: '5%'}}>
       <UserProfile user={user} />
     </div>
   );
