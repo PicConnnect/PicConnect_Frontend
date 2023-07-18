@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import ImagePreview from "./ImagePreview";
 import "../styles/UploadCard.css";
 import UsersPhoto from "./UsersPhoto";
-import SavedPhotos from "./UsersLikes/SavedPhotos";
+import SavedPhotos from "./SavedPhotos";
 
 
 
@@ -71,12 +71,8 @@ const UserProfile = () => {
         setItems(updatedItems);
     };
 
-
-
-
     return (
-
-        <div>
+        <div className="flex justify-evenly">
             <div className="leftContainer">
                 <div class="userProfileContainer">
                     <div>
@@ -159,5 +155,4 @@ const UserProfile = () => {
         </div >
     );
 };
-
 export default UserProfile;
