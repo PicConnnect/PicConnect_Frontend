@@ -22,22 +22,20 @@ const UserProfile = () => {
             // An error happened.
         });
     }
-    /*
-    <div className="rightContainer">
-                <UsersPhoto></UsersPhoto>
-                <SavedPhotos></SavedPhotos>
-            </div>
-    */
+    
 
     return (
-        <div>
+        <div className="flex justify-between">
             <div className="w-1/2 ml-4">
                 <ProfilePhoto></ProfilePhoto>
                 <BadgeComponent></BadgeComponent>
                 <AboutComponent></AboutComponent>
                 <SignOutButtonComponent handleLogout={handleLogout}></SignOutButtonComponent>
             </div>
-            
+            <div className="flex flex-col w-1/2 ml-10">
+                <UsersPhoto></UsersPhoto>
+                <SavedPhotos></SavedPhotos>
+            </div>
         </div >
     );
 };
