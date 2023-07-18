@@ -1,17 +1,11 @@
 import React from "react";
 import { useState } from 'react';
-
-import PostCard from "../components/PostCard";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 import { useNavigate } from 'react-router-dom';
-import ImagePreview from "./ImagePreview";
 import "../styles/UploadCard.css";
 import UsersPhoto from "./UsersPhoto";
 import SavedPhotos from "./SavedPhotos";
-
-
-
 
 const UserProfile = () => {
     const navigate = useNavigate();
@@ -72,7 +66,7 @@ const UserProfile = () => {
     };
 
     return (
-        <div className="flex justify-evenly">
+        <div className="userProfileWrapper">
             <div className="leftContainer">
                 <div class="userProfileContainer">
                     <div>
@@ -140,8 +134,6 @@ const UserProfile = () => {
                             {isEditing ? 'Save' : 'Edit'}
                         </button>
                     </div>
-
-
                 </div>
 
                 <div className="signOutContainer">
