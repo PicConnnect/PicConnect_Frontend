@@ -30,9 +30,10 @@ export const storage = getStorage(app);
 const googleProvider = new GoogleAuthProvider();
 //const facebookProvider = new FacebookAuthProvider();
 
+//send firebase id token to backend server
 export const sendTokenToBackend = async (idToken) => {
   try {
-    const response = await fetch("http://localhost:8080/auth/register", {
+    const response = await fetch("http://localhost:8000/api/auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
