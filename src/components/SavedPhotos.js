@@ -2,7 +2,7 @@ import React from 'react'
 import PostCard from './PostCard'
 export default function SavedPhotos() {
   return (
-    <div className="usersLikedPhotos">
+    <div  className="bg-[#D9D9D9] mr-4">
         <h1 className="heading"> User's Liked/Saved Photos</h1>
         <div className="overflow-y-auto" style={{height: "340px"}}>
             <div className="flex flex-wrap justify-between">

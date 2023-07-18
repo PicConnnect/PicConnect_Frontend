@@ -32,7 +32,7 @@ const UserProfile = () => {
                 <AboutComponent></AboutComponent>
                 <SignOutButtonComponent handleLogout={handleLogout}></SignOutButtonComponent>
             </div>
-            <div className="flex flex-col w-1/2 ml-10">
+            <div className="flex flex-col w-1/2 ml-10 justify-between">
                 <UsersPhoto></UsersPhoto>
                 <SavedPhotos></SavedPhotos>
             </div>

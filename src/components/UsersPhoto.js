@@ -2,7 +2,7 @@ import React from 'react'
 import PostCard from './PostCard'
 export default function UsersPhoto() {
   return (
-    <div className="usersPhotos">
+    <div className="bg-[#D9D9D9] mr-4" >
         <h1 className="heading"> User's Photos</h1>
           <div className="overflow-y-auto h-96">
             <div className="flex flex-wrap justify-between">
