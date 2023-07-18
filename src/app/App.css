@@ -405,7 +405,7 @@
 .aboutMeCategories{
   float: left;
 }
-@media(768px <= width <= 1024px){
+@media(901px <= width <= 1024px){
   .userProfileWrapper{
     display: flex;
     flex-direction: column;
@@ -423,22 +423,28 @@
     margin-right: 0%;
   }
 }
-@media(375px <= width <= 600px){
+@media(300px <= width <= 900px){
   .App{
    margin-right: 0%;
+   margin-left: 0%;
   }
   .userProfileWrapper{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: #4249eb;
   }
   .leftContainer{
-    padding-right: 10%;
+    float: none;
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 20px;
   }
 
   .usersPhotos{
     margin-right: 0%;
+    width: 50%;
   }
   .usersLikedPhotos{
     margin-right: 0%;
