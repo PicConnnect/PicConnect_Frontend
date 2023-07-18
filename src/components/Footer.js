@@ -17,5 +17,5 @@ const Footer = () => (
   </div>
 );
 
-export default Follower;
+export default Footer;
 
