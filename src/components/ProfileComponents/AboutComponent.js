@@ -98,8 +98,8 @@ export default function AboutComponent() {
                         <button type="button" nClick={toggleEditing}>{isEditing ? 'Cancel' : 'Edit'}</button>
                     </div>:
                     <div className="flex justify-center justify-evenly">
-                    <button type="button" onClick={toggleEditing}>{isEditing ? 'Cancel' : 'Edit'}</button>
-                </div>
+                        <button type="button" onClick={toggleEditing}>{isEditing ? 'Cancel' : 'Edit'}</button>
+                    </div>
                 }
             </form>
         </div>
