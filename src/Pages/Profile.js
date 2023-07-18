@@ -13,14 +13,8 @@ export default function Profile() {
   }
 
   return (
-    <div>
-      {/* <div>This is profile of {user.displayName}</div> */}
-      <h1 className="heading">Profile</h1>
+    <div style={{marginBottom: "1%"}}>
       <UserProfile user={user} />
-      <Footer />
     </div>
-
-
-
   );
 }
