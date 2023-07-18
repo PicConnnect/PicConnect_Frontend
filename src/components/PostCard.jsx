@@ -29,7 +29,7 @@ const PostCard = ({url, size, title, postId}) => {
               className="mainImage" style={{  height: `${height}px`}}
               src={url}
               // className="card-img-top"
-              alt="image not found"
+              alt="Thumbnail"
             />
             <div className="card-body">
               <p>{title}</p>

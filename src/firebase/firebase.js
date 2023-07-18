@@ -1,5 +1,14 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+  signInWithPopup,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+  sendEmailVerification,
+} from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
 //web app's Firebase configuration
@@ -21,10 +30,29 @@ export const storage = getStorage(app);
 const googleProvider = new GoogleAuthProvider();
 //const facebookProvider = new FacebookAuthProvider();
 
+//send firebase id token to backend server
+export const sendTokenToBackend = async (idToken) => {
+  try {
+    const response = await fetch("http://localhost:8000/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + idToken,
+      },
+    });
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
 export const signInWithGoogle = () => {
   signInWithPopup(auth, googleProvider)
-    .then((result) => {
-      console.log(result);
+    .then(async (result) => {
+      //get the user token right after auth
+      const token = await auth.currentUser.getIdToken(true);
+      sendTokenToBackend(token);
     })
     .catch((error) => {
       console.log(error);
@@ -32,20 +60,16 @@ export const signInWithGoogle = () => {
 };
 
 export const signInWithFacebook = () => {
-    const facebookProvider = new FacebookAuthProvider();
+  const facebookProvider = new FacebookAuthProvider();
 
   signInWithPopup(auth, facebookProvider)
-    .then((result) => {
+    .then(async (result) => {
       // The signed-in user info.
       const user = result.user;
       console.log(user);
 
-      // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-      const credential = FacebookAuthProvider.credentialFromResult(result);
-      const accessToken = credential.accessToken;
-
-      // IdP data available using getAdditionalUserInfo(result)
-      // ...
+      const token = await user.getIdToken(true);
+      sendTokenToBackend(token);
     })
     .catch((error) => {
       // Handle Errors here.
@@ -56,18 +80,32 @@ export const signInWithFacebook = () => {
       const email = error.customData.email;
       // The AuthCredential type that was used.
       const credential = FacebookAuthProvider.credentialFromError(error);
-
-      // ...
     });
 };
 export const signUpWithEmail = async (email, password, displayName) => {
-  const { user } = await createUserWithEmailAndPassword(auth, email, password);
-  if (user) {
+  try {
+    const { user } = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
     await updateProfile(user, { displayName });
     await sendEmailVerification(user);
+    const token = await user.getIdToken(true);
+    sendTokenToBackend(token);
+  } catch (error) {
+    console.error("Error signing up:", error);
   }
 };
-
-export const signInWithEmail = (email, password) => {
-  return signInWithEmailAndPassword(auth, email, password);
+export const signInWithEmail = async (email, password) => {
+  try {
+    const response = await signInWithEmailAndPassword(auth, email, password);
+    const user = response.user;
+    
+    const token = await user.getIdToken(true);
+    sendTokenToBackend(token);
+  } catch (error) {
+    console.error("Error:", error);
+  }
 };
