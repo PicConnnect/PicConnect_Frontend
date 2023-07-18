@@ -8,6 +8,7 @@ import Profile from "./../Pages/Profile";
 import SignIn from "./../Pages/SignIn";
 import SignUp from "./../Pages/SignUp";
 import ViewPost from "../Pages/ViewPost";
+import Footer from "../components/Footer";
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
           {/* Delete line 40 uncomment line 42 when backend is working */}
           {/* <Route path="/viewPost/:postID" element={<ViewPost />}></Route> */}
         </Routes>
+        <Footer></Footer>
       </div>
     </Router>
   );

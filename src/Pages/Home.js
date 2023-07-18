@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PostCard from '../components/PostCard';
 import axios from 'axios';
-import Footer from '../components/Footer'
 
 export default function Home() {
   const [postCardList, setPostCardList] = useState([]);
@@ -23,21 +22,17 @@ export default function Home() {
     
   },[])
   return postCardList.length > 0? (
-    <div>
+    <div style={{marginBottom: '5%'}}>
       <div className="cards">
         {postCardList?.map((item) => (
           <PostCard key={item.id} url={item.urls} title={item.title} postId={item.id}/>
         ))}
       </div>
-
-
     </div>
   ):(
-    <div>
-
-    <h1 className="heading">No Post</h1>
-  <Footer />    
-    </div>
+  <div>
+    <h1 className="heading">No Post</h1>  
+  </div>
 
   )
 }
