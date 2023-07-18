@@ -18,13 +18,19 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const storage = getStorage(app);
 
+
 const googleProvider = new GoogleAuthProvider();
 //const facebookProvider = new FacebookAuthProvider();
 
 export const signInWithGoogle = () => {
   signInWithPopup(auth, googleProvider)
     .then((result) => {
-      console.log(result);
+      //get the user token right after auth
+      return result.user.getIdToken(true);
+    })
+    .then(token => {
+      console.log(token);
+      return token;
     })
     .catch((error) => {
       console.log(error);
@@ -40,12 +46,11 @@ export const signInWithFacebook = () => {
       const user = result.user;
       console.log(user);
 
-      // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-      const credential = FacebookAuthProvider.credentialFromResult(result);
-      const accessToken = credential.accessToken;
-
-      // IdP data available using getAdditionalUserInfo(result)
-      // ...
+      return user.getIdToken(true);
+    })
+    .then(token => {
+      console.log(token);
+      return token;
     })
     .catch((error) => {
       // Handle Errors here.
@@ -57,7 +62,6 @@ export const signInWithFacebook = () => {
       // The AuthCredential type that was used.
       const credential = FacebookAuthProvider.credentialFromError(error);
 
-      // ...
     });
 };
 export const signUpWithEmail = async (email, password, displayName) => {
@@ -65,9 +69,21 @@ export const signUpWithEmail = async (email, password, displayName) => {
   if (user) {
     await updateProfile(user, { displayName });
     await sendEmailVerification(user);
+
+    const token = await user.getIdToken(true);
+    console.log(token);
+    return token;
   }
 };
 
 export const signInWithEmail = (email, password) => {
-  return signInWithEmailAndPassword(auth, email, password);
+  return signInWithEmailAndPassword(auth, email, password)
+    .then(response => {
+      const user = response.user;
+      return user.getIdToken(true);
+    })
+    .then(token => {
+      console.log(token);
+      return token; 
+    })
 };
