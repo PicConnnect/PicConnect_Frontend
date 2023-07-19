@@ -1,17 +1,6 @@
 import React from "react";
-import { useIfNotAuthenticated } from '../hooks/useIfNotAuthenticated'
-import { useAuth } from "../hooks/useAuth";
 
 const Follower = () => {
-
-
-  const user = useAuth();
-  //check to see if user logged in
-  const notLoggedInMessage = useIfNotAuthenticated();
-  //if not logged in
-  if (notLoggedInMessage) {
-    return notLoggedInMessage;
-  }
   return (
     <div>
     <div className="followerContainer">
