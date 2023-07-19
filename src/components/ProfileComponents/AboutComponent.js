@@ -93,7 +93,7 @@ export default function AboutComponent() {
           <div key={index} className="mb-3 flex items-center gap-40">
             <label htmlFor={itemsName[index]}>{itemsName[index]}:</label>
             {isEditing ? (
-              <input
+              <input className="line"
                 type={inputType[index]}
                 name={itemsName[index]}
                 value={item}
