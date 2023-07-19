@@ -22,11 +22,10 @@ export default function UsersPhoto({ userId }) {
     fetchPhotos();
   }, [userId]);
   console.log(photos);
-  return (
-    <div className="bg-[#D9D9D9] mr-4">
-      <h1 className="heading"> User's Photos</h1>
-      <div className="overflow-y-auto h-96">
-        <div className="flex flex-wrap justify-between">
+  return (    <div className="usersPhotos" >
+  <h1 className="heading"> User's Photos</h1>
+    <div className="miniPosts">
+      <div className="cards">
           {photos.map((photo) => (
             <PostCard
               key={photo.id}
