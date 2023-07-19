@@ -13,6 +13,7 @@ import SignOutButtonComponent from "./ProfileComponents/SignOutButtonComponent";
 
 const UserProfile = () => {
   const navigate = useNavigate();
+  const userId = auth.currentUser.uid;
 
   const handleLogout = () => {
     signOut(auth)
@@ -35,7 +36,7 @@ const UserProfile = () => {
                 <SignOutButtonComponent handleLogout={handleLogout}></SignOutButtonComponent>
             </div>
             <div className="rightContainer">
-                <UsersPhoto></UsersPhoto>
+                <UsersPhoto userId={userId}></UsersPhoto>
                 <SavedPhotos></SavedPhotos>
             </div>
         </div >
