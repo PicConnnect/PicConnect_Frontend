@@ -209,24 +209,36 @@
 }
 
 .userProfileContainer {
-  margin-top: 25px;
-  margin-left: 5rem;
-  /* display: flex; */
-  text-align: center;
-  width: 500px;
   background-color: #D9D9D9;
-  
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem; 
+  overflow: hidden;
+  height:500px;
 }
 
-.userProfileContainer img {
-  margin: 0 auto;
-  border-radius: 50%;
-  width: 350px;
-  height: 350px;
+.userProfileImageContainer {
+  width: 300px; /* Set the width of the container */
+  height: 300px; /* Set the height of the container */
+  overflow: hidden; /* Hide any overflow to create the circular shape */
+  border-radius: 50%; 
 }
-.userProfileWrapper{
-  display: flex;
-  justify-content: space-evenly;
+
+.userProfileImageContainer img {
+  margin: 0 auto;
+  width: 100%; /* Make the image fill the container's width */
+  height: 100%; 
+  object-fit: cover; /* Preserve the aspect ratio and cover the entire container */
+  transform: scale(1.2); /* You can adjust the scaling factor as needed */
+
+}
+
+.userProfileImageContainer:hover img {
+  transform: scale(1.5); /* You can adjust the scaling factor as needed */
+  transition: transform 0.3s ease; /* Add a smooth transition effect */
 }
 
 .badgeContainer {
