@@ -1,97 +1,6 @@
-import React from "react";
-import { useState } from "react";
-
-import PostCard from "../components/PostCard";
-import { signOut } from "firebase/auth";
-import { auth } from "../firebase/firebase";
-import { useNavigate } from "react-router-dom";
-import "../styles/UploadCard.css";
-
 const UserProfile = () => {
-  const navigate = useNavigate();
 
-  const handleLogout = () => {
-    signOut(auth)
-      .then(() => {
-        // Sign-out successful.
-        navigate("/");
-        console.log("Signed out successfully");
-      })
-      .catch((error) => {
-        // An error happened.
-      });
-  };
 
-  const [isEditing, setIsEditing] = useState(false);
-  const [items, setItems] = useState([
-    "First",
-    "Last",
-    "2023-01-01",
-    "mail@gmail.com",
-    "123-456-7890",
-    "Ave Street Zip",
-  ]);
-  const [inputPatterns, setInputPatterns] = useState([
-    "[A-Za-zs]+",
-    "[A-Za-zs]+",
-    "\\d{4}-\\d{2}-\\d{2}",
-    "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}",
-    "[0-9]{3}-[0-9]{3}-[0-9]{4}",
-    "[A-Za-z0-9s.,'-]+",
-  ]);
-
-  const [patternString, setPatternStrings] = useState([
-    "Xxx+",
-    "Xxx+",
-    "YYYY-MM-DD",
-    "xxxxxx@xmail.com",
-    "XXX-XXX-XXXX",
-    "Address",
-  ]);
-
-  const [initialItems, setInitialItems] = useState([...items]);
-
-  const [inputType, setInputType] = useState([
-    "name",
-    "name",
-    "date",
-    "email",
-    "tel",
-    "text",
-  ]);
-
-  const makeListEditable = () => {
-    setInitialItems([...items]);
-    setIsEditing(true);
-  };
-
-  const cancelEdit = () => {
-    setItems([...initialItems]);
-    setIsEditing(false);
-  };
-  const saveList = () => {
-    // Perform validation on the input values
-    const isValid = items.every((item, index) => {
-      const pattern = new RegExp(inputPatterns[index]);
-      console.log(pattern.test(item));
-      return pattern.test(item);
-    });
-
-    if (isValid) {
-      setIsEditing(false);
-      // Proceed with saving the changes
-      // ...
-    } else {
-      // Show an error message or handle invalid inputs
-      console.log("Invalid inputs");
-    }
-  };
-
-  const handleInputChange = (index, event) => {
-    const updatedItems = [...items];
-    updatedItems[index] = event.target.value;
-    setItems(updatedItems);
-  };
 
   return (
     <div>
@@ -116,10 +25,13 @@ const UserProfile = () => {
             <ul>
               {items.map((item, index) => (
                 <form action="#" method="get">
+
+
                   <li key={index}>
                     {isEditing ? (
                       <input
                         type={inputType[index]}
+                        name={itemsName[index]}
                         value={item}
                         onChange={(event) => handleInputChange(index, event)}
                         pattern={inputPatterns[index]}
@@ -134,7 +46,7 @@ const UserProfile = () => {
                         }}
                       />
                     ) : (
-                      item
+                      <span>{item}</span>
                     )}
                   </li>
                 </form>
@@ -163,6 +75,11 @@ const UserProfile = () => {
           </button>
         </div>
       </div>
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(formData);
+        setIsEditing(false);
+    };
       <div className="rightContainer">
         <div className="usersPhotos">
           <h1 className="heading"> User's Photos</h1>
@@ -281,3 +198,124 @@ const UserProfile = () => {
 };
 
 export default UserProfile;
+
+
+<form onSubmit={handleSubmit}>
+<div className="mb-3 flex items-center gap-40">
+
+    
+  <label htmlFor="firstName">First Name: </label>
+  {isEditing ? (
+    <input
+      type="text"
+      name="firstName"
+      value={formData.firstName}
+      onChange={handleChange}
+      required
+    />
+  ) : (
+    <span>{formData.firstName}</span>
+  )}
+</div>
+<div className="mb-3 flex items-center gap-40">
+  <label htmlFor="lastName">Last Name: </label>
+  {isEditing ? (
+    <input
+      type="text"
+      name="lastName"
+      value={formData.lastName}
+      onChange={handleChange}
+      required
+    />
+  ) : (
+    <span>{formData.lastName}</span>
+  )}
+</div>
+<div className="mb-3 flex items-center gap-40">
+  <label htmlFor="birthday">Birthday: </label>
+  <div className="ml-4">
+    {isEditing ? (
+      <input
+        type="date"
+        className="flex items-center justify-center"
+        name="birthday"
+        value={formData.birthday}
+        onChange={handleChange}
+        required
+      />
+    ) : (
+      <span>{formData.birthday}</span>
+    )}
+  </div>
+</div>
+<div className="mb-3 flex items-center gap-40">
+  <label htmlFor="email">Email: </label>
+  <div className="ml-10">
+    {isEditing ? (
+      <input
+        type="email"
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
+        required
+      />
+    ) : (
+      <span>{formData.email}</span>
+    )}
+  </div>
+</div>
+<div className="mb-3 flex items-center gap-40">
+  <label htmlFor="phone" className="form-label">
+    Telephone:{" "}
+  </label>
+  <div className="ml-1">
+    {isEditing ? (
+      <input
+        type="tel"
+        name="phoneNumber"
+        value={formData.phoneNumber}
+        onChange={handleChange}
+        required
+      />
+    ) : (
+      <span>{formData.phoneNumber}</span>
+    )}
+  </div>
+</div>
+<div className="mb-3 flex items-center gap-40">
+  <label htmlFor="address">Address:</label>
+  <div className="ml-5">
+    {isEditing ? (
+      <input
+        type="text"
+        name="address"
+        value={formData.address}
+        onChange={handleChange}
+        required
+      />
+    ) : (
+      <span>{formData.address}</span>
+    )}
+  </div>
+</div>
+{isEditing ? (
+  <div className="flex justify-center justify-evenly">
+    {isEditing ? (
+      <button type="submit" disabled={!isEditing}>
+        Save
+      </button>
+    ) : (
+      <div></div>
+    )}
+    <button type="button" nClick={toggleEditing}>
+      {isEditing ? "Cancel" : "Edit"}
+    </button>
+  </div>
+) : (
+  <div className="flex justify-center justify-evenly">
+    <button type="button" onClick={toggleEditing}>
+      {isEditing ? "Cancel" : "Edit"}
+    </button>
+  </div>
+)}
+</form>
