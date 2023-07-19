@@ -460,6 +460,8 @@ padding: 0.5rem;  */
 }
 
 .line {
-  flex: 1; /* This will make both lines take up equal space */
+  /* flex: 1;  */
+  /* This will make both lines take up equal space */
   border: 1px solid #ccc; /* Just for visual reference */
+  margin-left: auto;
 }
