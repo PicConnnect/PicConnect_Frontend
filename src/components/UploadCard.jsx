@@ -60,7 +60,7 @@ const UploadCard = () => {
         description: inputValues.description,
         urls: downloadURL,
         downloads: 0, //initial count
-        userID: auth.currentUser?.uid //make sure it's not null
+        userId: auth.currentUser?.uid //make sure it's not null
       }
 
       console.log(newPhoto)
