@@ -25,16 +25,16 @@ const UserProfile = () => {
         // An error happened.
       });
   };
-  
+
     return (
-        <div className="flex justify-between">
+        <div className="leftContainer">
             <div className="w-1/2 ml-4">
                 <ProfilePhoto></ProfilePhoto>
                 <BadgeComponent></BadgeComponent>
                 <AboutComponent></AboutComponent>
                 <SignOutButtonComponent handleLogout={handleLogout}></SignOutButtonComponent>
             </div>
-            <div className="flex flex-col w-1/2 ml-10">
+            <div className="rightContainer">
                 <UsersPhoto></UsersPhoto>
                 <SavedPhotos></SavedPhotos>
             </div>

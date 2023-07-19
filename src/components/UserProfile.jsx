@@ -75,11 +75,7 @@ const UserProfile = () => {
           </button>
         </div>
       </div>
-      const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(formData);
-        setIsEditing(false);
-    };
+
       <div className="rightContainer">
         <div className="usersPhotos">
           <h1 className="heading"> User's Photos</h1>
