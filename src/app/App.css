@@ -458,3 +458,8 @@ padding: 0.5rem;  */
     margin-right: 0%;
   }
 }
+
+.line {
+  flex: 1; /* This will make both lines take up equal space */
+  border: 1px solid #ccc; /* Just for visual reference */
+}

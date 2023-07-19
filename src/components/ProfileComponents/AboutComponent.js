@@ -86,10 +86,12 @@ export default function AboutComponent() {
 
   return (
     <div className="aboutContainer">
+        <h1 className="heading" >About Me</h1>
+        <br></br>
       <form>
         {items.map((item, index) => (
           <div key={index} className="mb-3 flex items-center gap-40">
-            <label htmlFor={itemsName[index]}>{itemsName[index]}:</label>
+            <label htmlFor={itemsName[index]} className="line">{itemsName[index]}:</label>
             {isEditing ? (
               <input
                 type={inputType[index]}
