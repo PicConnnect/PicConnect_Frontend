@@ -57,15 +57,34 @@ const UserProfile = () => {
 
 
     const [isEditing, setIsEditing] = useState(false);
-    const [items, setItems] = useState(['First', 'Last', '01/01/2023', 'mail@gmail.com', '(123)-456-7890', 'Ave Street Zip']);
+    const [items, setItems] = useState(['First', 'Last', '01-01-2023', 'mail@gmail.com', '123-456-7890', 'Ave Street Zip']);
+    const [inputPatterns, setInputPatterns] = useState(["[A-Za-z\s]+", "[A-Za-z\s]+", "\\d{4}-\\d{2}-\\d{2}", "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}", "[0-9]{3}-[0-9]{3}-[0-9]{4}", "[A-Za-z0-9\s\.,'-]+"]);
 
+    const [patternString, setPatternStrings] = useState(["Xxx+", "Xxx+", "YYYY-MM-DD", "xxxxxx@xmail.com", "XXX-XXX-XXXX", "Address"])
+
+    const [inputType, setInputType] = useState(["name","name","date","email","tel","text"])
     const makeListEditable = () => {
         setIsEditing(true);
     };
 
     const saveList = () => {
-        setIsEditing(false);
+        // Perform validation on the input values
+        const isValid = items.every((item, index) => {
+            const pattern = new RegExp(inputPatterns[index]);
+            console.log(pattern.test(item))
+            return pattern.test(item);
+        });
+
+        if (isValid) {
+            setIsEditing(false);
+            // Proceed with saving the changes
+            // ...
+        } else {
+            // Show an error message or handle invalid inputs
+            // console.log('Invalid inputs');
+        }
     };
+
 
     const handleInputChange = (index, event) => {
         const updatedItems = [...items];
@@ -84,7 +103,7 @@ const UserProfile = () => {
                     <div>
                         {isEditingImage ? (
                             <div>
-                                <div className="imageInput" style={{paddingTop:"15px"}}>
+                                <div className="imageInput" style={{ paddingTop: "15px" }}>
                                     <input
                                         type="file"
                                         name="image"
@@ -92,11 +111,11 @@ const UserProfile = () => {
                                         onChange={handleFileChange}
                                     />
                                 </div>
-                                <img src={imageUrl} alt="User" style={{marginTop: "15px"}}/>
+                                <img src={imageUrl} alt="User" style={{ marginTop: "15px" }} />
                             </div>
 
                         ) : (
-                            <img src={imageUrl} alt="User" style={{paddingTop: "15px"}}/>
+                            <img src={imageUrl} alt="User" style={{ paddingTop: "15px" }} />
                         )}
                         <button className="editButton" onClick={isEditingImage ? saveImage : makeImageEditable}>
                             {isEditingImage ? 'Save' : 'Edit'}
@@ -108,7 +127,7 @@ const UserProfile = () => {
 
                     <div>
                         <p>Name</p>
-                        <p style={{paddingBottom: "15px"}}>Rating</p>
+                        <p style={{ paddingBottom: "15px" }}>Rating</p>
                     </div>
                 </div>
                 <div class="badgeContainer">
@@ -127,21 +146,38 @@ const UserProfile = () => {
                     </div>
 
                     <div>
+                        {/* <input
+                            type="email"
+                            name="email"
+                            required
+                        /> */}
+                        
                         <ul>
                             {items.map((item, index) => (
-                                <li key={index}>
-                                    {isEditing ? (
-                                        <input
-                                            type="text"
-                                            value={item}
-                                            onChange={(event) => handleInputChange(index, event)}
-                                        />
-                                    ) : (
-                                        item
-                                    )}
-                                </li>
+                                <form action='#' method="get">
+                                    <li key={index}>
+                                        {isEditing ? (
+                                            <input
+                                                type={inputType[index]}
+                                                value={item}
+                                                onChange={(event) => handleInputChange(index, event)}
+                                                pattern={inputPatterns[index]}
+                                                required
+                                                onInvalid={(event) => {
+                                                    event.target.setCustomValidity(`Please follow the format ${patternString[index]}`);
+                                                }}
+                                                onInput={(event) => {
+                                                    event.target.setCustomValidity('');
+                                                }}
+                                            />
+                                        ) : (
+                                            item
+                                        )}
+                                    </li>
+                                </form>
                             ))}
                         </ul>
+
                         <button className="editButton" onClick={isEditing ? saveList : makeListEditable}>
                             {isEditing ? 'Save' : 'Edit'}
                         </button>
