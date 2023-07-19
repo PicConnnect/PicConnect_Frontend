@@ -17,7 +17,7 @@ const UploadCard = () => {
   });
 
   //check to see if user logged in
-  const RedirectMessage = useIfNotAuthenticated();
+  const RedirectMessage = useIfNotAuthenticated("Upload");
   //if not logged in
   if (RedirectMessage) {
     return RedirectMessage;
