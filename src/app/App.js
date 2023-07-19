@@ -9,6 +9,7 @@ import SignIn from "./../Pages/SignIn";
 import SignUp from "./../Pages/SignUp";
 import ViewPost from "../Pages/ViewPost";
 import Footer from "../components/Footer";
+import UsersPhoto from "../components/UsersPhoto";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
           <Route path="/" element={<Home></Home>}></Route>
           <Route path="/Following" element={<Following></Following>}></Route>
           <Route path="/Upload" element={<Upload></Upload>}></Route>
+          <Route path="/Profile/:userId" element={<UsersPhoto />}></Route>
           <Route path="/Profile" element={<Profile></Profile>}></Route>
           <Route path="/SignIn" element={<SignIn />}></Route>
           <Route path="/SignUp" element={<SignUp />}></Route>
