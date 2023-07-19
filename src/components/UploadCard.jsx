@@ -4,6 +4,7 @@ import { uploadToStorage } from "../utils/firebaseUtils";
 import ImagePreview from "./ImagePreview";
 import FormInput from "./FormInput";
 import "../styles/UploadCard.css";
+import { auth } from "../firebase/firebase";
 
 const UploadCard = () => {
   const [imageUrl, setImageUrl] = useState("");
@@ -53,8 +54,32 @@ const UploadCard = () => {
     if (file) {
       const downloadURL = await uploadToStorage(file, "images");
       console.log("File available at", downloadURL);
+
+      const newPhoto = {
+        title: inputValues.author,
+        description: inputValues.description,
+        urls: downloadURL,
+        downloads: 0, //initial count
+        userID: auth.currentUser?.uid //make sure it's not null
+      }
+
+      console.log(newPhoto)
+      const response = await fetch('http://localhost:8000/api/photos/addPhoto', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newPhoto)
+      })
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+      } else {
+        console.error("Couldn't save photo to database")
+      }
     }
   };
+
+
 
   return (
     <center>
