@@ -86,12 +86,24 @@ const UploadCard = () => {
       const newPhoto = {
         title: inputValues.author,
         description: inputValues.description,
+        location_name: inputValues.location,
         urls: downloadURL,
         downloads: 0, //initial count
-        userId: auth.currentUser?.uid //make sure it's not null
+        userId: auth.currentUser?.uid, //make sure it's not null
+        make: exifData.Make,
+        model: exifData.Model,
+        exposure_time: eval(exifData.ExposureTime),
+        iso: exifData.ISO,
+        focal_length: exifData.FocalLength,
+        GPSLatitude: exifData.GPSLatitude,
+        GPSLongitude: exifData.GPSLongitude,
+        GPSAltitude: exifData.GPSAltitude,
+        GPSPosition: exifData.GPSPosition,
+        tz: exifData.tz,
+        aperture: exifData.Aperture
       }
 
-      console.log(newPhoto)
+      console.log("Data that was sent",newPhoto);
       const response = await fetch('http://localhost:8000/api/photos/addPhoto', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -100,7 +112,7 @@ const UploadCard = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+        console.log("This is response on success",data);
       } else {
         console.error("Couldn't save photo to database")
       }
