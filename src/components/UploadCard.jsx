@@ -5,9 +5,12 @@ import ImagePreview from "./ImagePreview";
 import FormInput from "./FormInput";
 import "../styles/UploadCard.css";
 import { auth } from "../firebase/firebase";
+import axios from "axios";
 
 const UploadCard = () => {
   const [imageUrl, setImageUrl] = useState("");
+  const [exifData, setExifData] = useState(null);
+  const [text, setText] = useState('');
   const [inputValues, setInputValues] = useState({
     author: "",
     tags: "",
@@ -23,16 +26,38 @@ const UploadCard = () => {
     return RedirectMessage;
   }
 
-  const handleFileChange = (event) => {
+  const handleFileChange = async (event) => {
     //first file in the list
     const file = event.target.files[0];
     //if file selected,
     if (file) {
       const reader = new FileReader();
-      //when FileReader finishes reading the file data, this will be executed
-      reader.onload = function (e) {
-        //data url representing the file's data
+      console.log("File was found")
+      // When FileReader finishes reading the file data, this will be executed
+      reader.onload = async function (e) {
+        // Data URL representing the file's data
         setImageUrl(e.target.result);
+
+        // Create FormData and append the file to it
+        const formData = new FormData();
+        formData.append("photo", file);
+        try {
+          // Make a POST request with the FormData object
+          const response = await axios.post(
+            "http://localhost:8000/api/photos/extract-metadata",
+            formData,
+            {
+              headers: { "Content-Type": "multipart/form-data" },
+            }
+          );
+
+          // Assuming the server returns the EXIF data in the response
+          setExifData(response.data);
+          setText(response.data.Make?`Make: ${response.data.Make}, Model: ${response.data.Model}, Exposure Time: ${response.data.ExposureTime}, ISO: ${response.data.ISO}, Focal Length: ${response.data.FocalLength}`: "No metadata found for this photo! Try with another.")
+          console.log("this is response on file change",response.data);
+        } catch (error) {
+          console.error("Error uploading image:", error);
+        }
       };
       //can use this as a source in an img tag to preveiw the picture
       reader.readAsDataURL(file);
@@ -45,6 +70,9 @@ const UploadCard = () => {
       ...prevValues,
       [name]: value,
     }));
+  };
+  const handleTextAreaChange = (event) => {
+    setText(event.target.value);
   };
 
   const handleSubmit = async (event) => {
@@ -125,13 +153,16 @@ const UploadCard = () => {
             value={inputValues.description}
             onChange={handleInputChange}
           />
-
-          <FormInput
-            label="Camera Details"
-            name="photoDetails"
-            value={inputValues.photoDetails}
-            onChange={handleInputChange}
-          />
+          <div>
+            <h2>Camera Details</h2>
+            <textarea
+              readOnly
+              value={text}
+              contentEditable={false}
+              onChange={handleTextAreaChange}
+              style={{width:"95%", border: "1px solid rgb(216, 216, 216)", borderRadius: "5px", padding: "5px", resize: "none"}}
+            />
+          </div>
 
           <FormInput
             label="Location"
