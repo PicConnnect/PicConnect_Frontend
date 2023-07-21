@@ -1,12 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const PostCard = ({url, size, title, postId, removeButton}) => {
+const PostCard = ({ url, size, title, postId, removeButton }) => {
   let width = 25; //width
   let height = 250; //height
-  if(size === "small"){
-    width = width/2;
-    height = height/2;
+  if (size === "small") {
+    width = width / 2;
+    height = height / 2;
   }
   const navigate = useNavigate();
 
@@ -21,17 +21,20 @@ const PostCard = ({url, size, title, postId, removeButton}) => {
   return (
     <center>
       <div>
-        <div className="card" style={{ width: `${width}rem`,position: "relative" }}>
+        <div
+          className="card"
+          style={{ width: `${width}rem`, position: "relative" }}
+        >
           <div
             className="cardButton"
             onClick={() => {
               handleViewClick();
             }}
-            style={{z_index:"-1"}}
-
+            style={{ z_index: "-1" }}
           >
             <img
-              className="mainImage" style={{  height: `${height}px`}}
+              className="mainImage"
+              style={{ height: `${height}px` }}
               src={url}
               // className="card-img-top"
               alt="Thumbnail"
@@ -44,11 +47,14 @@ const PostCard = ({url, size, title, postId, removeButton}) => {
             </div>
           </div>
           {removeButton && (
-          <button class="overlay-button" onClick={handleViewClick2} style={{z_index:"1"}}>X</button>      
-          )    
-        }
-
-          
+            <button
+              className="overlay-button"
+              onClick={handleViewClick2}
+              style={{ z_index: "1" }}
+            >
+              X
+            </button>
+          )}
         </div>
       </div>
     </center>
