@@ -63,10 +63,6 @@
   height: 500px;
 }
 
-.singleViewBody {
-  /* border: 2px solid black; */
-}
-
 .singleViewBody p {
   background-color: antiquewhite;
   border: 2px double black;
@@ -256,6 +252,8 @@
   justify-content: center;
   padding: 2px;
   overflow: hidden;
+  border: #282c34 solid;
+
 }
 
 .aboutContainer p {
@@ -320,7 +318,6 @@
 }
 
 .middleContainer {
-  border: #282c34 solid;
   flex-basis: 35%;
   margin-left: 4px;
   margin-right: 3px;
@@ -355,7 +352,7 @@
 
 .miniPosts {
   text-align: center;
-  height: 394.5px; /* Set the desired height */
+  height: 397.1px; /* Set the desired height */
   overflow: auto; /* Enable scrolling for overflowing content */
 }
 

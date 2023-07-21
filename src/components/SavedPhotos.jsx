@@ -2,7 +2,7 @@ import React from 'react'
 import PostCard from './PostCard'
 export default function SavedPhotos() {
   return (
-    <div  className="usersPhotos">
+    <div  className="usersPhotos border-solid border-2 border-gray-700">
         <h1 className="heading"> User's Liked/Saved Photos</h1>
         <div className="miniPosts">
             <div className="cards">
