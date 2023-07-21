@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function ProfilePhoto() {
+  const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState(
     "https://images.pexels.com/photos/433989/pexels-photo-433989.jpeg?cs=srgb&dl=pexels-pixabay-433989.jpg&fm=jpg"
   );
@@ -37,6 +39,15 @@ export default function ProfilePhoto() {
     setIsEditingImage(false);
     setImageUrl(initialImage);
   };
+
+  const handleFollowingClick = () => {
+    navigate(`/Following`); //add variable postID
+  };
+
+  const handleFollowerClick = () => {
+    navigate(`/Follower`); //add variable postID
+  };
+
   return (
     <div className="userProfileContainer">
       <div>
@@ -76,8 +87,13 @@ export default function ProfilePhoto() {
       </div>
       <br></br>
       <div>
-        <p>Name</p>
-        <p style={{ paddingBottom: "15px" }}>Rating</p>
+        <p>First Last</p>
+        <p>Rating</p>
+        <button className="followFollowingButton" onClick={handleFollowingClick} style={{flex:"1", marginRight:"100px"}} >Following</button>
+        <button className="followFollowingButton" onClick={handleFollowerClick} style={{flex:"2", marginLeft:"100px"}}>Followers</button>
+
+
+
       </div>
     </div>
   );

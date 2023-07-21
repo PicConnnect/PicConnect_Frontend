@@ -10,6 +10,7 @@ import SignUp from "./../Pages/SignUp";
 import ViewPost from "../Pages/ViewPost";
 import Footer from "../components/Footer";
 import UsersPhoto from "../components/UsersPhoto";
+import FollowerPage from "./../Pages/FollowerPage"
 
 function App() {
   return (
@@ -22,11 +23,11 @@ function App() {
                 Home
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/Following" className="following-link">
                 Following
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/Upload" className="upload-link">
                 Upload
@@ -42,6 +43,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home></Home>}></Route>
           <Route path="/Following" element={<Following></Following>}></Route>
+          <Route path="/Follower" element={<FollowerPage></FollowerPage>}></Route>
           <Route path="/Upload" element={<Upload></Upload>}></Route>
           <Route path="/Profile/:userId" element={<UsersPhoto />}></Route>
           <Route path="/Profile" element={<Profile></Profile>}></Route>
