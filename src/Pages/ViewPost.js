@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import SingleView from '../components/SingleView';
 import Footer from "../components/Footer";
 import axios from 'axios';
+axios.defaults.withCredentials = true
 
 export default function ViewPost() {
   const [postCardData, setPostCardData] = useState([]);
@@ -27,7 +28,7 @@ export default function ViewPost() {
   return (
     <div>
       <h1 className="heading">ViewPost</h1>
-      <SingleView url={postCardData.urls} title={postCardData.title} author={postCardData?.user?.name} description={postCardData.description}/>
+      <SingleView url={postCardData.urls} title={postCardData.title} author={postCardData?.user?.name} description={postCardData.description} postId={currentId} userId={postCardData?.user?.id}/>
       <Footer />
     </div>
   )
