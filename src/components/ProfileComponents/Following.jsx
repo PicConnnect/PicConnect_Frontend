@@ -3,7 +3,7 @@ import Follower from "../Follower";
 
 const Following = () => {
   return (
-    <div className="bg-[#D9D9D9] mb-2 flex flex-col items-center justify-center p-2">
+    <div className="bg-[#D9D9D9] mb-2  items-center justify-center p-2" style={{background:"#D9D9D9", height:"100%", width:"100%"}}>
       <h1 className="heading">Following</h1>
       <div className="miniPosts" style={{height:"378px"}}>
         <Follower following={false} follower={true} />

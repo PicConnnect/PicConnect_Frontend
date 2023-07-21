@@ -31,7 +31,7 @@ const UserProfile = () => {
 
   return (
     <div className="profileContainer">
-      <div className="w-1/4 ml-4">
+      <div className="leftContainer">
         <ProfilePhoto></ProfilePhoto>
         <BadgeComponent></BadgeComponent>
         <AboutComponent></AboutComponent>
