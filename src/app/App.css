@@ -28,11 +28,14 @@
   color: #61dafb;
 }
 
+.cardButton {
+  z-index: -1;
+}
+
 .cardButton:hover {
   background-color: #bbc6cd7d;
   border-radius: 1%;
 }
-
 
 .cardButton:active {
   background-color: #bbc6cdb6;
@@ -253,7 +256,6 @@
   padding: 2px;
   overflow: hidden;
   border: #282c34 solid;
-
 }
 
 .aboutContainer p {
@@ -315,7 +317,7 @@
   margin-left: 1rem;
   display: flex;
   flex-direction: column;
-  margin-right:4px;
+  margin-right: 4px;
 }
 
 .middleContainer {
@@ -478,6 +480,7 @@
   ); /* Make the button background transparent */
   cursor: pointer; /* Show the pointer cursor when hovering over the button */
   opacity: 0;
+  z-index: 1;
 }
 
 /* Styling button */
@@ -498,17 +501,30 @@
   background-color: #d0d0d0;
 }
 
-.followFollowingButton{
+.followFollowingButton {
   display: flex;
-  float:left;
+  float: left;
   margin-bottom: 15px;
-
 }
 
-.followFollowingButton:hover{
-  color:#4249eb
+.followFollowingButton:hover {
+  color: #4249eb;
 }
 
-.followFollowingButton:active{
-  color:#0008fb
+.followFollowingButton:active {
+  color: #0008fb;
+}
+
+/* Formating button */
+.likeButton {
+  position: absolute; /* Position the overlay button relative to the container */
+  bottom: 0;
+  right: 0;
+  padding-right: 2px;
+  cursor: pointer; /* Show the pointer cursor when hovering over the button */
+}
+
+/* Styling button */
+.likeButton {
+  z-index: 1;
 }
