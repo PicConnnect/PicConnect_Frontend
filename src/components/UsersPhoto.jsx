@@ -23,7 +23,7 @@ export default function UsersPhoto({ userId }) {
   }, [userId]);
   console.log(photos);
   return (
-    <div className="usersPhotos">
+    <div className="usersPhotos border-solid border-2 border-gray-700">
       <h1 className="heading"> User's Photos</h1>
       <div className="miniPosts">
         <div className="cards">
@@ -34,6 +34,7 @@ export default function UsersPhoto({ userId }) {
               size="small"
               title={photo.title}
               postId={photo.id}
+              removeButton={true}
             />
           ))}
         </div>
