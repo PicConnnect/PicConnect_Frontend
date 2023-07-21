@@ -146,7 +146,7 @@ const UploadCard = () => {
           <ImagePreview imageUrl={imageUrl} />
 
           <FormInput
-            label="Author"
+            label="Title"
             name="author"
             value={inputValues.author}
             onChange={handleInputChange}
