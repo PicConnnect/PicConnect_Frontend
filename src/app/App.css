@@ -311,14 +311,15 @@
   justify-content: space-between;
 }
 .leftContainer {
-  flex-basis: 27%;
+  flex-basis: 40%;
   margin-left: 1rem;
   display: flex;
   flex-direction: column;
+  margin-right:4px;
 }
 
 .middleContainer {
-  flex-basis: 33%;
+  /* flex-basis: 33%; */
   margin-left: 4px;
   margin-right: 3px;
   display: flex;
@@ -328,7 +329,7 @@
 }
 
 .rightContainer {
-  flex-basis: 40%;
+  flex-basis: 60%;
   display: flex;
   flex-direction: column;
   margin-left: 1px;
@@ -495,4 +496,19 @@
 
 .overlay-button:hover {
   background-color: #d0d0d0;
+}
+
+.followFollowingButton{
+  display: flex;
+  float:left;
+  margin-bottom: 15px;
+
+}
+
+.followFollowingButton:hover{
+  color:#4249eb
+}
+
+.followFollowingButton:active{
+  color:#0008fb
 }

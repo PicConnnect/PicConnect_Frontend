@@ -39,10 +39,10 @@ const UserProfile = () => {
           handleLogout={handleLogout}
         ></SignOutButtonComponent>
       </div>
-      <div className="middleContainer">
+      {/* <div className="middleContainer">
         <Followers />
         <Following />
-      </div>
+      </div> */}
       
       <div className="rightContainer">
         <div>
