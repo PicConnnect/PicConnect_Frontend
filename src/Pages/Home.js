@@ -25,7 +25,7 @@ export default function Home() {
     <div style={{marginBottom: '5%'}}>
       <div className="cards">
         {postCardList?.map((item) => (
-          <PostCard key={item.id} url={item.urls} title={item.title} postId={item.id}/>
+          <PostCard key={item.id} url={item.urls} title={item.title} postId={item.id} likeButton={true}/>
         ))}
       </div>
     </div>
