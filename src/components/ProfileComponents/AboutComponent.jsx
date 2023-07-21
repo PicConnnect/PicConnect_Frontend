@@ -16,7 +16,7 @@ export default function AboutComponent() {
     "Last Name",
     "Birthday",
     "Email",
-    "Phone Number",
+    "Number",
     "Address",
 
   ]);

@@ -1,7 +1,12 @@
-import { signInWithGoogle, signInWithFacebook, signInWithEmail } from "../firebase/firebase";
+import {
+  signInWithGoogle,
+  signInWithFacebook,
+  signInWithEmail,
+} from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import Footer from "../components/Footer";
+import Input from "../components/Input";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -22,8 +27,8 @@ export default function SignIn() {
     //prevent default behavior of automatically refreshing page
     event.preventDefault();
     try {
-      await signInWithEmail(email, password); 
-      navigate("/profile"); 
+      await signInWithEmail(email, password);
+      navigate("/profile");
     } catch (error) {
       console.error("Error signing in", error);
       // Display this error in UI later
@@ -43,30 +48,19 @@ export default function SignIn() {
       <h1 className="text-4xl p-5">Login</h1>
       <div className="flex justify-center">
         <form onSubmit={handleSignIn} className="flex flex-col w-1/2">
-
           <div className="w-full pt-6">
-            <label htmlFor="email" className="block text-left font-bold">
-              Email Address
-            </label>
-            <input
+            <Input
               type="email"
               value={email}
               onChange={handleEmailChange}
-              required
-              className="w-full h-10"
+              label="Email Address"
             />
-          </div>
 
-          <div className="w-full pt-6">
-            <label htmlFor="password" className="block text-left font-bold">
-              Password
-            </label>
-            <input
+            <Input
               type="password"
               value={password}
               onChange={handlePasswordChange}
-              required
-              className="w-full h-10"
+              label="Password"
             />
           </div>
 
@@ -88,20 +82,22 @@ export default function SignIn() {
             </a>
           </span>
 
-          <button onClick={() => handleSignInWithProvider(signInWithGoogle)}
-          className="w-full h-10 mt-10 bg-black text-white">
+          <button
+            onClick={() => handleSignInWithProvider(signInWithGoogle)}
+            className="w-full h-10 mt-10 bg-black text-white"
+          >
             Sign in with Google
           </button>
           <br></br>
-          <button onClick={() => handleSignInWithProvider(signInWithFacebook)}
-          className="w-full h-10 mt-10 bg-black text-white">
+          <button
+            onClick={() => handleSignInWithProvider(signInWithFacebook)}
+            className="w-full h-10 mt-10 bg-black text-white"
+          >
             Sign in with Facebook
           </button>
-
         </form>
       </div>
       <Footer />
-
     </div>
   );
 }

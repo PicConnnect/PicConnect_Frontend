@@ -60,7 +60,7 @@ const PostCard = ({ url, size, title, postId, removeButton, likeButton }) => {
             </div>
           </div>
           {removeButton && (
-            <button class="overlay-button" onClick={handleViewClick2}>
+            <button className="overlay-button" onClick={handleViewClick2}>
               X
             </button>
           )}

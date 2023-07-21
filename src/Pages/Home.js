@@ -1,38 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PostCard from '../components/PostCard';
-import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchPosts } from '../redux/postSlice';
 
 export default function Home() {
-  const [postCardList, setPostCardList] = useState([]);
-
-  const fetchPostCardList = async () => {
-    try {
-      await axios.get("http://localhost:8000/api/photos").then((response) => {
-        setPostCardList(response.data);
-        console.log(postCardList)
-      })
-      
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  const dispatch = useDispatch();
+  const postCardList = useSelector(state => state.posts.posts);
+  const postStatus = useSelector(state => state.posts.status);
+  const postError = useSelector(state => state.posts.error);
 
   useEffect(() => {
-    fetchPostCardList();
-    
-  },[])
-  return postCardList.length > 0? (
+    if (postStatus === 'idle') {
+      dispatch(fetchPosts())
+    }
+  }, [postStatus, dispatch]);
+
+  let content;
+
+  if (postStatus === 'loading') {
+    content = <div>Loading...</div>;
+  } else if (postStatus === 'succeeded') {
+    content = postCardList.map((item) => (
+      <PostCard key={item.id} url={item.urls} title={item.title} postId={item.id} likeButton={true}/>
+    ));
+  } else if (postStatus === 'failed') {
+    content = <div>{postError}</div>;
+  }
+
+  return (
     <div style={{marginBottom: '5%'}}>
       <div className="cards">
-        {postCardList?.map((item) => (
-          <PostCard key={item.id} url={item.urls} title={item.title} postId={item.id} likeButton={true}/>
-        ))}
+        {content}
       </div>
     </div>
-  ):(
-  <div>
-    <h1 className="heading">No Post</h1>  
-  </div>
-
-  )
+  );
 }

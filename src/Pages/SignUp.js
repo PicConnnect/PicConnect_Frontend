@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { signUpWithEmail, signInWithGoogle, signInWithFacebook } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
-
+import Input from "../components/Input";
 
 export default function SignUp() {
   //states that stores the user data
@@ -59,59 +59,33 @@ export default function SignUp() {
       <h1 className="text-4xl p-5">Register User</h1>
       <div className="flex justify-center">
         <form onSubmit={handleSubmit} className="flex flex-col w-1/2">
-          <div className="w-full">
-            <label htmlFor="name" className="block text-left font-bold">
-              Full Name
-            </label>
-            <input
-              type="text"
-              value={name}
-              onChange={handleNameChange}
-              required
-              className="w-full h-10"
-            />
-          </div>
+          <Input
+            type="text"
+            value={name}
+            onChange={handleNameChange}
+            label="Full Name"
+          />
 
-          <div className="w-full pt-6">
-            <label htmlFor="email" className="block text-left font-bold">
-              Email Address
-            </label>
-            <input
-              type="email"
-              value={email}
-              onChange={handleEmailChange}
-              required
-              className="w-full h-10"
-            />
-          </div>
+          <Input
+            type="email"
+            value={email}
+            onChange={handleEmailChange}
+            label="Email Address"
+          />
 
-          <div className="w-full pt-6">
-            <label htmlFor="password" className="block text-left font-bold">
-              Create Your Password
-            </label>
-            <input
-              type="password"
-              value={password}
-              onChange={handlePasswordChange}
-              required
-              className="w-full h-10"
-            />
-          </div>
-          <div className="w-full pt-6">
-            <label
-              htmlFor="passwordVerification"
-              className="block text-left font-bold"
-            >
-              Confirm Your Password
-            </label>
-            <input
-              type="password"
-              value={passwordVerification}
-              onChange={handlePasswordVerificationChange}
-              required
-              className="w-full h-10"
-            />
-          </div>
+          <Input
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+            label="Create Your Password"
+          />
+
+          <Input
+            type="password"
+            value={passwordVerification}
+            onChange={handlePasswordVerificationChange}
+            label="Confirm Your Password"
+          />
           <button
             type="submit"
             className="w-full h-10 mt-10 bg-black text-white"
