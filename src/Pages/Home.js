@@ -21,7 +21,7 @@ export default function Home() {
     content = <div>Loading...</div>;
   } else if (postStatus === 'succeeded') {
     content = postCardList.map((item) => (
-      <PostCard key={item.id} url={item.urls} title={item.title} postId={item.id}/>
+      <PostCard key={item.id} url={item.urls} title={item.title} postId={item.id} likeButton={true}/>
     ));
   } else if (postStatus === 'failed') {
     content = <div>{postError}</div>;
