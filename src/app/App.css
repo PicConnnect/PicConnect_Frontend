@@ -85,7 +85,7 @@
 }
 
 .commentBox p {
-  border: none;
+  border-bottom: 1px solid black; 
   padding-left: 2rem;
   text-align: left;
 }
