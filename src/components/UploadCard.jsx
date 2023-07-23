@@ -179,8 +179,9 @@ const UploadCard = () => {
             onChange={handleInputChange}
           />
 
-          <div>
-            <input className="submitButton" type="submit" value="Submit" />
+          <div style={{position: "relative"}}>
+            <button className="submitButton" type="submit" value="Submit">Submit</button>
+            {exifData?.Make === undefined? <div style={{position: "absolute", backgroundColor: "transparent", top: "0%", left: "0%", zIndex: 2 ,width: '100%', height: '100%'}}></div>: <div></div>}
           </div>
         </form>
       </div>
