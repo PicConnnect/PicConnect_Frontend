@@ -165,16 +165,13 @@ const UploadCard = () => {
             value={inputValues.description}
             onChange={handleInputChange}
           />
-          <div>
-            <h2>Camera Details</h2>
-            <textarea
-              readOnly
-              value={text}
-              contentEditable={false}
-              onChange={handleTextAreaChange}
-              style={{width:"95%", border: "1px solid rgb(216, 216, 216)", borderRadius: "5px", padding: "5px", resize: "none"}}
-            />
-          </div>
+          <FormInput
+            label="Camera Details"
+            name="camera details"
+            value={text}
+            onChange={handleTextAreaChange}
+            readOnly={true}
+          />
 
           <FormInput
             label="Location"
