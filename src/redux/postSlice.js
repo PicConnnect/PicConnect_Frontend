@@ -7,12 +7,38 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
   return response.data;
 });
 
+export const likePost = createAsyncThunk(
+  "posts/likePost",
+  async ({ postId, userId }) => {
+    const response = await axios.post(
+      `http://localhost:8000/api/photos/${postId}/like`,
+      { userId }
+    );
+    // Consider returning the response data instead of postId
+    return response.data;
+  }
+);
+
+// Action to handle unliking a post
+// Updated unlikePost action
+export const unlikePost = createAsyncThunk(
+  "posts/unlikePost",
+  async ({ postId, userId }) => {
+    const response = await axios.delete(
+      `http://localhost:8000/api/photos/${postId}/unlike`,
+      { data: { userId } }
+    );
+    return response.data;
+  }
+);
+
 const postSlice = createSlice({
   name: 'posts',
   initialState: {
     posts: [],
     status: 'idle',
     error: null,
+    likedPhotoIds: [],
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -27,7 +53,16 @@ const postSlice = createSlice({
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
-      });
+      })
+      .addCase(likePost.fulfilled, (state, action) => {
+        //maybe increase the like count
+        state.likedPhotoIds.push(action.payload);
+      })
+      .addCase(unlikePost.fulfilled, (state, action) => {
+        state.likedPhotoIds = state.likedPhotoIds.filter(
+          (id) => id !== action.payload
+        );
+      })
   },
 });
 

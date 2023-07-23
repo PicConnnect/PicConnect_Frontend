@@ -4,12 +4,14 @@ import {
   signInWithEmail,
 } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux'
 import React, { useState } from "react";
 import Footer from "../components/Footer";
 import Input from "../components/Input";
 
 export default function SignIn() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,7 +29,7 @@ export default function SignIn() {
     //prevent default behavior of automatically refreshing page
     event.preventDefault();
     try {
-      await signInWithEmail(email, password);
+      await signInWithEmail(email, password, dispatch);
       navigate("/profile");
     } catch (error) {
       console.error("Error signing in", error);
@@ -37,7 +39,7 @@ export default function SignIn() {
   //function to handle sign in with google or facebook
   const handleSignInWithProvider = async (signInMethod) => {
     try {
-      await signInMethod(); //try to sign in with google
+      await signInMethod(dispatch); //try to sign in with google
       navigate("/profile"); // If sign in is successful, navigate to the profile page
     } catch (error) {
       console.error("Error signing in with Google", error);

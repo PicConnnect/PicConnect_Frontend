@@ -2,10 +2,12 @@ import "./../index.css";
 import React, { useState } from "react";
 import { signUpWithEmail, signInWithGoogle, signInWithFacebook } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
 import Footer from "../components/Footer";
 import Input from "../components/Input";
 
 export default function SignUp() {
+  const dispatch = useDispatch();
   //states that stores the user data
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -39,7 +41,7 @@ export default function SignUp() {
     }
 
     try {
-      const { user } = await signUpWithEmail(email, password, name);
+      const { user } = await signUpWithEmail(email, password, name, dispatch);
       await user.sendEmailVerification();
       //DOOOO: Show message to user to check their email for verification
       //ALSO DECIDE ON WHERE TO NAVIGATE USER
