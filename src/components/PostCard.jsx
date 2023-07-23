@@ -1,8 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { likePost, unlikePost } from "../redux/postSlice";
+//import { auth } from "../firebase/firebase";
 
 const PostCard = ({ url, size, title, postId, removeButton, likeButton }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  //const userId = useSelector((state) => state.user.value.uid);
 
   const initialLikeStatus = () => {
     //get the current like status from local storage
@@ -18,13 +24,28 @@ const PostCard = ({ url, size, title, postId, removeButton, likeButton }) => {
     width = width / 2;
     height = height / 2;
   }
+
+  const userRef = useRef();
+  userRef.current = useSelector((state) => state.user.value);
+  //console.log(userRef.current);
+
   //triggered when the like button is clicked
   const toggleLike = () => {
+
+    const userId = userRef.current.uid;
+    //console.log(userId);
+
     //opposite of the current value 
     const newLikeStatus = !isLiked;
     setIsLiked(newLikeStatus);
     //save this current status to localstorage
     localStorage.setItem(`likeStatus-${postId}`, JSON.stringify(newLikeStatus));
+
+    if (newLikeStatus) {
+      dispatch(likePost({postId: postId, userId: userId}));
+    } else {
+      dispatch(unlikePost({postId: postId, userId: userId}));
+    }
   };
 
   // const toggleLikeFalse = () => {
