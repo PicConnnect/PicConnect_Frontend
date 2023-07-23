@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const PostCard = ({ url, size, title, postId, removeButton, likeButton }) => {
   const navigate = useNavigate();
-  const [isLiked, setIsLiked] = useState(true);
+
+  const initialLikeStatus = () => {
+    //get the current like status from local storage
+    const savedLikeStatus = JSON.parse(localStorage.getItem(`likeStatus-${postId}`));
+    //returns if saved liked status is in localstorage (true) or false otherwise
+    return savedLikeStatus || false;
+  }
+  const [isLiked, setIsLiked] = useState(initialLikeStatus); 
   let width = 25; //width
   let height = 250; //height
 
@@ -11,18 +18,22 @@ const PostCard = ({ url, size, title, postId, removeButton, likeButton }) => {
     width = width / 2;
     height = height / 2;
   }
-
+  //triggered when the like button is clicked
   const toggleLike = () => {
-    setIsLiked(!isLiked);
+    //opposite of the current value 
+    const newLikeStatus = !isLiked;
+    setIsLiked(newLikeStatus);
+    //save this current status to localstorage
+    localStorage.setItem(`likeStatus-${postId}`, JSON.stringify(newLikeStatus));
   };
 
-  const toggleLikeFalse = () => {
-    setIsLiked(false);
-  };
+  // const toggleLikeFalse = () => {
+  //   setIsLiked(false);
+  // };
 
-  const toggleLikeTrue = () => {
-    setIsLiked(true);
-  };
+  // const toggleLikeTrue = () => {
+  //   setIsLiked(true);
+  // };
 
   //allows to navigate to single
   const handleViewClick = () => {
@@ -31,6 +42,12 @@ const PostCard = ({ url, size, title, postId, removeButton, likeButton }) => {
   const handleViewClick2 = () => {
     navigate(`/`); //add variable postID
   };
+
+  //runs every time the "isLiked" state of the "postId" prop changes
+  useEffect(() => {
+    // When isLiked state changes, save it to localStorage
+    localStorage.setItem(`likeStatus-${postId}`, JSON.stringify(isLiked));
+  }, [isLiked, postId]);
 
   return (
     <center>
@@ -66,7 +83,7 @@ const PostCard = ({ url, size, title, postId, removeButton, likeButton }) => {
           )}
           {likeButton &&
             (isLiked ? (
-              <button className="likeButton" onClick={toggleLikeFalse}>
+              <button className="likeButton" onClick={toggleLike}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -78,7 +95,7 @@ const PostCard = ({ url, size, title, postId, removeButton, likeButton }) => {
                 </svg>{" "}
               </button>
             ) : (
-              <button className="likeButton" onClick={toggleLikeTrue}>
+              <button className="likeButton" onClick={toggleLike}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
