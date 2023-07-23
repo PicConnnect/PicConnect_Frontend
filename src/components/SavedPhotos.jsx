@@ -41,7 +41,7 @@ export default function SavedPhotos() {
 
   return (
     <div className="usersPhotos border-solid border-2 border-gray-700">
-      <h1 className="heading"> User's Liked/Saved Photos</h1>
+      <h1 className="heading"> User's Liked Photos</h1>
       <div className="miniPosts">
         <div className="cards">
           {likedPhotos.map(photo => (
