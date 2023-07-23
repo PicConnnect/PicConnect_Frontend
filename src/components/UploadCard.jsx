@@ -52,7 +52,8 @@ const UploadCard = () => {
 
           // Assuming the server returns the EXIF data in the response
           setExifData(response.data);
-          setphotoDetails(response.data.Make?`Make: ${response.data.Make}, Model: ${response.data.Model}, Exposure Time: ${response.data.ExposureTime}, ISO: ${response.data.ISO}, Focal Length: ${response.data.FocalLength}`: "No metadata found for this photo! Try with another.")
+          setphotoDetails(response.data.Make?`Make: ${response.data.Make}, Model: ${response.data.Model}, Exposure Time: ${response.data.ExposureTime}, ISO: ${response.data.ISO}, 
+          Focal Length: ${response.data.FocalLength}`: "No metadata found for this photo!")
           console.log("this is response on file change",response.data);
         } catch (error) {
           console.error("Error uploading image:", error);
