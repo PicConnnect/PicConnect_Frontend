@@ -10,12 +10,11 @@ import axios from "axios";
 const UploadCard = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [exifData, setExifData] = useState(null);
-  const [text, setText] = useState('');
+  const [photoDetails, setphotoDetails] = useState('');
   const [inputValues, setInputValues] = useState({
     author: "",
     tags: "",
     description: "",
-    photoDetails: "",
     location: "",
   });
 
@@ -53,7 +52,7 @@ const UploadCard = () => {
 
           // Assuming the server returns the EXIF data in the response
           setExifData(response.data);
-          setText(response.data.Make?`Make: ${response.data.Make}, Model: ${response.data.Model}, Exposure Time: ${response.data.ExposureTime}, ISO: ${response.data.ISO}, Focal Length: ${response.data.FocalLength}`: "No metadata found for this photo! Try with another.")
+          setphotoDetails(response.data.Make?`Make: ${response.data.Make}, Model: ${response.data.Model}, Exposure Time: ${response.data.ExposureTime}, ISO: ${response.data.ISO}, Focal Length: ${response.data.FocalLength}`: "No metadata found for this photo! Try with another.")
           console.log("this is response on file change",response.data);
         } catch (error) {
           console.error("Error uploading image:", error);
@@ -71,8 +70,8 @@ const UploadCard = () => {
       [name]: value,
     }));
   };
-  const handleTextAreaChange = (event) => {
-    setText(event.target.value);
+  const handlePhotoDetailChange = (event) => {
+    setphotoDetails(event.target.value);
   };
 
   const handleSubmit = async (event) => {
@@ -168,8 +167,8 @@ const UploadCard = () => {
           <FormInput
             label="Camera Details"
             name="camera details"
-            value={text}
-            onChange={handleTextAreaChange}
+            value={photoDetails}
+            onChange={handlePhotoDetailChange}
             readOnly={true}
           />
 
