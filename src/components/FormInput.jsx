@@ -1,6 +1,6 @@
 import React from "react";
 
-const FormInput = ({ type, name, value, onChange, label }) => (
+const FormInput = ({ type, name, value, onChange, label, readOnly }) => (
   <div className="formInput">
     <label>{label}</label>
     <div>
@@ -16,6 +16,7 @@ const FormInput = ({ type, name, value, onChange, label }) => (
         name={name}
         value={value}
         onChange={onChange}
+        readOnly={readOnly}
       />
     </div>
   </div>
