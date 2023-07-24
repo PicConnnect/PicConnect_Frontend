@@ -528,3 +528,8 @@
 .likeButton {
   z-index: 1;
 }
+
+.customModal {
+  background: #b2dbbf;
+  width: 40%;
+}
