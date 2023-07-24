@@ -71,15 +71,21 @@ const PostCard = ({
 
   const handleRemovePhoto = async () => {
     try {
-      // Make a DELETE request to remove the photo with the given postId
-      const response = await axios.delete(
-        `http://localhost:8000/api/photos/${postId}`
-      );
+      // Show a confirmation alert to the user
+      const isConfirmed = window.confirm("Press Ok to continue with deletion of selected photo?");
 
-      // Assuming the server returns the response after successfully deleting the photo
-      console.log("Photo deleted:", response.data);
+      if (isConfirmed) {
+        const response = await axios.delete(
+          `http://localhost:8000/api/photos/${postId}`
+        );
 
-      // If you want to do something after successful deletion, you can add code here
+        console.log("Photo deleted:", response.data);
+
+      } else {
+        // If the user cancels, do nothing or show a message
+        console.log("Delete action canceled by user.");
+      }
+
     } catch (error) {
       console.error("Error deleting photo:", error);
     }
