@@ -1,16 +1,9 @@
 import { initializeApp } from "firebase/app";
-import {
-  getAuth,
-  GoogleAuthProvider,
-  FacebookAuthProvider,
-  signInWithPopup,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-  sendEmailVerification,
-} from "firebase/auth";
+//prettier-ignore
+import { getAuth, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, sendEmailVerification,} from "firebase/auth";
+import { setUserData } from "../redux/userSlice";
+import { useDispatch } from "react-redux";
 import { getStorage } from "firebase/storage";
-
 //web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyC6vRLOnoMHmVJlz7xqh3XV01J2PP4wuBM",
@@ -21,6 +14,7 @@ const firebaseConfig = {
   appId: "1:95747587283:web:1f9f2ec97412749d2b6826",
   measurementId: "G-FJSP2Y5T1F",
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -46,20 +40,28 @@ export const sendTokenToBackend = async (idToken) => {
     console.error("Error:", error);
   }
 };
-
-export const signInWithGoogle = () => {
+export const signInWithGoogle = (dispatch) => {
   signInWithPopup(auth, googleProvider)
     .then(async (result) => {
       //get the user token right after auth
       const token = await auth.currentUser.getIdToken(true);
       sendTokenToBackend(token);
+      console.log("User Data:", auth.currentUser);
+      // Dispatch only necessary properties
+      dispatch(
+        setUserData({
+          uid: auth.currentUser.uid,
+          displayName: auth.currentUser.displayName,
+          email: auth.currentUser.email,
+        })
+      );
     })
     .catch((error) => {
       console.log(error);
     });
 };
 
-export const signInWithFacebook = () => {
+export const signInWithFacebook = (dispatch) => {
   const facebookProvider = new FacebookAuthProvider();
 
   signInWithPopup(auth, facebookProvider)
@@ -70,6 +72,14 @@ export const signInWithFacebook = () => {
 
       const token = await user.getIdToken(true);
       sendTokenToBackend(token);
+      // Dispatch only necessary properties
+      dispatch(
+        setUserData({
+          uid: user.uid,
+          displayName: user.displayName,
+          email: user.email,
+        })
+      );
     })
     .catch((error) => {
       // Handle Errors here.
@@ -82,7 +92,12 @@ export const signInWithFacebook = () => {
       const credential = FacebookAuthProvider.credentialFromError(error);
     });
 };
-export const signUpWithEmail = async (email, password, displayName) => {
+export const signUpWithEmail = async (
+  email,
+  password,
+  displayName,
+  dispatch
+) => {
   try {
     const { user } = await createUserWithEmailAndPassword(
       auth,
@@ -94,17 +109,33 @@ export const signUpWithEmail = async (email, password, displayName) => {
     await sendEmailVerification(user);
     const token = await user.getIdToken(true);
     sendTokenToBackend(token);
+    // Dispatch only necessary properties
+    dispatch(
+      setUserData({
+        uid: user.uid,
+        displayName: user.displayName,
+        email: user.email,
+      })
+    );
   } catch (error) {
     console.error("Error signing up:", error);
   }
 };
-export const signInWithEmail = async (email, password) => {
+export const signInWithEmail = async (email, password, dispatch) => {
   try {
     const response = await signInWithEmailAndPassword(auth, email, password);
     const user = response.user;
-    
+
     const token = await user.getIdToken(true);
     sendTokenToBackend(token);
+    // Dispatch only necessary properties
+    dispatch(
+      setUserData({
+        uid: user.uid,
+        displayName: user.displayName,
+        email: user.email,
+      })
+    );
   } catch (error) {
     console.error("Error:", error);
   }

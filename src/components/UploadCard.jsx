@@ -9,8 +9,13 @@ import axios from "axios";
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import heic2any from 'heic2any';
+import ProgressBar from "@ramonak/react-progress-bar";
+import { useSelector } from "react-redux";
 
 const UploadCard = () => {
+  // Get the file upload progress from the Redux store
+  const isUploading = useSelector((state) => state.fileUploadProgress.isUploading);
+  const fileUploadProgress = useSelector((state) => state.fileUploadProgress.progress);
   const [imageUrl, setImageUrl] = useState("");
   const [exifData, setExifData] = useState(null);
   const [photoDetails, setphotoDetails] = useState('');
@@ -223,6 +228,9 @@ const UploadCard = () => {
           <div style={{position: "relative"}}>
             <button className="submitButton" type="submit" value="Submit">Submit</button>
             {exifData?.Make === undefined? <div style={{position: "absolute", backgroundColor: "transparent", top: "0%", left: "0%", zIndex: 2 ,width: '100%', height: '100%'}}></div>: <div></div>}
+          </div>
+          <div>
+            {isUploading? <ProgressBar completed={fileUploadProgress}></ProgressBar>: <div></div>}
           </div>
         </form>
       </div>
