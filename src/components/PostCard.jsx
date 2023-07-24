@@ -62,6 +62,9 @@ const PostCard = ({
     } else {
       dispatch(unlikePost({ postId: postId, userId: userId }));
     }
+    if(removeButton){
+      window.location.reload();
+    }
   };
 
   // allows to navigate to single
@@ -78,6 +81,9 @@ const PostCard = ({
         const response = await axios.delete(
           `http://localhost:8000/api/photos/${postId}`
         );
+
+        window.location.reload();
+
 
         console.log("Photo deleted:", response.data);
 
