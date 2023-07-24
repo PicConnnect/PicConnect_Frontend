@@ -15,7 +15,6 @@ const UploadCard = () => {
   const [exifData, setExifData] = useState(null);
   const [photoDetails, setphotoDetails] = useState('');
   const [openNoMetadata, setOpenNoMetadata] = useState(false);
-  const inputFileRef = useRef(null);
   const [inputValues, setInputValues] = useState({
     author: "",
     tags: "",
@@ -49,8 +48,6 @@ const UploadCard = () => {
           toType: 'image/jpeg',
         });
         const jpegFile = new File([jpegData], 'converted.jpg', { type: 'image/jpeg' });
-        //download(jpegFile)
-        inputFileRef.current = jpegFile;
         setImageUrl(URL.createObjectURL(jpegFile))
         console.log("This is conversion image url", URL.createObjectURL(jpegFile));
 
