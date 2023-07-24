@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useIfNotAuthenticated } from "../hooks/useIfNotAuthenticated";
 import { uploadToStorage } from "../utils/firebaseUtils";
 import ImagePreview from "./ImagePreview";
@@ -8,23 +8,20 @@ import { auth } from "../firebase/firebase";
 import axios from "axios";
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
+import heic2any from 'heic2any';
 
 const UploadCard = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [exifData, setExifData] = useState(null);
   const [photoDetails, setphotoDetails] = useState('');
-  const [openFileError, setOpenFileError] = useState(false);
   const [openNoMetadata, setOpenNoMetadata] = useState(false);
+  const inputFileRef = useRef(null);
   const [inputValues, setInputValues] = useState({
     author: "",
     tags: "",
     description: "",
     location: "",
   });
-
-  //toggle modal for when extension is different that jpeg or png
-  const onOpenModalFileError = () => setOpenFileError(true);
-  const onCloseModalFileError = () => setOpenFileError(false);
 
   //toggle modal for no metadata existing in file
   const onOpenModalNoMetadata = () => setOpenNoMetadata (true);
@@ -41,16 +38,38 @@ const UploadCard = () => {
   const handleFileChange = async (event) => {
     //first file in the list
     const file = event.target.files[0];
-    const fileExtension = file.name.split('.').pop().toLowerCase();
-    //if file selected,
-    console.log(file.name + "extensuin " + fileExtension)
-    if (file && fileExtension === "jpg" || fileExtension === "jpeg" || fileExtension === "png") {
+
+    if (!file) return;
+
+    //handle file conversion from heic to jpg
+    if (file.type === "image/heic") {
+      try {
+        const jpegData = await heic2any({
+          blob: file,
+          toType: 'image/jpeg',
+        });
+        const jpegFile = new File([jpegData], 'converted.jpg', { type: 'image/jpeg' });
+        //download(jpegFile)
+        inputFileRef.current = jpegFile;
+        setImageUrl(URL.createObjectURL(jpegFile))
+        console.log("This is conversion image url", URL.createObjectURL(jpegFile));
+
+        console.log('Converted JPEG file:', jpegFile);
+      } catch (error) {
+        console.error('Error converting HEIC to JPEG:', error);
+        return;
+      }
+    }
+
+    if (file) {
       const reader = new FileReader();
       console.log("File was found")
       // When FileReader finishes reading the file data, this will be executed
       reader.onload = async function (e) {
         // Data URL representing the file's data
-        setImageUrl(e.target.result);
+        if(file.type !== "image/heic"){
+          setImageUrl(e.target.result);
+        }
 
         // Create FormData and append the file to it
         const formData = new FormData();
@@ -78,8 +97,6 @@ const UploadCard = () => {
       };
       //can use this as a source in an img tag to preveiw the picture
       reader.readAsDataURL(file);
-    }else if (fileExtension !== "jpg" || fileExtension !== "jpeg" || fileExtension !== "png"){
-      onOpenModalFileError();
     }
     
   };
@@ -139,14 +156,8 @@ const UploadCard = () => {
     }
   };
 
-
-
   return (
     <center>
-      <Modal open={openFileError} onClose={onCloseModalFileError}  classNames={{modal: 'customModal', overlay: 'customOverlay'}}>
-        <h2 className="font-bold">Invalid Image Format</h2>
-        <p>Sorry, only PNG and JPEG/JPG image formats are allowed for uploads. Please select a valid image file and try again.</p>
-      </Modal>
       <Modal open={openNoMetadata} onClose={onCloseModalNoMetadata}  classNames={{modal: 'customModal', overlay: 'customOverlay'}}>
         <h2 className="font-bold">Missing Image Metadata</h2>
         <p>Oops! It seems that the photo you tried to upload does not contain any metadata. Please make sure the image has valid metadata and try again.</p>
@@ -165,7 +176,7 @@ const UploadCard = () => {
               <input
                 type="file"
                 name="image"
-                accept="image/jpeg, image/png"
+                accept="image/jpeg, image/png, image/heic"
                 onChange={handleFileChange}
               />
             </div>
