@@ -10,6 +10,7 @@ export default function Profile() {
   if (notLoggedInMessage) {
     return notLoggedInMessage;
   }
+  
 
   return (
     <div style={{marginBottom: '5%'}}>

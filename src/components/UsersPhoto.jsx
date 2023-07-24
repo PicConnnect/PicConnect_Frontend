@@ -35,6 +35,7 @@ export default function UsersPhoto({ userId }) {
               title={photo.title}
               postId={photo.id}
               removeButton={true}
+              userLikedPhotos={false}
             />
           ))}
         </div>
