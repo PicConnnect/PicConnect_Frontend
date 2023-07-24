@@ -50,6 +50,5 @@ export default function SavedPhotos() {
             </div>
         </div>
       </div>
-    </div>
   );
 }
