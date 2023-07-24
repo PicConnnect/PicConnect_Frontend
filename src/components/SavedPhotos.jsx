@@ -49,7 +49,7 @@ export default function SavedPhotos() {
             <div className="cards">
              {likedPhotos.map(photo => (
                 //<PostCard key={photo.id} url={photo.urls} size="small" removeButton={true} />
-                <PostCard key={photo.id} postId={photo.id} userId={userId} url={photo.urls} size="small" removeButton={true} />
+                <PostCard key={photo.id} postId={photo.id} userId={userId} url={photo.urls} size="small" removeButton={true} userLikedPhotos={true} />
               ))}
             </div>
         </div>

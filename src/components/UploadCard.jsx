@@ -133,6 +133,7 @@ const UploadCard = () => {
       if (response.ok) {
         const data = await response.json();
         console.log("This is response on success",data);
+        window.location.reload();
       } else {
         console.error("Couldn't save photo to database")
       }
