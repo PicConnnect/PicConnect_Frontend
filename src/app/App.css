@@ -348,8 +348,10 @@
 }
 
 .usersLikedPhotos {
-  margin-top: 2rem;
-  margin-right: 5rem;
+  margin-top: 0;
+  margin-bottom: 7px;
+  padding-top: 0%;
+  margin-right: 0;
   background-color: #d9d9d9;
 }
 
@@ -434,33 +436,7 @@
 .aboutMeCategories {
   float: left;
 }
-@media (901px <= width <= 1024px) {
-  .userProfileWrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .usersLikedPhotos {
-    margin-right: 0%;
-  }
-}
-@media (300px <= width <= 900px) {
-  .App {
-    margin-right: 0%;
-    margin-left: 0%;
-  }
-  .userProfileWrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #4249eb;
-  }
-  .usersLikedPhotos {
-    margin-right: 0%;
-  }
-}
+
 
 .line {
   border: 1px solid #ccc;
