@@ -15,6 +15,7 @@ const UploadCard = () => {
   const [exifData, setExifData] = useState(null);
   const [photoDetails, setphotoDetails] = useState('');
   const [openNoMetadata, setOpenNoMetadata] = useState(false);
+  const [conversionInProgress, setConversionInProgress] = useState(false);
   const [inputValues, setInputValues] = useState({
     author: "",
     tags: "",
@@ -43,16 +44,19 @@ const UploadCard = () => {
     //handle file conversion from heic to jpg
     if (file.type === "image/heic") {
       try {
+        setConversionInProgress(true);
+        const startTime = Date.now();
         const jpegData = await heic2any({
           blob: file,
           toType: 'image/jpeg',
         });
+        const endTime = Date.now();
+        setConversionInProgress(false);
         const jpegFile = new File([jpegData], 'converted.jpg', { type: 'image/jpeg' });
         setImageUrl(URL.createObjectURL(jpegFile))
-        console.log("This is conversion image url", URL.createObjectURL(jpegFile));
-
-        console.log('Converted JPEG file:', jpegFile);
+        console.log('Conversion Time:', (endTime - startTime) / 1000, 'seconds');
       } catch (error) {
+        setConversionInProgress(false);
         console.error('Error converting HEIC to JPEG:', error);
         return;
       }
@@ -178,7 +182,7 @@ const UploadCard = () => {
               />
             </div>
           </div>
-
+          {conversionInProgress && <p>Converting...</p>}
           <ImagePreview imageUrl={imageUrl} />
 
           <FormInput
