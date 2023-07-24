@@ -1,6 +1,11 @@
 import "./App.css";
 import "./../index.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { onAuthStateChanged } from "firebase/auth";
+import { setUserData } from "../redux/userSlice";
+import { auth, sendTokenToBackend, } from "../firebase/firebase";
 import Home from "./../Pages/Home";
 import Following from "./../Pages/Following";
 import Upload from "./../Pages/Upload";
@@ -13,6 +18,31 @@ import UsersPhoto from "../components/UsersPhoto";
 import FollowerPage from "./../Pages/FollowerPage"
 
 function App() {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.value);
+  
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        // User is signed in, get the token and send it to backend
+        const token = await user.getIdToken(true);
+        sendTokenToBackend(token);
+
+        // Dispatch the user data to Redux state
+        dispatch(
+          setUserData({
+            uid: user.uid,
+            displayName: user.displayName,
+            email: user.email,
+          })
+        );
+      }
+    });
+
+    // Clean up subscription on unmount
+    return () => unsubscribe();
+  }, [dispatch]);
   return (
     <Router>
       <div className="App">
