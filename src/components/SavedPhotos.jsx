@@ -8,14 +8,17 @@ export default function SavedPhotos() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const userId = auth.currentUser?.uid;
+
   useEffect(() => {
     const fetchLikedPhotos = async () => {
-      const userId = auth.currentUser?.uid;
+      //const userId = auth.currentUser?.uid;
       try {
         const response = await axios.get(`http://localhost:8000/api/users/${userId}/likes`);
         const photoData = response.data;
         if (!response.data || !Array.isArray(response.data)) {
-          throw new Error('Invalid response format');
+          setError('Invalid response format');
+          return;
         }
         setLikedPhotos(photoData);
         //console.log(photoData);
@@ -45,7 +48,8 @@ export default function SavedPhotos() {
         <div className="miniPosts">
             <div className="cards">
              {likedPhotos.map(photo => (
-                <PostCard key={photo.id} url={photo.urls} size="small" removeButton={true} />
+                //<PostCard key={photo.id} url={photo.urls} size="small" removeButton={true} />
+                <PostCard key={photo.id} postId={photo.id} userId={userId} url={photo.urls} size="small" removeButton={true} />
               ))}
             </div>
         </div>
