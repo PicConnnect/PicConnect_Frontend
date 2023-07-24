@@ -6,17 +6,30 @@ import FormInput from "./FormInput";
 import "../styles/UploadCard.css";
 import { auth } from "../firebase/firebase";
 import axios from "axios";
+import 'react-responsive-modal/styles.css';
+import { Modal } from 'react-responsive-modal';
 
 const UploadCard = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [exifData, setExifData] = useState(null);
   const [photoDetails, setphotoDetails] = useState('');
+  const [openFileError, setOpenFileError] = useState(false);
+  const [openNoMetadata, setOpenNoMetadata] = useState(false);
   const [inputValues, setInputValues] = useState({
     author: "",
     tags: "",
     description: "",
     location: "",
   });
+
+  //toggle modal for when extension is different that jpeg or png
+  const onOpenModalFileError = () => setOpenFileError(true);
+  const onCloseModalFileError = () => setOpenFileError(false);
+
+  //toggle modal for no metadata existing in file
+  const onOpenModalNoMetadata = () => setOpenNoMetadata (true);
+  const onCloseModalNoMetadata  = () => setOpenNoMetadata (false);
+
 
   //check to see if user logged in
   const RedirectMessage = useIfNotAuthenticated("Upload");
@@ -28,8 +41,10 @@ const UploadCard = () => {
   const handleFileChange = async (event) => {
     //first file in the list
     const file = event.target.files[0];
+    const fileExtension = file.name.split('.').pop().toLowerCase();
     //if file selected,
-    if (file) {
+    console.log(file.name + "extensuin " + fileExtension)
+    if (file && fileExtension === "jpg" || fileExtension === "jpeg" || fileExtension === "png") {
       const reader = new FileReader();
       console.log("File was found")
       // When FileReader finishes reading the file data, this will be executed
@@ -49,7 +64,9 @@ const UploadCard = () => {
               headers: { "Content-Type": "multipart/form-data" },
             }
           );
-
+          if(!response.data.Make){
+            onOpenModalNoMetadata();
+          }
           // Assuming the server returns the EXIF data in the response
           setExifData(response.data);
           setphotoDetails(response.data.Make?`Make: ${response.data.Make}, Model: ${response.data.Model}, Exposure Time: ${response.data.ExposureTime}, ISO: ${response.data.ISO}, 
@@ -61,7 +78,10 @@ const UploadCard = () => {
       };
       //can use this as a source in an img tag to preveiw the picture
       reader.readAsDataURL(file);
+    }else if (fileExtension !== "jpg" || fileExtension !== "jpeg" || fileExtension !== "png"){
+      onOpenModalFileError();
     }
+    
   };
 
   const handleInputChange = (event) => {
@@ -123,6 +143,14 @@ const UploadCard = () => {
 
   return (
     <center>
+      <Modal open={openFileError} onClose={onCloseModalFileError}  classNames={{modal: 'customModal', overlay: 'customOverlay'}}>
+        <h2 className="font-bold">Invalid Image Format</h2>
+        <p>Sorry, only PNG and JPEG/JPG image formats are allowed for uploads. Please select a valid image file and try again.</p>
+      </Modal>
+      <Modal open={openNoMetadata} onClose={onCloseModalNoMetadata}  classNames={{modal: 'customModal', overlay: 'customOverlay'}}>
+        <h2 className="font-bold">Missing Image Metadata</h2>
+        <p>Oops! It seems that the photo you tried to upload does not contain any metadata. Please make sure the image has valid metadata and try again.</p>
+      </Modal>
       <div className="form-group">
         <form className="form-group" onSubmit={handleSubmit}>
           <center>
@@ -137,7 +165,7 @@ const UploadCard = () => {
               <input
                 type="file"
                 name="image"
-                accept="image/*"
+                accept="image/jpeg, image/png"
                 onChange={handleFileChange}
               />
             </div>

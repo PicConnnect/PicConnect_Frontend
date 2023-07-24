@@ -40,13 +40,14 @@ export default function SavedPhotos() {
 
 
   return (
-    <div className="usersPhotos border-solid border-2 border-gray-700">
-      <h1 className="heading"> User's Liked Photos</h1>
-      <div className="miniPosts">
-        <div className="cards">
-          {likedPhotos.map(photo => (
-            <PostCard key={photo.id} url={photo.urls} size="small" removeButton={true} />
-          ))}
+    <div  className="usersLikedPhotos border-solid border-2 border-gray-700" style={{height: '51%'}}>
+        <h1 className="heading"> User's Liked Photos</h1>
+        <div className="miniPosts">
+            <div className="cards">
+             {likedPhotos.map(photo => (
+                <PostCard key={photo.id} url={photo.urls} size="small" removeButton={true} />
+              ))}
+            </div>
         </div>
       </div>
     </div>
