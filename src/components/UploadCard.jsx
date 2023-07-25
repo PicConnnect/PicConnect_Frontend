@@ -17,11 +17,14 @@ const UploadCard = () => {
   // Get the file upload progress from the Redux store
   const isUploading = useSelector((state) => state.fileUploadProgress.isUploading);
   const fileUploadProgress = useSelector((state) => state.fileUploadProgress.progress);
+  const uploadStatus = useSelector((state) => state.fileUploadProgress.uploadStatus);
+
   const [imageUrl, setImageUrl] = useState("");
   const [convertedImage, setConvertedImage] = useState(null);
   const [exifData, setExifData] = useState(null);
   const [photoDetails, setphotoDetails] = useState('');
   const [openNoMetadata, setOpenNoMetadata] = useState(false);
+  const [successFileUload, setSuccessFileUpload] = useState(false);
   const [conversionInProgress, setConversionInProgress] = useState(false);
   const [inputValues, setInputValues] = useState({
     author: "",
@@ -33,6 +36,10 @@ const UploadCard = () => {
   //toggle modal for no metadata existing in file
   const onOpenModalNoMetadata = () => setOpenNoMetadata (true);
   const onCloseModalNoMetadata  = () => setOpenNoMetadata (false);
+
+  //toggle modal for when the file upload is a succes or not
+  const onOpenSuccessFileUpload = () => setSuccessFileUpload (true);
+  const onCloseSuccessFileUpload  = () => setSuccessFileUpload (false);
 
   //check to see if user logged in
   const RedirectMessage = useIfNotAuthenticated("Upload");
@@ -162,7 +169,14 @@ const UploadCard = () => {
       })
 
       if (response.ok) {
-        const data = await response.json();
+        const data = await response.json()
+        if(uploadStatus === 'success'){
+          onOpenSuccessFileUpload();
+          setTimeout(() => {
+            onCloseSuccessFileUpload();
+          }, 5000);
+          //empty input on succesful upload
+        }
         console.log("This is response on success",data);
       } else {
         console.error("Couldn't save photo to database")
@@ -170,7 +184,7 @@ const UploadCard = () => {
     }
   };
 
-  //sty;e for progressBar
+  //style for progressBar
   const options = {
     height: "30px",
     borderRadius: "20px",
@@ -182,12 +196,22 @@ const UploadCard = () => {
     stripeAnimationDuration: '20s',
     type: "striped",
   }
-  
   return (
     <div>
       <Modal open={openNoMetadata} onClose={onCloseModalNoMetadata}  classNames={{modal: 'customModal', overlay: 'customOverlay'}}>
         <h2 className="font-bold">Missing Image Metadata</h2>
         <p>Oops! It seems that the photo you tried to upload does not contain any metadata. Please make sure the image has valid metadata and try again.</p>
+      </Modal>
+      <Modal open={successFileUload} onClose={onCloseSuccessFileUpload}  classNames={{modal: 'customModal', overlay: 'customOverlay'}}>
+        <center>
+          <div style={{width: '10%'}}>
+            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50" xmlSpace="preserve" fill="#000000">
+              <g id="SVGRepo_iconCarrier"> <circle style={{ fill: '#25AE88' }} cx="25" cy="25" r="25" /> <polyline style={{fill: 'none', stroke: '#FFFFFF', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round', strokeMiterlimit: 10}} points="38,15 22,33 12,25"/></g>
+            </svg>
+          </div>
+          <h2 className="font-bold">Upload Status</h2>
+          <p>File upload success</p>
+        </center>
       </Modal>
       <div className="form-group">
         <form className="form-group" onSubmit={handleSubmit}>
