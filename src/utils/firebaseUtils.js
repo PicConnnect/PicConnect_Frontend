@@ -33,7 +33,7 @@ export const uploadToStorage = (file) => {
         }
       },
       (error) => {
-        store.dispatch(setUploadStatus(error.message));
+        store.dispatch(setUploadStatus("Failure: "+error.message));
         reject(error);
       },
       () => {
