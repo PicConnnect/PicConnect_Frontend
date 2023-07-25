@@ -184,6 +184,10 @@ const UploadCard = () => {
           setTimeout(() => {
             onCloseSuccessFileUpload();
           }, 5000);
+          setInputValues({title: "", tags: "", description: "", location: ""});
+          setFileName("");
+          setImageUrl("");
+          setphotoDetails("");
           //empty input on succesful upload
         }else if(uploadStatus.includes('Failure')){
           onOpenFailFileUpload();
