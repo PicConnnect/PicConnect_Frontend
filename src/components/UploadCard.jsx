@@ -30,7 +30,7 @@ const UploadCard = () => {
   const [successFileUload, setSuccessFileUpload] = useState(false);
   const [conversionInProgress, setConversionInProgress] = useState(false);
   const [inputValues, setInputValues] = useState({
-    author: "",
+    title: "",
     tags: "",
     description: "",
     location: "",
@@ -146,7 +146,7 @@ const UploadCard = () => {
       }
 
       const newPhoto = {
-        title: inputValues.author,
+        title: inputValues.title,
         description: inputValues.description,
         location_name: inputValues.location,
         urls: downloadURL,
@@ -237,8 +237,8 @@ const UploadCard = () => {
 
           <FormInput
             label="Title"
-            name="author"
-            value={inputValues.author}
+            name="title"
+            value={inputValues.title}
             onChange={handleInputChange}
           />
 
