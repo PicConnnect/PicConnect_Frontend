@@ -83,7 +83,7 @@ const SingleView = ({ url, title, author, Tags, description, cameraDetails, post
             // className="card-img-top"
             alt="..."
           />
-          <div className="card-body">
+          <div className="card-body font-metrophobic text-lg">
             <p>{title}</p>
             <div className="singleViewBody">
               <p className="leftCentered">Author: {author}</p>
