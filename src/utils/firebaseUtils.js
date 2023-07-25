@@ -18,7 +18,7 @@ export const uploadToStorage = (file) => {
         store.dispatch(setIsUploading(true));
         // log upload progress as a percentage
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        store.dispatch(setFileUploadProgress(progress));
+        store.dispatch(setFileUploadProgress(Math.floor(progress)));
         console.log("Upload is " + progress + "% done");
         switch (snapshot.state) {
           case "paused":
