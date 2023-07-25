@@ -36,6 +36,8 @@ export const uploadToStorage = (file) => {
         reject(error);
       },
       () => {
+        //hide progress bar
+        store.dispatch(setIsUploading(false));
         // Use the download URL to save to database or use in application
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log("File available at", downloadURL);
