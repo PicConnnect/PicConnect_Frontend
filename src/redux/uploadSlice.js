@@ -5,7 +5,7 @@ const uploadSlice = createSlice({
     initialState: {
       progress: 0,
       isUploading: false,
-      uploadStatus: ''
+      uploadStatus: 'Pending'
     },
     reducers: {
       setFileUploadProgress: (state, action) => {
