@@ -146,7 +146,7 @@ const UploadCard = () => {
       }
 
       const newPhoto = {
-        title: inputValues.title,
+        title: inputValues.title? inputValues.title : "No title",
         description: inputValues.description,
         location_name: inputValues.location,
         urls: downloadURL,
