@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { likePost, unlikePost } from "../redux/postSlice";
@@ -21,17 +21,13 @@ const PostCard = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  //const userId = useSelector((state) => state.user.value.uid);
+  //useRef to hold the current user value
+  const userRef = useRef();
+  userRef.current = useSelector((state) => state.user.value);
 
-  const initialLikeStatus = () => {
-    //get the current like status from local storage
-    const savedLikeStatus = JSON.parse(
-      localStorage.getItem(`likeStatus-${postId}`)
-    );
-    //returns if saved liked status is in localstorage (true) or false otherwise
-    return savedLikeStatus || false;
-  };
-  const [isLiked, setIsLiked] = useState(initialLikeStatus);
+  // Get the likedPhotoIds from the Redux store
+  const likedPhotoIds = useSelector((state) => state.posts.likedPhotoIds);
+  console.log("likedPhotoIds", likedPhotoIds);
 
   let width = 25; //width
   let height = 250; //height
@@ -41,29 +37,19 @@ const PostCard = ({
     height = height / 2;
   }
 
-  const userRef = useRef();
-  userRef.current = useSelector((state) => state.user.value);
-
   //triggered when the like button is clicked
   const toggleLike = () => {
-    console.log("Testing like");
+    console.log("Testing like and unlike");
 
     const userId = userRef.current.uid;
 
-    //opposite of the current value
-    const newLikeStatus = !isLiked;
-    setIsLiked(newLikeStatus);
+    // console.log(`Current isLiked: ${isLiked}`);
+    console.log(`Post ID: ${postId}`);
 
-    //save this current status to localstorage
-    localStorage.setItem(`likeStatus-${postId}`, JSON.stringify(newLikeStatus));
-
-    if (newLikeStatus) {
-      dispatch(likePost({ postId: postId, userId: userId }));
-    } else {
+    if (likedPhotoIds.includes(postId)) {
       dispatch(unlikePost({ postId: postId, userId: userId }));
-    }
-    if(removeButton){
-      window.location.reload();
+    } else {
+      dispatch(likePost({ postId: postId, userId: userId }));
     }
   };
 
@@ -71,37 +57,6 @@ const PostCard = ({
   const handleViewClick = () => {
     navigate(`/photos/${postId}`); //add variable postID
   };
-
-  const handleRemovePhoto = async () => {
-    try {
-      // Show a confirmation alert to the user
-      const isConfirmed = window.confirm("Press Ok to continue with deletion of selected photo?");
-
-      if (isConfirmed) {
-        const response = await axios.delete(
-          `http://localhost:8000/api/photos/${postId}`
-        );
-
-        window.location.reload();
-
-
-        console.log("Photo deleted:", response.data);
-
-      } else {
-        // If the user cancels, do nothing or show a message
-        console.log("Delete action canceled by user.");
-      }
-
-    } catch (error) {
-      console.error("Error deleting photo:", error);
-    }
-  };
-
-  // runs every time the "isLiked" state of the "postId" prop changes
-  useEffect(() => {
-    // When isLiked state changes, save it to localStorage
-    localStorage.setItem(`likeStatus-${postId}`, JSON.stringify(isLiked));
-  }, [isLiked, postId]);
 
   return (
     <center>
@@ -130,13 +85,13 @@ const PostCard = ({
               {/* <p className="leftCentered">#Tags</p> */}
             </div>
           </div>
-          {removeButton && (
+          {/* {removeButton && (
             <button className="overlay-button" onClick={userLikedPhotos ? toggleLike : handleRemovePhoto}>
               X
             </button>
-          )}
+          )} */}
           {likeButton &&
-            (isLiked ? (
+            (likedPhotoIds.includes(postId) ? (
               <button className="likeButton" onClick={toggleLike}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
