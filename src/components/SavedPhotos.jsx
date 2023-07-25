@@ -1,45 +1,33 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PostCard from './PostCard';
-import axios from 'axios';
+//import axios from 'axios';
 import { auth } from "../firebase/firebase";
+import { fetchUserLikes } from '../redux/postSlice';
 
 export default function SavedPhotos() {
-  const [likedPhotos, setLikedPhotos] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // const [likedPhotos, setLikedPhotos] = useState([]);
+  // const [isLoading, setIsLoading] = useState(true);
+  // const [error, setError] = useState(null);
 
+  const dispatch = useDispatch();
   const userId = auth.currentUser?.uid;
 
+
+  const likedPhotoIds = useSelector((state) => state.posts.likedPhotoIds);
+  console.log(likedPhotoIds)
+  const allPosts = useSelector((state) => state.posts.posts);
+  // const likesStatus = useSelector((state) => state.posts.likesStatus);
+  // console.log(likesStatus)
+
+  const likedPosts = allPosts.filter((post) => likedPhotoIds.includes(post.id));
+
   useEffect(() => {
-    const fetchLikedPhotos = async () => {
-      //const userId = auth.currentUser?.uid;
-      try {
-        const response = await axios.get(`http://localhost:8000/api/users/${userId}/likes`);
-        const photoData = response.data;
-        if (!response.data || !Array.isArray(response.data)) {
-          setError('Invalid response format');
-          return;
-        }
-        setLikedPhotos(photoData);
-        //console.log(photoData);
-      } catch (error) {
-        console.error('Error fetching liked photos:', error);
-        setError(error.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+    dispatch(fetchUserLikes(userId));
+  }, [dispatch, userId]);
 
-    fetchLikedPhotos();
-  }, []);
-
-  if (isLoading) {
-    return <div>Loading...</div>; 
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  console.log(`likedPhotoIds: ${JSON.stringify(likedPhotoIds)}`);
+  console.log(`likedPosts: ${JSON.stringify(likedPosts)}`);
 
 
   return (
@@ -47,8 +35,7 @@ export default function SavedPhotos() {
         <h1 className="heading"> User's Liked Photos</h1>
         <div className="miniPosts">
             <div className="cards">
-             {likedPhotos.map(photo => (
-                //<PostCard key={photo.id} url={photo.urls} size="small" removeButton={true} />
+              {likedPosts.map(photo => (
                 <PostCard key={photo.id} postId={photo.id} userId={userId} url={photo.urls} size="small" removeButton={true} userLikedPhotos={true} />
               ))}
             </div>
