@@ -8,5 +8,5 @@ export default configureStore({
     user: userReducer,
     posts: postReducer,
     fileUploadProgress: uploadReducer
-  },
+  }
 });
