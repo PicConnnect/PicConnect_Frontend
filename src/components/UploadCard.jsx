@@ -17,6 +17,7 @@ const UploadCard = () => {
   const isUploading = useSelector((state) => state.fileUploadProgress.isUploading);
   const fileUploadProgress = useSelector((state) => state.fileUploadProgress.progress);
   const [imageUrl, setImageUrl] = useState("");
+  const [convertedImage, setConvertedImage] = useState(null);
   const [exifData, setExifData] = useState(null);
   const [photoDetails, setphotoDetails] = useState('');
   const [openNoMetadata, setOpenNoMetadata] = useState(false);
@@ -59,6 +60,7 @@ const UploadCard = () => {
         setConversionInProgress(false);
         const jpegFile = new File([jpegData], 'converted.jpg', { type: 'image/jpeg' });
         setImageUrl(URL.createObjectURL(jpegFile))
+        setConvertedImage(jpegFile);
         console.log('Conversion Time:', (endTime - startTime) / 1000, 'seconds');
       } catch (error) {
         setConversionInProgress(false);
@@ -123,8 +125,14 @@ const UploadCard = () => {
     //get the file from the form
     const file = event.target.image.files[0];
     if (file) {
-      const downloadURL = await uploadToStorage(file, "images");
-      console.log("File available at", downloadURL);
+      let downloadURL;
+      if(file.type === "image/heic"){
+        downloadURL = await uploadToStorage(convertedImage, "images");
+        console.log("File available at", downloadURL);
+      }else{
+        downloadURL = await uploadToStorage(file, "images");
+        console.log("File available at", downloadURL);
+      }
 
       const newPhoto = {
         title: inputValues.author,
