@@ -28,7 +28,7 @@ export default function ViewPost() {
 
   return (
     <div>
-      <h1 className="heading">ViewPost</h1>
+      <h1 className="heading font-merriweather text-xl">Photo</h1>
       <SingleView
         url={postCardData.urls}
         title={postCardData.title}
