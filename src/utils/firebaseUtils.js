@@ -1,6 +1,6 @@
 import { storage } from "../firebase/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { setFileUploadProgress, setIsUploading } from "../redux/uploadSlice";
+import { setFileUploadProgress, setIsUploading, setUploadStatus } from "../redux/uploadSlice";
 import store from "../store";
 
 export const uploadToStorage = (file) => {
@@ -33,11 +33,13 @@ export const uploadToStorage = (file) => {
         }
       },
       (error) => {
+        store.dispatch(setUploadStatus(error.message));
         reject(error);
       },
       () => {
         //hide progress bar
         store.dispatch(setIsUploading(false));
+        store.dispatch(setUploadStatus('success'));
         // Use the download URL to save to database or use in application
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log("File available at", downloadURL);
