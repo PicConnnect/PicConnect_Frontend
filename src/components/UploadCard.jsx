@@ -9,7 +9,8 @@ import axios from "axios";
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import heic2any from 'heic2any';
-import ProgressBar from "@ramonak/react-progress-bar";
+import { ProgressBar } from 'ms-react-progress-bar';
+import 'ms-react-progress-bar/dist/ProgressBar.css';
 import { useSelector } from "react-redux";
 
 const UploadCard = () => {
@@ -32,7 +33,6 @@ const UploadCard = () => {
   //toggle modal for no metadata existing in file
   const onOpenModalNoMetadata = () => setOpenNoMetadata (true);
   const onCloseModalNoMetadata  = () => setOpenNoMetadata (false);
-
 
   //check to see if user logged in
   const RedirectMessage = useIfNotAuthenticated("Upload");
@@ -170,8 +170,21 @@ const UploadCard = () => {
     }
   };
 
+  //sty;e for progressBar
+  const options = {
+    height: "30px",
+    borderRadius: "20px",
+    labelSize: "14px",
+    barColor: "#2c43ac",
+    containerColor: "#dddddd",
+    containerStyle: "border",
+    stripeAnimation: true,
+    stripeAnimationDuration: '20s',
+    type: "striped",
+  }
+  
   return (
-    <center>
+    <div>
       <Modal open={openNoMetadata} onClose={onCloseModalNoMetadata}  classNames={{modal: 'customModal', overlay: 'customOverlay'}}>
         <h2 className="font-bold">Missing Image Metadata</h2>
         <p>Oops! It seems that the photo you tried to upload does not contain any metadata. Please make sure the image has valid metadata and try again.</p>
@@ -237,12 +250,17 @@ const UploadCard = () => {
             <button className="submitButton" type="submit" value="Submit">Submit</button>
             {exifData?.Make === undefined? <div style={{position: "absolute", backgroundColor: "transparent", top: "0%", left: "0%", zIndex: 2 ,width: '100%', height: '100%'}}></div>: <div></div>}
           </div>
-          <div>
-            {isUploading? <ProgressBar completed={fileUploadProgress}></ProgressBar>: <div></div>}
-          </div>
         </form>
+        <div className="mt-6">
+          {isUploading? 
+            <div>
+              <p>File Uploading...</p>
+              <ProgressBar value={fileUploadProgress} options={options}></ProgressBar>
+            </div>
+            : <div></div>}
+        </div>
       </div>
-    </center>
+    </div>
   );
 };
 
