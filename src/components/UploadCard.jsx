@@ -28,6 +28,7 @@ const UploadCard = () => {
   const [photoDetails, setphotoDetails] = useState('');
   const [openNoMetadata, setOpenNoMetadata] = useState(false);
   const [successFileUload, setSuccessFileUpload] = useState(false);
+  const [failFileUload, setFailFileUpload] = useState(false);
   const [conversionInProgress, setConversionInProgress] = useState(false);
   const [inputValues, setInputValues] = useState({
     title: "",
@@ -43,6 +44,10 @@ const UploadCard = () => {
   //toggle modal for when the file upload is a succes
   const onOpenSuccessFileUpload = () => setSuccessFileUpload (true);
   const onCloseSuccessFileUpload  = () => setSuccessFileUpload (false);
+
+  //toggle modal for when the file upload is a failure
+  const onOpenFailFileUpload = () => setFailFileUpload (true);
+  const onCloseFailFileUpload  = () => setFailFileUpload (false);
 
   //check to see if user logged in
   const RedirectMessage = useIfNotAuthenticated("Upload");
@@ -180,6 +185,11 @@ const UploadCard = () => {
             onCloseSuccessFileUpload();
           }, 5000);
           //empty input on succesful upload
+        }else if(uploadStatus.includes('Failure')){
+          onOpenFailFileUpload();
+          setTimeout(() => {
+            onCloseFailFileUpload();
+          }, 5000);
         }
         console.log("This is response on success",data);
       } else {
@@ -215,6 +225,21 @@ const UploadCard = () => {
           </div>
           <h2 className="font-bold">Upload Status</h2>
           <p>File upload success</p>
+        </center>
+      </Modal>
+      <Modal open={failFileUload} onClose={onCloseFailFileUpload}  classNames={{modal: 'customModal', overlay: 'customOverlay'}}>
+        <center>
+          <div style={{width: '10%'}}>
+            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50" xmlSpace="preserve" fill="#000000">
+              <g id="SVGRepo_iconCarrier">
+                <circle style={{ fill: '#D75A4A' }} cx="25" cy="25" r="25"></circle>
+                <polyline style={{fill: 'none', stroke: '#FFFFFF', strokeWidth: 2, strokeLinecap: 'round', strokeMiterlimit: 10,}} points="16,34 25,25 34,16 "></polyline> <polyline style={{ fill: 'none', stroke: '#FFFFFF', strokeWidth: 2, strokeLinecap: 'round', strokeMiterlimit: 10,}} points="16,16 25,25 34,34 "></polyline>
+              </g>
+            </svg>
+          </div>
+          <h2 className="font-bold">Upload Status</h2>
+          <p>Oooops... Upload failed. Try Again!</p>
+          <p>{uploadStatus}</p>
         </center>
       </Modal>
       <div className="form-group">
