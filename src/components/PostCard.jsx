@@ -1,22 +1,34 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { likePost, unlikePost } from "../redux/postSlice";
-//import { auth } from "../firebase/firebase";
+import FormInput from "./FormInput";
+import "../styles/UploadCard.css";
+import { auth } from "../firebase/firebase";
+import axios from "axios";
+import "react-responsive-modal/styles.css";
+import { Modal } from "react-responsive-modal";
 
-const PostCard = ({ url, size, title, postId, removeButton, likeButton }) => {
+const PostCard = ({
+  url,
+  size,
+  title,
+  postId,
+  removeButton,
+  likeButton,
+  userLikedPhotos,
+}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  //const userId = useSelector((state) => state.user.value.uid);
+  //useRef to hold the current user value
+  const userRef = useRef();
+  userRef.current = useSelector((state) => state.user.value);
 
-  const initialLikeStatus = () => {
-    //get the current like status from local storage
-    const savedLikeStatus = JSON.parse(localStorage.getItem(`likeStatus-${postId}`));
-    //returns if saved liked status is in localstorage (true) or false otherwise
-    return savedLikeStatus || false;
-  }
-  const [isLiked, setIsLiked] = useState(initialLikeStatus); 
+  // Get the likedPhotoIds from the Redux store
+  const likedPhotoIds = useSelector((state) => state.posts.likedPhotoIds);
+  console.log("likedPhotoIds", likedPhotoIds);
+
   let width = 25; //width
   let height = 250; //height
 
@@ -25,50 +37,26 @@ const PostCard = ({ url, size, title, postId, removeButton, likeButton }) => {
     height = height / 2;
   }
 
-  const userRef = useRef();
-  userRef.current = useSelector((state) => state.user.value);
-  //console.log(userRef.current);
-
   //triggered when the like button is clicked
   const toggleLike = () => {
+    console.log("Testing like and unlike");
 
     const userId = userRef.current.uid;
-    //console.log(userId);
 
-    //opposite of the current value 
-    const newLikeStatus = !isLiked;
-    setIsLiked(newLikeStatus);
-    //save this current status to localstorage
-    localStorage.setItem(`likeStatus-${postId}`, JSON.stringify(newLikeStatus));
+    // console.log(`Current isLiked: ${isLiked}`);
+    console.log(`Post ID: ${postId}`);
 
-    if (newLikeStatus) {
-      dispatch(likePost({postId: postId, userId: userId}));
+    if (likedPhotoIds.includes(postId)) {
+      dispatch(unlikePost({ postId: postId, userId: userId }));
     } else {
-      dispatch(unlikePost({postId: postId, userId: userId}));
+      dispatch(likePost({ postId: postId, userId: userId }));
     }
   };
 
-  // const toggleLikeFalse = () => {
-  //   setIsLiked(false);
-  // };
-
-  // const toggleLikeTrue = () => {
-  //   setIsLiked(true);
-  // };
-
-  //allows to navigate to single
+  // allows to navigate to single
   const handleViewClick = () => {
     navigate(`/photos/${postId}`); //add variable postID
   };
-  const handleViewClick2 = () => {
-    navigate(`/`); //add variable postID
-  };
-
-  //runs every time the "isLiked" state of the "postId" prop changes
-  useEffect(() => {
-    // When isLiked state changes, save it to localStorage
-    localStorage.setItem(`likeStatus-${postId}`, JSON.stringify(isLiked));
-  }, [isLiked, postId]);
 
   return (
     <center>
@@ -97,13 +85,13 @@ const PostCard = ({ url, size, title, postId, removeButton, likeButton }) => {
               {/* <p className="leftCentered">#Tags</p> */}
             </div>
           </div>
-          {removeButton && (
-            <button className="overlay-button" onClick={handleViewClick2}>
+          {/* {removeButton && (
+            <button className="overlay-button" onClick={userLikedPhotos ? toggleLike : handleRemovePhoto}>
               X
             </button>
-          )}
+          )} */}
           {likeButton &&
-            (isLiked ? (
+            (likedPhotoIds.includes(postId) ? (
               <button className="likeButton" onClick={toggleLike}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

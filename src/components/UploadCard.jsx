@@ -196,6 +196,7 @@ const UploadCard = () => {
           }, 5000);
         }
         console.log("This is response on success",data);
+        window.location.reload();
       } else {
         console.error("Couldn't save photo to database")
       }
@@ -246,11 +247,12 @@ const UploadCard = () => {
           <p>{uploadStatus}</p>
         </center>
       </Modal>
-      <div className="form-group">
-        <form className="form-group" onSubmit={handleSubmit}>
+        
+      <div className="form-group font-metrophobic text-lg">
+        <form className="form-group bg-[#dfd3d3]" onSubmit={handleSubmit}> 
           <center>
             <legend>
-              <h3>
+              <h3 className="font-merriweather text-3xl">
                 <b>Upload Image</b>
               </h3>
             </legend>
@@ -301,7 +303,7 @@ const UploadCard = () => {
 
           <div style={{position: "relative"}}>
             <button className="submitButton" type="submit" value="Submit">Submit</button>
-            {exifData?.Make === undefined? <div style={{position: "absolute", backgroundColor: "transparent", top: "0%", left: "0%", zIndex: 2 ,width: '100%', height: '100%'}}></div>: <div></div>}
+            {exifData?.Make === undefined? <div style={{position: "absolute", top: "0%", left: "0%", zIndex: 2 ,width: '100%', height: '100%'}}></div>: <div></div>}
           </div>
         </form>
         <div className="mt-6">
