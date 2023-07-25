@@ -1,19 +1,30 @@
 import React, { useEffect } from 'react';
 import PostCard from '../components/PostCard';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchPosts } from '../redux/postSlice';
+import { auth } from '../firebase/firebase';
+import { fetchPosts, fetchUserLikes } from '../redux/postSlice';
+
 
 export default function Home() {
   const dispatch = useDispatch();
   const postCardList = useSelector(state => state.posts.posts);
   const postStatus = useSelector(state => state.posts.status);
   const postError = useSelector(state => state.posts.error);
+  const userId = auth.currentUser?.uid
+
+
+  const loadData = async() => {
+   await dispatch(fetchPosts());
+   await dispatch(fetchUserLikes(userId))
+
+  }
 
   useEffect(() => {
-    if (postStatus === 'idle') {
-      dispatch(fetchPosts())
-    }
-  }, [postStatus, dispatch]);
+      // dispatch(fetchPosts());
+      // dispatch(fetchUserLikes(userId))
+      loadData();
+      //console.log("ndngjd");
+  }, [userId]);
 
   let content;
 
