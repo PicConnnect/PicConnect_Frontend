@@ -228,7 +228,7 @@ const UploadCard = () => {
           </center>
           <div className="formInput">
             <div className="imageInput">
-              <label for="upload"><CustomChooseFileButton fileName={fileName}></CustomChooseFileButton></label>
+              <label htmlFor="upload"><CustomChooseFileButton fileName={fileName}></CustomChooseFileButton></label>
               <input id="upload" type="file" name="image" accept="image/jpeg, image/png, image/heic" onChange={handleFileChange} style={{display:'none'}}/>
             </div>
           </div>
