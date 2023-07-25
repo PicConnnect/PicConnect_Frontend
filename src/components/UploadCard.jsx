@@ -12,6 +12,7 @@ import heic2any from 'heic2any';
 import { ProgressBar } from 'ms-react-progress-bar';
 import 'ms-react-progress-bar/dist/ProgressBar.css';
 import { useSelector } from "react-redux";
+import CustomChooseFileButton from "./CustomChooseFileButton";
 
 const UploadCard = () => {
   // Get the file upload progress from the Redux store
@@ -19,6 +20,8 @@ const UploadCard = () => {
   const fileUploadProgress = useSelector((state) => state.fileUploadProgress.progress);
   const uploadStatus = useSelector((state) => state.fileUploadProgress.uploadStatus);
 
+  //file name for custom upload
+  const [fileName, setFileName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [convertedImage, setConvertedImage] = useState(null);
   const [exifData, setExifData] = useState(null);
@@ -37,7 +40,7 @@ const UploadCard = () => {
   const onOpenModalNoMetadata = () => setOpenNoMetadata (true);
   const onCloseModalNoMetadata  = () => setOpenNoMetadata (false);
 
-  //toggle modal for when the file upload is a succes or not
+  //toggle modal for when the file upload is a succes
   const onOpenSuccessFileUpload = () => setSuccessFileUpload (true);
   const onCloseSuccessFileUpload  = () => setSuccessFileUpload (false);
 
@@ -51,8 +54,8 @@ const UploadCard = () => {
   const handleFileChange = async (event) => {
     //first file in the list
     const file = event.target.files[0];
-
     if (!file) return;
+    setFileName(file.name);
 
     //handle file conversion from heic to jpg
     if (file.type === "image/heic") {
@@ -68,6 +71,7 @@ const UploadCard = () => {
         const jpegFile = new File([jpegData], 'converted.jpg', { type: 'image/jpeg' });
         setImageUrl(URL.createObjectURL(jpegFile))
         setConvertedImage(jpegFile);
+        setFileName('converted.jpg');
         console.log('Conversion Time:', (endTime - startTime) / 1000, 'seconds');
       } catch (error) {
         setConversionInProgress(false);
@@ -224,12 +228,8 @@ const UploadCard = () => {
           </center>
           <div className="formInput">
             <div className="imageInput">
-              <input
-                type="file"
-                name="image"
-                accept="image/jpeg, image/png, image/heic"
-                onChange={handleFileChange}
-              />
+              <label for="upload"><CustomChooseFileButton fileName={fileName}></CustomChooseFileButton></label>
+              <input id="upload" type="file" name="image" accept="image/jpeg, image/png, image/heic" onChange={handleFileChange} style={{display:'none'}}/>
             </div>
           </div>
           {conversionInProgress && <p>Converting...</p>}
