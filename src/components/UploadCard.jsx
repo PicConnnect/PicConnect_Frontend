@@ -294,12 +294,12 @@ const UploadCard = () => {
             label="Location"
             name="location"
             value={inputValues.location}
-            onChange={handleInputChange}
+            onChange={handleInputChange} 
           />
 
           <div style={{position: "relative"}}>
             <button className="submitButton" type="submit" value="Submit">Submit</button>
-            {exifData?.Make === undefined? <div style={{position: "absolute", top: "0%", left: "0%", zIndex: 2 ,width: '100%', height: '100%'}}></div>: <div></div>}
+            {exifData?.Make === undefined || imageUrl === ""? <div style={{position: "absolute", top: "0%", left: "0%", zIndex: 2 ,width: '100%', height: '100%'}}></div>: <div></div>}
           </div>
         </form>
         <div className="mt-6">
