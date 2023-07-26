@@ -190,9 +190,9 @@ const UploadCard = () => {
         console.log("This is response on success",data);
       } else {
         //empty input on succesful upload
-        onOpenFailFileUpload();
+        onOpenFailFileUpload(true);
         setTimeout(() => {
-          onCloseFailFileUpload();
+          onCloseFailFileUpload(false);
         }, 5000);
         console.error("Couldn't save photo to database")
       }
