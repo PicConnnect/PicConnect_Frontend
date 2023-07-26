@@ -46,7 +46,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <nav className="p-4">
+        <nav className="p-4 font-merriweather">
           <ul className="flex justify-between font-bold">
             <li>
               <Link to="/" className="home-link">
