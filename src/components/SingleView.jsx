@@ -78,7 +78,7 @@ const SingleView = ({ url, title, author, Tags, description, cameraDetails, post
       <div>
         <div className="singleCard" style={{ width: "50rem" }}>
           <img
-            className="singleImage"
+            className="singleImage shadow-[5px_5px_5px_0px_rgba(142,_113,_142,_1)]"
             src={url}
             // className="card-img-top"
             alt="..."
