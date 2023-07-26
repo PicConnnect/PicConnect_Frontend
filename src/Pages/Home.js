@@ -39,10 +39,10 @@ export default function Home() {
   }
 
   return (
-    <div style={{marginBottom: '5%'}}>
-      <div className="cards">
-        {content}
-      </div>
+    <div className="p-5"> 
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+            {content}
+        </div>
     </div>
   );
 }
