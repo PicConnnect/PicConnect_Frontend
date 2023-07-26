@@ -179,7 +179,6 @@ const UploadCard = () => {
 
       if (response.ok) {
         const data = await response.json()
-        if(uploadStatus === 'success'){
           onOpenSuccessFileUpload();
           setTimeout(() => {
             onCloseSuccessFileUpload();
@@ -188,16 +187,13 @@ const UploadCard = () => {
           setFileName("");
           setImageUrl("");
           setphotoDetails("");
-          //empty input on succesful upload
-        }else if(uploadStatus.includes('Failure')){
-          onOpenFailFileUpload();
-          setTimeout(() => {
-            onCloseFailFileUpload();
-          }, 5000);
-        }
         console.log("This is response on success",data);
-        window.location.reload();
       } else {
+        //empty input on succesful upload
+        onOpenFailFileUpload(true);
+        setTimeout(() => {
+          onCloseFailFileUpload(false);
+        }, 5000);
         console.error("Couldn't save photo to database")
       }
     }
