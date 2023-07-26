@@ -78,13 +78,12 @@ const SingleView = ({ url, title, author, Tags, description, cameraDetails, post
       <div>
         <div className="singleCard" style={{ width: "50rem" }}>
           <img
-            className="singleImage shadow-[5px_5px_5px_0px_rgba(142,_113,_142,_1)]"
+            className="singleImage mb-4 shadow-[5px_5px_5px_0px_rgba(142,_113,_142,_1)]"
             src={url}
             // className="card-img-top"
             alt="..."
           />
           <div className="card-body font-metrophobic text-lg">
-            <p>{title}</p>
             <div className="singleViewBody">
               <p className="leftCentered">Author: {author}</p>
 
