@@ -248,11 +248,11 @@ const UploadCard = () => {
         </center>
       </Modal>
         
-      <div className="form-group font-metrophobic text-lg ">
-        <form className="form-group bg-[#dfd3d3] shadow-[0_10px_20px_rgba(103,_24,_24,_0.7)] ]" onSubmit={handleSubmit}> 
+      <div className="form-group font-metrophobic text-lg">
+        <form className="form-group bg-[#dfd3d3] p-12 m-5 rounded-xl inline-block shadow-[0_10px_20px_rgba(103,_24,_24,_0.7)] ]" onSubmit={handleSubmit}> 
           <center>
             <legend>
-              <h3 className="font-merriweather text-3xl">
+              <h3 className="font-merriweather text-3xl pb-3">
                 <b>Upload Image</b>
               </h3>
             </legend>
