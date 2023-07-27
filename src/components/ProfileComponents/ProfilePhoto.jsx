@@ -90,7 +90,7 @@ export default function ProfilePhoto() {
   };
 
   const handleFollowerClick = () => {
-    navigate(`/Follower`); // add variable postID
+    navigate(`/Follower/${auth.currentUser?.uid}`); // add variable userId
   };
 
   return (
