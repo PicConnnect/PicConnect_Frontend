@@ -6,7 +6,7 @@ const FollowingsList = () => {
   const [followingList, setFollowingList] = useState([]);
   const currentPath = window.location.pathname;
   const userId = currentPath.substring(currentPath.lastIndexOf("/") + 1);
-  const fetchFollowingList = () => axios.get(`http://localhost:8000/api/users/Following/${'firebase_user_id_1'}`).then((response) => {
+  const fetchFollowingList = () => axios.get(`http://localhost:8000/api/users/Following/${userId}`).then((response) => {
     if(response.status >= 200 && response.status < 300){
       console.log('Request was successful!');
       console.log('Response data:', response.data.following_id);
@@ -24,11 +24,11 @@ const FollowingsList = () => {
   },[])
   return (
     <div className=" mb-2  items-center justify-center p-2 border-solid border-2 border-gray-700" style={{ height:"100%", width:"100%"}}>
-      <h1 className="heading" style={{padding:"5px"}}>Following</h1>
+      <h1 className="heading" style={{padding:"5px"}}>{followingList.length > 0? 'Following': 'You are not following anyone.'}</h1>
       <div className="miniPosts" style={{height:"650px"}}>
         {
           followingList.map((usersFollowed) =>{
-            return <SingleFollowingComponent key={usersFollowed.id} data={usersFollowed}></SingleFollowingComponent>
+            return <SingleFollowingComponent key={usersFollowed.id} data={usersFollowed} currentUserId={userId} fetchFollowingList={fetchFollowingList}></SingleFollowingComponent>
           })
         }
       </div>
