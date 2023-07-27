@@ -24,7 +24,7 @@ const FollowingsList = () => {
   },[])
   return (
     <div className=" mb-2  items-center justify-center p-2 border-solid border-2 border-gray-700" style={{ height:"100%", width:"100%"}}>
-      <h1 className="heading" style={{padding:"5px"}}>{followingList.length > 0? 'Following': 'You are not following anyone.'}</h1>
+      <h1 className="heading" style={{padding:"5px"}}>{followingList.length > 0? `Following ${followingList.length}`: 'You are not following anyone.'}</h1>
       <div className="miniPosts" style={{height:"650px"}}>
         {
           followingList.map((usersFollowed) =>{
