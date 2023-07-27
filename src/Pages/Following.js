@@ -1,7 +1,7 @@
 import React from "react";
 import { useIfNotAuthenticated } from "../hooks/useIfNotAuthenticated";
 import { useAuth } from "../hooks/useAuth";
-import Followings from "../components/ProfileComponents/Following";
+import FollowingsList from "../components/Follows/Following/FollowingsList";
 
 export default function Following({ follower }) {
   follower = false;
@@ -18,7 +18,7 @@ export default function Following({ follower }) {
     >
       <div style={{ width: "40%" }}>
           <div style={{ width: "100%" }}>
-            <Followings />
+            <FollowingsList/>
           </div>
       </div>
     </div>
