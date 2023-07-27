@@ -15,8 +15,8 @@ export default function ViewPost() {
       await axios
         .get(`http://localhost:8000/api/photos/${currentId}`)
         .then((response) => {
+          console.log("This is postcard Data: ",postCardData);
           setPostCardData(response.data);
-          console.log(postCardData);
         });
     } catch (error) {
       console.log(error);
@@ -38,9 +38,7 @@ export default function ViewPost() {
     <div>
       <h1 className="heading font-merriweather text-xl">{postCardData.title}</h1>
       <SingleView
-        url={postCardData.urls}
-        author={postCardData?.user?.name}
-        description={postCardData.description}
+        postcard={postCardData}
         postId={currentId}
         userId={postCardData?.user?.id}
       />
