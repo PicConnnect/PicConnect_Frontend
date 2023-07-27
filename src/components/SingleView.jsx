@@ -6,15 +6,26 @@ import { useNavigate, useParams } from "react-router-dom";
 
 let socket = null;
 
-const SingleView = ({ url, title, author, Tags, description, cameraDetails, userId, postId }) => {
+const SingleView = ({ postcard, userId, postId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const post = useSelector(state => state.posts.currentPost); // this depends on where the fetched post data is stored in your state
   console.log(post);
   const likesCount = post ? post.likesCount : 0;
-  console.log(likesCount)
+  console.log(likesCount);
+  console.log("in another page pc",postcard);
+  console.log("author name", postcard.user?.about);
+  console.log("total", postcard.tags?.length);
 
+  const url = postcard.urls;
+  const allTags = [];
+  if(postcard.tags && postcard.tags.length > 0) {
+    postcard.tags.map((eachTag) => {
+      allTags.push(eachTag.tag_name)
+    });
+  };
 
+  console.log("This is all tags",allTags);
   
   //const socket = io("http://localhost:8000", { withCredentials: true });
   const [comments, setComments] = useState([]); //state to hold comments
@@ -89,6 +100,10 @@ const SingleView = ({ url, title, author, Tags, description, cameraDetails, user
     setCurrentComment(event.target.value);
   };
 
+  const handleTagClick = (tag) => {
+    console.log("Clicked this ",tag)
+  };
+
   return (
     <center>
       <div>
@@ -102,12 +117,18 @@ const SingleView = ({ url, title, author, Tags, description, cameraDetails, user
           <div className="card-body font-metrophobic text-lg">
             <div className="singleViewBody">
 
-              <p className="leftCentered">Author: {author}</p>
+              <p className="leftCentered">Author: {postcard.user?.name}</p>
 
-              <p className="leftCentered">#Tags</p>
-              <p className="leftCentered">{description}</p>
               <p className="leftCentered">
-                Camera Details: filters, settings, etc
+                {allTags.map((tag, index) => <a href="#" onClick={() => handleTagClick(tag)}>#{tag} </a>)}
+              </p>
+              <p className="leftCentered">{postcard.description}</p>
+              <p className="leftCentered">
+                Camera: {postcard.camera_detail?.make} {postcard.camera_detail?.model} <br/>
+                Focal length: {postcard.camera_detail?.focal_length}mm<br/>
+                Aperture: {postcard.camera_detail?.aperture}<br/>
+                Exposure: {postcard.camera_detail?.exposure_time}s<br/>
+                ISO: {postcard.camera_detail?.iso}<br/>
               </p>
 
               <p className="leftCentered">Location - google map api?</p>
