@@ -1,7 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { updateUserNameInBackend } from "../../redux/userSlice";
 
 export default function AboutComponent() {
+  const displayName = useSelector((state) => state.user.value.displayName);
   const [isEditing, setIsEditing] = useState(false);
+  const dispatch = useDispatch();
+  const userId = useSelector(state => state.user.value.uid);
+
+  useEffect(() => {
+    if(displayName) {
+      setItems(items => {
+        items[0] = displayName;
+        return items;
+      });
+    }
+  }, [displayName]);
+
+  
   const [items, setItems] = useState([
     "Name",
     "2023-01-01",
@@ -40,6 +56,8 @@ export default function AboutComponent() {
     "tel",
   ]);
 
+  
+
   const handleInputChange = (index, event) => {
     const updatedItems = [...items];
     updatedItems[index] = event.target.value;
@@ -67,8 +85,10 @@ export default function AboutComponent() {
 
     if (isValid) {
       setIsEditing(false);
-      // Proceed with saving the changes
-      // ...
+          // If the name has changed, update it in the backend
+    if (items[0] !== initialItems[0]) {
+      dispatch(updateUserNameInBackend(userId, items[0]));
+    }
     } else {
       // Show an error message or handle invalid inputs
       console.log("Invalid inputs");
