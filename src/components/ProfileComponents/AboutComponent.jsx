@@ -1,19 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
 
 export default function AboutComponent() {
-  const displayName = useSelector(state => state.user.value.displayName);
   const [isEditing, setIsEditing] = useState(false);
-
-  useEffect(() => {
-    if(displayName) {
-      setItems(items => {
-        items[0] = displayName;
-        return items;
-      });
-    }
-  }, [displayName]);
-
   const [items, setItems] = useState([
     "Name",
     "2023-01-01",
