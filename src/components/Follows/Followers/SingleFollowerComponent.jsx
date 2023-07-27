@@ -1,6 +1,6 @@
 import React from "react";
 
-const Follower = (props) => {
+const SingleFollowerComponent = (props) => {
   return (
     <div>
       <div className="followerContainer">
@@ -21,4 +21,4 @@ const Follower = (props) => {
   );
 };
 
-export default Follower;
+export default SingleFollowerComponent;
