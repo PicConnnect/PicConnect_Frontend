@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { likePost, unlikePost } from "../redux/postSlice";
+import { useAuth } from "../hooks/useAuth";
 import FormInput from "./FormInput";
 import "../styles/UploadCard.css";
 import "../styles/PostCard.css";
@@ -29,6 +30,9 @@ const PostCard = ({
   // Get the likedPhotoIds from the Redux store
   const likedPhotoIds = useSelector((state) => state.posts.likedPhotoIds);
   console.log("likedPhotoIds", likedPhotoIds);
+
+  // Use the useAuth hook to get the current user
+  const user = useAuth();
 
   let width = 25; //width
   let height = 250; //height
@@ -91,7 +95,7 @@ const PostCard = ({
               X
             </button>
           )} */}
-          {likeButton &&
+          {likeButton && user &&
             (likedPhotoIds.includes(postId) ? (
               <button className="likeButton" onClick={toggleLike}>
                 <svg
