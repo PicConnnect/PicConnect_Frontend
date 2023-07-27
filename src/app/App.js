@@ -15,7 +15,7 @@ import SignUp from "./../Pages/SignUp";
 import ViewPost from "../Pages/ViewPost";
 import Footer from "../components/Footer";
 import UsersPhoto from "../components/UsersPhoto";
-import FollowerPage from "./../Pages/FollowerPage"
+import Follower from "./../Pages/Follower"
 
 function App() {
   const dispatch = useDispatch();
@@ -73,7 +73,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home></Home>}></Route>
           <Route path="/Following" element={<Following></Following>}></Route>
-          <Route path="/Follower" element={<FollowerPage></FollowerPage>}></Route>
+          <Route path="/Follower" element={<Follower></Follower>}></Route>
           <Route path="/Upload" element={<Upload></Upload>}></Route>
           <Route path="/Profile/:userId" element={<UsersPhoto />}></Route>
           <Route path="/Profile" element={<Profile></Profile>}></Route>
