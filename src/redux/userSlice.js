@@ -6,7 +6,7 @@ export const updateUserNameInBackend = createAsyncThunk(
     try {
       const { userId, newName } = payload;
       const response = await fetch(
-        `http://localhost:8000/api/users/${userId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}`,
         {
           method: "PUT",
           headers: {
@@ -32,7 +32,7 @@ export const updateUserNameInBackend = createAsyncThunk(
 //   'user/fetchUserData',
 //   async (userId, { rejectWithValue }) => {
 //     try {
-//       const response = await fetch(`http://localhost:8000/api/users/${userId}`);
+//       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}`);
 //       if (!response.ok) {
 //         throw new Error('Server Error');
 //       }
@@ -68,15 +68,15 @@ export const userSlice = createSlice({
       .addCase(updateUserNameInBackend.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
-      })
-      // .addCase(fetchUserData.fulfilled, (state, action) => {
-      //   state.status = 'succeeded';
-      //   state.value = action.payload;
-      // })
-      // .addCase(fetchUserData.rejected, (state, action) => {
-      //   state.status = 'failed';
-      //   state.error = action.payload;
-      // });
+      });
+    // .addCase(fetchUserData.fulfilled, (state, action) => {
+    //   state.status = 'succeeded';
+    //   state.value = action.payload;
+    // })
+    // .addCase(fetchUserData.rejected, (state, action) => {
+    //   state.status = 'failed';
+    //   state.error = action.payload;
+    // });
   },
 });
 

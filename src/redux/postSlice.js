@@ -1,33 +1,42 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 // Asynchronous fetch posts function
-export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
-  const response = await axios.get("http://localhost:8000/api/photos");
+export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
+  const response = await axios.get(
+    `${process.env.REACT_APP_BACKEND_URL}/api/photos`
+  );
   return response.data;
 });
 
-export const fetchSinglePost = createAsyncThunk('posts/fetchSinglePost', async (postId) => {
-  const response = await axios.get(`http://localhost:8000/api/photos/${postId}`);
-  return response.data;
-} )
+export const fetchSinglePost = createAsyncThunk(
+  "posts/fetchSinglePost",
+  async (postId) => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/photos/${postId}`
+    );
+    return response.data;
+  }
+);
 
 //get the initial set of liked photos from the server
-export const fetchUserLikes = createAsyncThunk('posts/fetchUserLikes', async(userId) => {
-  const response = await axios.get(`http://localhost:8000/api/users/${userId}/likes`);
-  // return response.data.map((like) => like.photoId);
-  console.log(response.data);
- return response.data;
-
-})
-
-
+export const fetchUserLikes = createAsyncThunk(
+  "posts/fetchUserLikes",
+  async (userId) => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}/likes`
+    );
+    // return response.data.map((like) => like.photoId);
+    console.log(response.data);
+    return response.data;
+  }
+);
 
 export const likePost = createAsyncThunk(
   "posts/likePost",
   async ({ postId, userId }) => {
     const response = await axios.post(
-      `http://localhost:8000/api/photos/${postId}/like`,
+      `${process.env.REACT_APP_BACKEND_URL}/api/photos/${postId}/like`,
       { userId }
     );
     console.log(`Liked post response: ${JSON.stringify(response.data)}`);
@@ -44,23 +53,22 @@ export const unlikePost = createAsyncThunk(
   "posts/unlikePost",
   async ({ postId, userId }) => {
     const response = await axios.delete(
-      `http://localhost:8000/api/photos/${postId}/unlike`,
+      `${process.env.REACT_APP_BACKEND_URL}/api/photos/${postId}/unlike`,
       { data: { userId } }
     );
     console.log(`Unliked post response: ${JSON.stringify(response.data)}`);
-    return {photoId: postId};
+    return { photoId: postId };
     // return { photoId: postId, userId };
-    
   }
 );
 
 const postSlice = createSlice({
-  name: 'posts',
+  name: "posts",
   initialState: {
     posts: [],
-    status: 'idle',
+    status: "idle",
     error: null,
-    likedPhotoIds: [], 
+    likedPhotoIds: [],
     currentPost: {},
     // likesStatus: 'idle', //loading state for likes
     // likesError: null,
@@ -72,11 +80,11 @@ const postSlice = createSlice({
       //   state.status = 'loading';
       // })
       .addCase(fetchPosts.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.status = "succeeded";
         state.posts = action.payload;
       })
       .addCase(fetchPosts.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = "failed";
         state.error = action.error.message;
       })
 
@@ -86,17 +94,16 @@ const postSlice = createSlice({
 
       .addCase(fetchUserLikes.fulfilled, (state, action) => {
         // Initialize likedPhotoIds with the ids of the liked photos
-        state.likedPhotoIds = action.payload.map(photo => photo.id);
+        state.likedPhotoIds = action.payload.map((photo) => photo.id);
         // // Always replace likedPhotoIds with a new array
         // state.likedPhotoIds = action.payload;
-
       })
 
       .addCase(fetchUserLikes.rejected, (state, action) => {
-        state.likesStatus = 'failed';
+        state.likesStatus = "failed";
         state.likesError = action.error.message;
       })
-      
+
       .addCase(likePost.fulfilled, (state, action) => {
         // // Add to likedPhotoIds array
         // state.likedPhotoIds = [...state.likedPhotoIds, action.payload.photoId];
@@ -109,12 +116,13 @@ const postSlice = createSlice({
         // state.likedPhotoIds = state.likedPhotoIds.filter(
         //   (photoId) => photoId !== action.payload.photoId
         // );
-        state.likedPhotoIds = state.likedPhotoIds.filter(photoId => photoId !== action.payload.photoId);
+        state.likedPhotoIds = state.likedPhotoIds.filter(
+          (photoId) => photoId !== action.payload.photoId
+        );
       })
       .addCase(fetchSinglePost.fulfilled, (state, action) => {
-        state.currentPost = action.payload; 
-      })
-      
+        state.currentPost = action.payload;
+      });
   },
 });
 

@@ -1,34 +1,34 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from "react-redux";
 import { fetchSinglePost } from "../redux/postSlice";
 import io from "socket.io-client";
 import { useNavigate, useParams } from "react-router-dom";
-import { useIfNotAuthenticated } from "../hooks/useIfNotAuthenticated"
+import { useIfNotAuthenticated } from "../hooks/useIfNotAuthenticated";
 
 let socket = null;
 
 const SingleView = ({ postcard, userId, postId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const post = useSelector(state => state.posts.currentPost); // this depends on where the fetched post data is stored in your state
+  const post = useSelector((state) => state.posts.currentPost); // this depends on where the fetched post data is stored in your state
   console.log(post);
   const likesCount = post ? post.likesCount : 0;
   console.log(likesCount);
-  console.log("in another page pc",postcard);
+  console.log("in another page pc", postcard);
   console.log("author name", postcard.user?.about);
   console.log("total", postcard.tags?.length);
 
   const url = postcard.urls;
   const allTags = [];
-  if(postcard.tags && postcard.tags.length > 0) {
+  if (postcard.tags && postcard.tags.length > 0) {
     postcard.tags.map((eachTag) => {
-      allTags.push(eachTag.tag_name)
+      allTags.push(eachTag.tag_name);
     });
-  };
+  }
 
-  console.log("This is all tags",allTags);
-  
-  //const socket = io("http://localhost:8000", { withCredentials: true });
+  console.log("This is all tags", allTags);
+
+  //const socket = io("${process.env.REACT_APP_BACKEND_URL}", { withCredentials: true });
   const [comments, setComments] = useState([]); //state to hold comments
   const [currentComment, setCurrentComment] = useState(""); // state to hold current comment input
 
@@ -36,12 +36,12 @@ const SingleView = ({ postcard, userId, postId }) => {
     dispatch(fetchSinglePost(postId));
   }, [postId, dispatch]);
 
-
-
   useEffect(() => {
     if (socket == null) {
       //uncommented this if statement
-      socket = io("http://localhost:8000", { withCredentials: true });
+      socket = io(`${process.env.REACT_APP_BACKEND_URL}`, {
+        withCredentials: true,
+      });
     }
     return () => {
       console.log("Disconnecting socket...");
@@ -84,7 +84,6 @@ const SingleView = ({ postcard, userId, postId }) => {
     return RedirectMessage;
   }
 
-
   //navigate to home page
   const handleBackClick = () => {
     navigate(`/`);
@@ -108,7 +107,7 @@ const SingleView = ({ postcard, userId, postId }) => {
   };
 
   const handleTagClick = (tag) => {
-    console.log("Clicked this ",tag)
+    console.log("Clicked this ", tag);
   };
 
   return (
@@ -123,19 +122,26 @@ const SingleView = ({ postcard, userId, postId }) => {
           />
           <div className="card-body font-metrophobic text-lg">
             <div className="singleViewBody">
-
               <p className="leftCentered">Author: {postcard.user?.name}</p>
 
               <p className="leftCentered">
-                {allTags.map((tag, index) => <a href="#" onClick={() => handleTagClick(tag)}>#{tag} </a>)}
+                {allTags.map((tag, index) => (
+                  <a href="#" onClick={() => handleTagClick(tag)}>
+                    #{tag}{" "}
+                  </a>
+                ))}
               </p>
               <p className="leftCentered">{postcard.description}</p>
               <p className="leftCentered">
-                Camera: {postcard.camera_detail?.make} {postcard.camera_detail?.model} <br/>
-                Focal length: {postcard.camera_detail?.focal_length}mm<br/>
-                Aperture: {postcard.camera_detail?.aperture}<br/>
-                Exposure: {postcard.camera_detail?.exposure_time}s<br/>
-                ISO: {postcard.camera_detail?.iso}<br/>
+                Camera: {postcard.camera_detail?.make}{" "}
+                {postcard.camera_detail?.model} <br />
+                Focal length: {postcard.camera_detail?.focal_length}mm
+                <br />
+                Aperture: {postcard.camera_detail?.aperture}
+                <br />
+                Exposure: {postcard.camera_detail?.exposure_time}s<br />
+                ISO: {postcard.camera_detail?.iso}
+                <br />
               </p>
 
               <p className="leftCentered">Location - google map api?</p>

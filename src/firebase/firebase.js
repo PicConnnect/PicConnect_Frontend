@@ -15,7 +15,6 @@ const firebaseConfig = {
   measurementId: "G-FJSP2Y5T1F",
 };
 
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
@@ -27,13 +26,16 @@ const googleProvider = new GoogleAuthProvider();
 //send firebase id token to backend server
 export const sendTokenToBackend = async (idToken) => {
   try {
-    const response = await fetch("http://localhost:8000/api/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + idToken,
-      },
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/api/auth/register`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + idToken,
+        },
+      }
+    );
     const data = await response.json();
     console.log(data);
   } catch (error) {
