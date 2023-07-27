@@ -38,7 +38,8 @@ const PostCard = ({
   }
 
   //triggered when the like button is clicked
-  const toggleLike = () => {
+  const toggleLike = (event) => {
+    event.stopPropagation();
     console.log("Testing like and unlike");
 
     const userId = userRef.current.uid;
