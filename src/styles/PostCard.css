@@ -1,4 +1,4 @@
-.card-container {
+ .card-container {
     position: relative;
   }
   
@@ -18,11 +18,11 @@
     right: 0;
     opacity: 0;
     transition: opacity 0.3s ease;
-    background-color: rgba(0, 0, 0, 0.5); /* Adjust as needed */
-    padding: 10px; /* Adjust as needed */
+    background-color: rgba(0, 0, 0, 0.5); 
+    padding: 10px; 
   }
   
   .card-content:hover .like-button-container {
     opacity: 1;
   }
-  
+   
