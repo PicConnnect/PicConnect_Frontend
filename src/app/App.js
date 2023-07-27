@@ -73,7 +73,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home></Home>}></Route>
           <Route path="/Following/:userId" element={<Following></Following>}></Route>
-          <Route path="/Follower" element={<Follower></Follower>}></Route>
+          <Route path="/Follower/:userId" element={<Follower></Follower>}></Route>
           <Route path="/Upload" element={<Upload></Upload>}></Route>
           <Route path="/Profile/:userId" element={<UsersPhoto />}></Route>
           <Route path="/Profile" element={<Profile></Profile>}></Route>
