@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebase/firebase";
-import { uploadToStorage } from "../../utils/firebaseUtils"
+import { uploadToStorage } from "../../utils/firebaseUtils";
 
 export default function ProfilePhoto() {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ export default function ProfilePhoto() {
     const fetchProfilePic = async () => {
       console.log("Current User ID: ", auth.currentUser?.uid);
       const response = await fetch(
-        `http://localhost:8000/api/users/${auth.currentUser?.uid}`
+        `${process.env.REACT_APP_BACKEND_URL}/api/users/${auth.currentUser?.uid}`
       );
       const user = await response.json();
       setImageUrl(user.profilePicUrl);
@@ -42,7 +42,7 @@ export default function ProfilePhoto() {
 
       // Call backend API to save image URL
       const response = await fetch(
-        "http://localhost:8000/api/users/profile-picture",
+        `${process.env.REACT_APP_BACKEND_URL}/api/users/profile-picture`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

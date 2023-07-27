@@ -13,9 +13,9 @@ export default function ViewPost() {
   const fetchPostCardData = async () => {
     try {
       await axios
-        .get(`http://localhost:8000/api/photos/${currentId}`)
+        .get(`${process.env.REACT_APP_BACKEND_URL}/api/photos/${currentId}`)
         .then((response) => {
-          console.log("This is postcard Data: ",postCardData);
+          console.log("This is postcard Data: ", postCardData);
           setPostCardData(response.data);
         });
     } catch (error) {
@@ -27,16 +27,17 @@ export default function ViewPost() {
     fetchPostCardData();
   }, []);
 
-    // Check if the user is authenticated
-    const RedirectMessage = useIfNotAuthenticated("SingleView");
-    if (RedirectMessage) {
-      return RedirectMessage;
-    }
-  
+  // Check if the user is authenticated
+  const RedirectMessage = useIfNotAuthenticated("SingleView");
+  if (RedirectMessage) {
+    return RedirectMessage;
+  }
 
   return (
     <div>
-      <h1 className="heading font-merriweather text-xl">{postCardData.title}</h1>
+      <h1 className="heading font-merriweather text-xl">
+        {postCardData.title}
+      </h1>
       <SingleView
         postcard={postCardData}
         postId={currentId}

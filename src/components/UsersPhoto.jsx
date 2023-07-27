@@ -10,7 +10,7 @@ export default function UsersPhoto({ userId }) {
   useEffect(() => {
     const fetchPhotos = async () => {
       const response = await fetch(
-        `http://localhost:8000/api/photos/user/${userId}`
+        `${process.env.REACT_APP_BACKEND_URL}/api/photos/user/${userId}`
       );
       if (!response.ok) {
         console.log("Response:", response);
