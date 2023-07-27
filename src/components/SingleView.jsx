@@ -1,14 +1,30 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchSinglePost } from "../redux/postSlice";
 import io from "socket.io-client";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 let socket = null;
 
-const SingleView = ({ url, title, author, Tags, description, cameraDetails, postId, userId }) => {
+const SingleView = ({ url, title, author, Tags, description, cameraDetails, userId, postId }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const post = useSelector(state => state.posts.currentPost); // this depends on where the fetched post data is stored in your state
+  console.log(post);
+  const likesCount = post ? post.likesCount : 0;
+  console.log(likesCount)
+
+
+  
   //const socket = io("http://localhost:8000", { withCredentials: true });
   const [comments, setComments] = useState([]); //state to hold comments
   const [currentComment, setCurrentComment] = useState(""); // state to hold current comment input
+
+  useEffect(() => {
+    dispatch(fetchSinglePost(postId));
+  }, [postId, dispatch]);
+
+
 
   useEffect(() => {
     if (socket == null) {
@@ -85,6 +101,7 @@ const SingleView = ({ url, title, author, Tags, description, cameraDetails, post
           />
           <div className="card-body font-metrophobic text-lg">
             <div className="singleViewBody">
+
               <p className="leftCentered">Author: {author}</p>
 
               <p className="leftCentered">#Tags</p>
@@ -94,6 +111,7 @@ const SingleView = ({ url, title, author, Tags, description, cameraDetails, post
               </p>
 
               <p className="leftCentered">Location - google map api?</p>
+              <p className="leftCentered">Likes: {post.likesCount}</p>
               <form onSubmit={handleNewComment}>
                 <input
                   type="text"
