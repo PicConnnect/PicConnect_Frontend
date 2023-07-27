@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { fetchSinglePost } from "../redux/postSlice";
 import io from "socket.io-client";
 import { useNavigate, useParams } from "react-router-dom";
+import { useIfNotAuthenticated } from "../hooks/useIfNotAuthenticated"
 
 let socket = null;
 
@@ -66,6 +67,12 @@ const SingleView = ({ url, title, author, Tags, description, cameraDetails, user
     //   socket.disconnect(); // Disconnect the socket
     // }
   }, [postId]);
+
+  const RedirectMessage = useIfNotAuthenticated("SingleView");
+  if (RedirectMessage) {
+    return RedirectMessage;
+  }
+
 
   //navigate to home page
   const handleBackClick = () => {
