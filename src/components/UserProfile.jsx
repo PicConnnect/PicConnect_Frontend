@@ -10,8 +10,6 @@ import ProfilePhoto from "./ProfileComponents/ProfilePhoto";
 import BadgeComponent from "./ProfileComponents/BadgeComponent";
 import AboutComponent from "./ProfileComponents/AboutComponent";
 import SignOutButtonComponent from "./ProfileComponents/SignOutButtonComponent";
-import Followers from "./ProfileComponents/Followers";
-import Following from "./ProfileComponents/Following";
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -39,10 +37,6 @@ const UserProfile = () => {
           handleLogout={handleLogout}
         ></SignOutButtonComponent>
       </div>
-      {/* <div className="middleContainer">
-        <Followers />
-        <Following />
-      </div> */}
       
       <div className="rightContainer">
         <div>

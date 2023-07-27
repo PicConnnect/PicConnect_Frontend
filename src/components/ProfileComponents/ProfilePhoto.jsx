@@ -86,11 +86,11 @@ export default function ProfilePhoto() {
   };
 
   const handleFollowingClick = () => {
-    navigate(`/Following`); // add variable postID
+    navigate(`/Following/${auth.currentUser?.uid}`); // add variable userId
   };
 
   const handleFollowerClick = () => {
-    navigate(`/Follower`); // add variable postID
+    navigate(`/Follower/${auth.currentUser?.uid}`); // add variable userId
   };
 
   return (
