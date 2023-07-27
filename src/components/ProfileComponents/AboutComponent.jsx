@@ -1,41 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { updateUserNameInBackend } from "../../redux/userSlice";
 
 export default function AboutComponent() {
+  const displayName = useSelector((state) => state.user.value.displayName);
   const [isEditing, setIsEditing] = useState(false);
+  const dispatch = useDispatch();
+  const userId = useSelector(state => state.user.value.uid);
+
+  useEffect(() => {
+    if(displayName) {
+      setItems(items => {
+        items[0] = displayName;
+        return items;
+      });
+    }
+  }, [displayName]);
+
+  
   const [items, setItems] = useState([
-    "First",
-    "Last",
+    "Name",
     "2023-01-01",
     "mail@gmail.com",
     "123-456-7890",
-    "Ave",
 
   ]);
   const [itemsName, setItemsName] = useState([
-    "First Name",
-    "Last Name",
+    "Name",
     "Birthday",
     "Email",
     "Number",
-    "Address",
 
   ]);
   const [inputPatterns, setInputPatterns] = useState([
     "[A-Za-zs]+",
-    "[A-Za-zs]+",
     "\\d{4}-\\d{2}-\\d{2}",
     "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}",
     "[0-9]{3}-[0-9]{3}-[0-9]{4}",
-    "[A-Za-z0-9s.,'-]+",
   ]);
 
   const [patternString, setPatternStrings] = useState([
     "Xxx+",
-    "Xxx+",
     "YYYY-MM-DD",
     "xxxxxx@xmail.com",
     "XXX-XXX-XXXX",
-    "ADDRESS",
   ]);
 
   const [initialItems, setInitialItems] = useState([...items]);
@@ -46,8 +54,9 @@ export default function AboutComponent() {
     "date",
     "email",
     "tel",
-    "text",
   ]);
+
+  
 
   const handleInputChange = (index, event) => {
     const updatedItems = [...items];
@@ -76,8 +85,10 @@ export default function AboutComponent() {
 
     if (isValid) {
       setIsEditing(false);
-      // Proceed with saving the changes
-      // ...
+          // If the name has changed, update it in the backend
+    if (items[0] !== initialItems[0]) {
+      dispatch(updateUserNameInBackend(userId, items[0]));
+    }
     } else {
       // Show an error message or handle invalid inputs
       console.log("Invalid inputs");

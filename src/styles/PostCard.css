@@ -24,9 +24,6 @@
     justify-content: center;
   }
 
-  .singleCard img {
-    border: 2px solid black;
-  }
 
   .card {
     margin: 10px;
