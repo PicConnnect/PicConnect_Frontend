@@ -7,6 +7,11 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
   return response.data;
 });
 
+export const fetchSinglePost = createAsyncThunk('posts/fetchSinglePost', async (postId) => {
+  const response = await axios.get(`http://localhost:8000/api/photos/${postId}`);
+  return response.data;
+} )
+
 //get the initial set of liked photos from the server
 export const fetchUserLikes = createAsyncThunk('posts/fetchUserLikes', async(userId) => {
   const response = await axios.get(`http://localhost:8000/api/users/${userId}/likes`);
@@ -56,6 +61,7 @@ const postSlice = createSlice({
     status: 'idle',
     error: null,
     likedPhotoIds: [], 
+    currentPost: {},
     // likesStatus: 'idle', //loading state for likes
     // likesError: null,
   },
@@ -105,6 +111,10 @@ const postSlice = createSlice({
         // );
         state.likedPhotoIds = state.likedPhotoIds.filter(photoId => photoId !== action.payload.photoId);
       })
+      .addCase(fetchSinglePost.fulfilled, (state, action) => {
+        state.currentPost = action.payload; 
+      })
+      
   },
 });
 
