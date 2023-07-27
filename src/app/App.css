@@ -30,14 +30,14 @@
 
 /* .cardButton {
   z-index: -1;
-} */
+}
 
-/* .cardButton:hover {
+.cardButton:hover {
   background-color: #bbc6cd7d;
   border-radius: 1%;
-} */
+}
 
-/* .cardButton:active {
+.cardButton:active {
   background-color: #bbc6cdb6;
   border-radius: 1%;
 } */
@@ -48,7 +48,7 @@
 }
 
 /* .mainImage {
-   border-radius: 1%; 
+  border-radius: 1%; 
   object-fit: cover;
   width: 100%;
 } */
@@ -126,8 +126,8 @@
   margin: 10px;
   border: 2px solid black;
   border-radius: 3px;
-} */
-/* .card:hover .overlay-button {
+}
+.card:hover .overlay-button {
   opacity: 1;
 } */
 
@@ -464,17 +464,16 @@
   color: #0008fb;
 }
 
-/* Formating button
-.likeButton {
-  position: absolute;  Position the overlay button relative to the container 
+/* .likeButton {
+  position: absolute; 
   bottom: 0;
   right: 0;
   padding-right: 2px;
-  cursor: pointer;  Show the pointer cursor when hovering over the button 
-} */
+  cursor: pointer;  
+} 
 
-/* Styling button */
-/* .likeButton {
+
+.likeButton {
   z-index: 1;
 } */
 

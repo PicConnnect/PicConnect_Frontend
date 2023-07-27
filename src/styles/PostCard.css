@@ -1,28 +1,52 @@
- .card-container {
-    position: relative;
+.cardButton {
+    z-index: -1;
   }
   
-  .card-content {
-    position: relative;
+  .cardButton:hover {
+    background-color: #bbc6cd7d;
+    border-radius: 1%;
   }
   
-  .card-img {
-    display: block;
+  .cardButton:active {
+    background-color: #bbc6cdb6;
+    border-radius: 1%;
+  }
+
+  .mainImage {
+    /* border-radius: 1%;  */
+    object-fit: cover;
     width: 100%;
-    height: auto;
   }
-  
-  .like-button-container {
-    position: absolute;
-    top: 0;
-    right: 0;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    background-color: rgba(0, 0, 0, 0.5); 
-    padding: 10px; 
+
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
-  
-  .card-content:hover .like-button-container {
+
+  .singleCard img {
+    border: 2px solid black;
+  }
+
+  .card {
+    margin: 10px;
+    border: 2px solid black;
+    border-radius: 3px;
+  }
+  .card:hover .overlay-button {
     opacity: 1;
   }
-   
+
+  .likeButton {
+    position: absolute; 
+    bottom: 0;
+    right: 0;
+    padding-right: 2px;
+    cursor: pointer;  
+  } 
+  
+  /* Styling button */
+  .likeButton {
+    z-index: 1;
+  }
+  

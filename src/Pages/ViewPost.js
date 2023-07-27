@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SingleView from "../components/SingleView";
+import { useIfNotAuthenticated } from "../hooks/useIfNotAuthenticated";
 import Footer from "../components/Footer";
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -25,6 +26,13 @@ export default function ViewPost() {
   useEffect(() => {
     fetchPostCardData();
   }, []);
+
+    // Check if the user is authenticated
+    const RedirectMessage = useIfNotAuthenticated("SingleView");
+    if (RedirectMessage) {
+      return RedirectMessage;
+    }
+  
 
   return (
     <div>
