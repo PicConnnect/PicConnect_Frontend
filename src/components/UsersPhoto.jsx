@@ -7,20 +7,21 @@ export default function UsersPhoto({ userId }) {
 
   //console.log("userId from useParams:", userId);
 
+  const fetchPhotos = async () => {
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/api/photos/user/${userId}`
+    );
+    if (!response.ok) {
+      console.log("Response:", response);
+      throw new Error("Failed to fetch photos");
+    }
+    const data = await response.json();
+    setPhotos(data);
+  };
+
   useEffect(() => {
-    const fetchPhotos = async () => {
-      const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/api/photos/user/${userId}`
-      );
-      if (!response.ok) {
-        console.log("Response:", response);
-        throw new Error("Failed to fetch photos");
-      }
-      const data = await response.json();
-      setPhotos(data);
-    };
     fetchPhotos();
-  }, [userId]);
+  }, [fetchPhotos, userId]);
   console.log(photos);
   return (
     <div className="usersPhotos border-solid border-2 border-gray-700">

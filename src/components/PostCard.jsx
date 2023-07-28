@@ -64,6 +64,19 @@ const PostCard = ({
     navigate(`/photos/${postId}`); //add variable postID
   };
 
+  const handleRemovePhoto = async (event) => {
+    event.stopPropagation();
+
+    try {
+      const response = await axios.delete(
+        `http://localhost:8000/api/photos/${postId}`
+      );
+    } catch (error) {
+      console.error("Error deleting photo:", error);
+    }
+
+  };
+
   return (
     <div className="card-container grid gap-4">
       <div onClick={handleViewClick} className="card-content">
@@ -72,7 +85,15 @@ const PostCard = ({
           src={url}
           alt="Thumbnail"
         />
-  
+        {removeButton && (
+          <button
+            className="overlay-button"
+            onClick={userLikedPhotos ? toggleLike : handleRemovePhoto}
+          >
+            X
+          </button>
+        )}
+
         {likeButton && user && (
           <div className="like-button-container">
             {likedPhotoIds.includes(postId) ? (
@@ -105,7 +126,5 @@ const PostCard = ({
     </div>
   );
 };
-
-  
 
 export default PostCard;
