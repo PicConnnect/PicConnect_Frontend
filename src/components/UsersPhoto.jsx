@@ -3,8 +3,7 @@ import PostCard from "./PostCard";
 import Masonry from "react-masonry-css"
 
 export default function UsersPhoto({ userId }) {
-  const [photos, setPhotos] = useState([]); const [textColorPhotos, setTextColorPhotos] = useState('text-black');
-
+  const [photos, setPhotos] = useState([]); 
 
   //console.log("userId from useParams:", userId);
 
@@ -49,8 +48,8 @@ export default function UsersPhoto({ userId }) {
   };
 
   return (
-    <div className="usersPhotos">
-      <h1 className="heading"> User's Photos</h1>
+    <div className="usersPhotos mt-4">
+      {/* <h1 className="heading"> User's Photos</h1> */}
       <Masonry
         breakpointCols={breakpointColumnsObj}
         className="my-masonry-grid"
