@@ -47,47 +47,53 @@
   }
    */
 
-   .card-container {
-    position: relative;
-  }
-  
-  .card-content {
-    position: relative;
-  }
-  
-  .card-img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-  
-  .like-button-container {
-    position: absolute;
-    top: 0;
-    right: 0;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    background-color: rgba(0, 0, 0, 0.5); 
-    padding: 10px; 
-  }
-  
-  .card-content:hover .like-button-container {
-    opacity: 1;
-  }
-   
-  .my-masonry-grid {
-    display: -webkit-box; 
-    display: -ms-flexbox; 
-    display: flex;
-    margin-left: -16px; 
-    width: auto;
-  }
-  .my-masonry-grid_column {
-    padding-left: 16px; 
-    background-clip: padding-box;
-  }
-  
-  .my-masonry-grid_column > div { 
-    margin-bottom: 16px;
-  }
-  
+.card-container {
+  position: relative;
+}
+
+.card-content {
+  position: relative;
+}
+
+.card-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: filter 0.3s ease;
+}
+
+.card-content:hover .card-img,
+.card-content .like-button-container:hover ~ .card-img {
+  filter: brightness(85%);
+}
+
+.like-button-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 3px;
+}
+
+.card-content:hover .like-button-container {
+  opacity: 1;
+}
+
+.my-masonry-grid {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: -16px;
+  width: auto;
+}
+.my-masonry-grid_column {
+  padding-left: 16px;
+  background-clip: padding-box;
+}
+
+.my-masonry-grid_column > div {
+  margin-bottom: 16px;
+}
