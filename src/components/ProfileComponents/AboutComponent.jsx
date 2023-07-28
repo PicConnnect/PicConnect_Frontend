@@ -95,53 +95,53 @@ export default function AboutComponent() {
     }
   };
 
-  return (
-    <div className="aboutContainer">
-        <h1 className="heading" >About Me</h1>
-        <br></br>
-      <form>
-        {items.map((item, index) => (
-          <div key={index} className="mb-3 flex items-center gap-40">
-            <label htmlFor={itemsName[index]}>{itemsName[index]}:</label>
-            {isEditing ? (
-              <input className="line"
-                type={inputType[index]}
-                name={itemsName[index]}
-                value={item}
-                onChange={(event) => handleInputChange(index, event)}
-                pattern={inputPatterns[index]}
-                required
-                onInvalid={(event) => {
-                  event.target.setCustomValidity(
-                    `Please follow the format ${patternString[index]}`
-                  );
-                }}
-                onInput={(event) => {
-                  event.target.setCustomValidity("");
-                }}
-              />
-            ) : (
-              <span className="line">{item}</span>
-            )}
-          </div>
-        ))}
-        {isEditing ? (
-          <div>
-            <button className="editButton" onClick={saveList}>
-              Save
-            </button>
-            <button className="editButton" onClick={cancelEdit}>
-              Cancel
-            </button>
-          </div>
-        ) : (
-          <div>
-            <button className="editButton" onClick={makeListEditable}>
-              Edit
-            </button>
-          </div>
-        )}
-      </form>
-    </div>
-  );
+  // return (
+  //   <div className="aboutContainer">
+  //       <h1 className="heading" >About Me</h1>
+  //       <br></br>
+  //     <form>
+  //       {items.map((item, index) => (
+  //         <div key={index} className="mb-3 flex items-center gap-40">
+  //           <label htmlFor={itemsName[index]}>{itemsName[index]}:</label>
+  //           {isEditing ? (
+  //             <input className="line"
+  //               type={inputType[index]}
+  //               name={itemsName[index]}
+  //               value={item}
+  //               onChange={(event) => handleInputChange(index, event)}
+  //               pattern={inputPatterns[index]}
+  //               required
+  //               onInvalid={(event) => {
+  //                 event.target.setCustomValidity(
+  //                   `Please follow the format ${patternString[index]}`
+  //                 );
+  //               }}
+  //               onInput={(event) => {
+  //                 event.target.setCustomValidity("");
+  //               }}
+  //             />
+  //           ) : (
+  //             <span className="line">{item}</span>
+  //           )}
+  //         </div>
+  //       ))}
+  //       {isEditing ? (
+  //         <div>
+  //           <button className="editButton" onClick={saveList}>
+  //             Save
+  //           </button>
+  //           <button className="editButton" onClick={cancelEdit}>
+  //             Cancel
+  //           </button>
+  //         </div>
+  //       ) : (
+  //         <div>
+  //           <button className="editButton" onClick={makeListEditable}>
+  //             Edit
+  //           </button>
+  //         </div>
+  //       )}
+  //     </form>
+  //   </div>
+  // );
 }

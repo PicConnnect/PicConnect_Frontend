@@ -132,8 +132,6 @@ export default function ProfilePhoto() {
       </div>
       <br></br>
       <div>
-        <p>First Last</p>
-        <p>Rating</p>
         <button
           className="followFollowingButton"
           onClick={handleFollowingClick}

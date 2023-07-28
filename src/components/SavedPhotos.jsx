@@ -30,16 +30,16 @@ export default function SavedPhotos() {
   console.log(`likedPosts: ${JSON.stringify(likedPosts)}`);
 
 
-  return (
-    <div  className="usersLikedPhotos border-solid border-2 border-gray-700" style={{height: '51%'}}>
-        <h1 className="heading"> User's Liked Photos</h1>
-        <div className="miniPosts">
-            <div className="cards">
-              {likedPosts.map(photo => (
-                <PostCard key={photo.id} postId={photo.id} userId={userId} url={photo.urls} size="small" removeButton={true} userLikedPhotos={true} />
-              ))}
-            </div>
-        </div>
-      </div>
-  );
+  // return (
+  //   <div  className="usersLikedPhotos">
+  //       <h1 className="heading"> User's Liked Photos</h1>
+  //       <div className="miniPosts">
+  //           <div className="cards">
+  //             {likedPosts.map(photo => (
+  //               <PostCard key={photo.id} postId={photo.id} userId={userId} url={photo.urls} size="small" removeButton={true} userLikedPhotos={true} />
+  //             ))}
+  //           </div>
+  //       </div>
+  //     </div>
+  // );
 }
