@@ -27,7 +27,8 @@ export default function ProfilePhoto() {
   const makeImageEditable = () => {
     setInitialImage(imageUrl);
     setIsEditingImage(true);
-  };
+  }
+
 
   const saveImage = async () => {
     setIsEditingImage(false);
@@ -98,51 +99,53 @@ export default function ProfilePhoto() {
       <div>
         {isEditingImage ? (
           <div>
-            <div className="userProfileImageContainer">
-              <img src={imageUrl} alt="User" style={{ marginTop: "15px" }} />
+            <div className="w-48 h-48 overflow-hidden rounded-full mx-auto">
+              <img src={imageUrl} alt="User" className="object-cover w-full h-full" />
             </div>
-            <div className="imageInput" style={{ paddingTop: "15px" }}>
+            <div className="pt-6 flex items-center justify-center">
               <input
                 type="file"
                 name="image"
                 accept="image/*"
                 onChange={handleFileChange}
+                className="w-full"
               />
             </div>
           </div>
         ) : (
-          <div className="userProfileImageContainer">
-            <img src={imageUrl} alt="User" style={{ paddingTop: "15px" }} />
+          <div className="relative w-48 h-48 overflow-hidden rounded-full mx-auto">
+            <img src={imageUrl} alt="User" className="object-cover w-full h-full" />
+            <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center rounded-full opacity-0 hover:opacity-100 transition-opacity duration-500 ease-in-out">
+              <button onClick={makeImageEditable} className="p-2 bg-white bg-opacity-70 rounded-full">
+                <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                </svg>
+              </button>
+            </div>
           </div>
         )}
         {isEditingImage ? (
-          <div>
-            <button className="editButton" onClick={saveImage}>
+          <div className="pt-6">
+            <button className="px-4 py-2 bg-green-500 text-white rounded-md" onClick={saveImage}>
               Save
             </button>
-            <button className="editButton" onClick={cancelImageEdit}>
+            <button className="px-4 py-2 bg-red-500 text-white rounded-md ml-4" onClick={cancelImageEdit}>
               Cancel
             </button>
           </div>
-        ) : (
-          <button className="editButton" onClick={makeImageEditable}>
-            Edit
-          </button>
-        )}
+        ) : null}
       </div>
       <br></br>
-      <div>
+      <div className="flex justify-center space-x-8 pt-6">
         <button
-          className="followFollowingButton"
+          className="px-6 py-2 bg-blue-500 text-white rounded-md text-sm"
           onClick={handleFollowingClick}
-          style={{ flex: "1", marginRight: "100px" }}
         >
           Following
         </button>
         <button
-          className="followFollowingButton"
+          className="px-6 py-2 bg-blue-500 text-white rounded-md text-sm"
           onClick={handleFollowerClick}
-          style={{ flex: "2", marginLeft: "100px" }}
         >
           Followers
         </button>
