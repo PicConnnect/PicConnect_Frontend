@@ -218,7 +218,7 @@
   background-color: #d9d9d9;
 }
 
-.aboutContainer {
+/* .aboutContainer {
   background-color: #d9d9d9;
   margin-bottom: 2px;
   display: flex;
@@ -228,12 +228,12 @@
   padding: 2px;
   overflow: hidden;
   border: #282c34 solid;
-}
+} */
 
-.aboutContainer p {
+/* .aboutContainer p {
   padding-left: 3rem;
   text-align: left;
-}
+} */
 .editButton {
   margin-top: 15px;
   padding: 0 10px;
@@ -280,35 +280,34 @@
   border: 2;
   background-color: #3a39393d;
 }
-.profileContainer {
+/* .profileContainer {
   display: flex;
   justify-content: space-between;
-}
-.leftContainer {
+} */
+/* .leftContainer {
   flex-basis: 40%;
   margin-left: 1rem;
   display: flex;
   flex-direction: column;
   margin-right: 4px;
-}
+} */
 
-.middleContainer {
-  /* flex-basis: 33%; */
+/* .middleContainer {
   margin-left: 4px;
   margin-right: 3px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
+} */
 
-.rightContainer {
+/* .rightContainer {
   flex-basis: 60%;
   display: flex;
   flex-direction: column;
   margin-left: 1px;
   padding-right: 1rem;
-}
+} */
 
 /* .usersPhotos {
   margin-top: 0;
@@ -404,9 +403,9 @@
   margin-right: "10px";
 }
 
-.aboutMeCategories {
+/* .aboutMeCategories {
   float: left;
-}
+} */
 
 
 .line {
