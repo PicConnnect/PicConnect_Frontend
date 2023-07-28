@@ -2,20 +2,9 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // Asynchronous fetch posts function
+
 export const fetchPosts = createAsyncThunk("posts/fetchPosts",
   async (searchWord = "") => {
-
-    // if (searchWord.trim() === "") {
-    //   const response = await axios.get(
-    //     `${process.env.REACT_APP_BACKEND_URL}/api/photos`
-    //   );
-    //   return response.data;
-    // } else {
-    //   const response = await axios.post(
-    //     `${process.env.REACT_APP_BACKEND_URL}/api/photos/search`, {query: searchWord}
-    //   );
-    //   return response.data;
-    // }
 
     const response = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/api/photos`
@@ -33,6 +22,7 @@ export const fetchSearchPost = createAsyncThunk(
       return response.data;
   }
 )
+
 
 export const fetchSinglePost = createAsyncThunk(
   "posts/fetchSinglePost",
