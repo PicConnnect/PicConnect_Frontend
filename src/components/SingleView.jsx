@@ -4,6 +4,7 @@ import { fetchSinglePost } from "../redux/postSlice";
 import io from "socket.io-client";
 import { useNavigate, useParams } from "react-router-dom";
 import { useIfNotAuthenticated } from "../hooks/useIfNotAuthenticated";
+import TomTomMap from "./TomTomMap";
 
 let socket = null;
 
@@ -25,6 +26,9 @@ const SingleView = ({ postcard, userId, postId }) => {
       allTags.push(eachTag.tag_name);
     });
   }
+  const lat = postcard.location?.latitude;
+  const lng = postcard.location?.longitude;
+  
 
   console.log("This is all tags", allTags);
 
@@ -144,7 +148,11 @@ const SingleView = ({ postcard, userId, postId }) => {
                 <br />
               </p>
 
-              <p className="leftCentered">Location - google map api?</p>
+              <p className="leftCentered">Location - {postcard.location?.location_name} in {postcard.location?.city}</p>
+              <div>
+                {lat && lng ? <TomTomMap lat = {lat} lng = {lng}/> : <p className="leftCentered">Map data unavailable</p>}
+                
+              </div>
               <p className="leftCentered">Likes: {post.likesCount}</p>
               <form onSubmit={handleNewComment}>
                 <input
