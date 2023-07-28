@@ -187,7 +187,7 @@ export default function ProfilePhoto() {
         </button>
       </div>
       <div className="flex justify-center space-x-8 pt-6 ml-2 border-b border-gray-300">
-        <div className="flex items-center space-x-2 cursor-pointer border-b border-gray-300 onClick={handleColorChangePhotos}">
+        <div className="flex items-center space-x-2 cursor-pointer border-b border-gray-300" onClick={handleColorChangePhotos}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -214,7 +214,7 @@ export default function ProfilePhoto() {
           >
             <path d="M12 4.435c-1.989-5.399-12-4.597-12 3.568 0 4.068 3.06 9.481 12 14.997 8.94-5.516 12-10.929 12-14.997 0-8.118-10-8.999-12-3.568z" />
           </svg>
-          <span className="{textColorLikes}">Likes</span>
+          <span className={textColorLikes}>Likes</span>
         </div>
       </div>
     </div>
