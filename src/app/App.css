@@ -112,11 +112,11 @@
   background-color: #bcdff7;
 }
 
-.heading {
+/* .heading {
   text-align: center;
   padding-top: 20px;
   font-size: larger;
-}
+} */
 
 /* .singleCard img {
   border: 2px solid black;
@@ -174,7 +174,7 @@
   border-bottom: 2px solid #4249eb;
 }
 
-.userProfileContainer {
+/* .userProfileContainer {
   background-color: #d9d9d9;
   border: #282c34 solid;
   margin-bottom: 0.5rem;
@@ -184,29 +184,28 @@
   justify-content: center;
   padding-top: 0.5rem;
   overflow: hidden;
-  /* height:500px; */
-}
+} */
 
-.userProfileImageContainer {
+/* .userProfileImageContainer {
   margin-top: 1rem;
-  width: 300px; /* Set the width of the container */
-  height: 300px; /* Set the height of the container */
-  overflow: hidden; /* Hide any overflow to create the circular shape */
+  width: 300px; 
+  height: 300px; 
+  overflow: hidden; 
   border-radius: 50%;
-}
+} */
 
-.userProfileImageContainer img {
+/* .userProfileImageContainer img {
   margin: 0 auto;
-  width: 100%; /* Make the image fill the container's width */
+  width: 100%; 
   height: 100%;
-  object-fit: cover; /* Preserve the aspect ratio and cover the entire container */
-  transform: scale(1.2); /* You can adjust the scaling factor as needed */
-}
+  object-fit: cover; 
+  transform: scale(1.2); 
+} */
 
-.userProfileImageContainer:hover img {
-  transform: scale(1.4); /* You can adjust the scaling factor as needed */
-  transition: transform 0.3s ease; /* Add a smooth transition effect */
-}
+/* .userProfileImageContainer:hover img {
+  transform: scale(1.4);
+  transition: transform 0.3s ease; 
+} */
 
 .badgeContainer {
   /* display: flex; */
@@ -220,7 +219,7 @@
   background-color: #d9d9d9;
 }
 
-.aboutContainer {
+/* .aboutContainer {
   background-color: #d9d9d9;
   margin-bottom: 2px;
   display: flex;
@@ -230,12 +229,12 @@
   padding: 2px;
   overflow: hidden;
   border: #282c34 solid;
-}
+} */
 
-.aboutContainer p {
+/* .aboutContainer p {
   padding-left: 3rem;
   text-align: left;
-}
+} */
 .editButton {
   margin-top: 15px;
   padding: 0 10px;
@@ -282,58 +281,56 @@
   border: 2;
   background-color: #3a39393d;
 }
-.profileContainer {
+/* .profileContainer {
   display: flex;
   justify-content: space-between;
-}
-.leftContainer {
+} */
+/* .leftContainer {
   flex-basis: 40%;
   margin-left: 1rem;
   display: flex;
   flex-direction: column;
   margin-right: 4px;
-}
+} */
 
-.middleContainer {
-  /* flex-basis: 33%; */
+/* .middleContainer {
   margin-left: 4px;
   margin-right: 3px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
+} */
 
-.rightContainer {
+/* .rightContainer {
   flex-basis: 60%;
   display: flex;
   flex-direction: column;
   margin-left: 1px;
   padding-right: 1rem;
-}
+} */
 
-.usersPhotos {
+/* .usersPhotos {
   margin-top: 0;
   margin-bottom: 7px;
   padding-top: 0%;
   margin-right: 0;
   background-color: #d9d9d9;
-  /* width:50%; */
-}
+} */
 
-.usersLikedPhotos {
+/* .usersLikedPhotos {
   margin-top: 0;
   margin-bottom: 7px;
   padding-top: 0%;
   margin-right: 0;
   background-color: #d9d9d9;
-}
+} */
 
-.miniPosts {
+/* .miniPosts {
   text-align: center;
-  height: 411px; /* Set the desired height */
-  overflow: auto; /* Enable scrolling for overflowing content */
-}
+  height: 411px; 
+  overflow: auto; 
+} */
 
 .followerContainerImg {
   /* flex: 1; */
@@ -407,9 +404,9 @@
   margin-right: "10px";
 }
 
-.aboutMeCategories {
+/* .aboutMeCategories {
   float: left;
-}
+} */
 
 .line {
   border: 1px solid #ccc;

@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { auth } from "../firebase/firebase";
 
 export const updateUserNameInBackend = createAsyncThunk(
   "user/updateUserNameInBackend",
@@ -28,21 +29,28 @@ export const updateUserNameInBackend = createAsyncThunk(
   }
 );
 
-// export const fetchUserData = createAsyncThunk(
-//   'user/fetchUserData',
-//   async (userId, { rejectWithValue }) => {
-//     try {
-//       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}`);
-//       if (!response.ok) {
-//         throw new Error('Server Error');
-//       }
-//       const data = await response.json();
-//       return data;
-//     } catch (error) {
-//       return rejectWithValue(error.message);
-//     }
-//   }
-// );
+export const fetchUser = createAsyncThunk(
+  'user/fetchUser',
+  async (_, { rejectWithValue }) => { 
+    try {
+      const userId = auth.currentUser?.uid;
+      if (!userId) {
+        throw new Error('User ID not found');
+      }
+      
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}`);
+      console.log(response);
+      if (!response.ok) {
+        throw new Error('Server Error');
+      }
+      
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 export const userSlice = createSlice({
   name: "user",
@@ -50,6 +58,7 @@ export const userSlice = createSlice({
     value: {},
     status: "idle",
     error: null,
+    items: ["Name", "2023-01-01", "mail@gmail.com", "123-456-7890"],
   },
   reducers: {
     setUserData: (state, action) => {
@@ -68,15 +77,25 @@ export const userSlice = createSlice({
       .addCase(updateUserNameInBackend.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
-      });
-    // .addCase(fetchUserData.fulfilled, (state, action) => {
+      })
+    // .addCase(fetchUser.fulfilled, (state, action) => {
     //   state.status = 'succeeded';
     //   state.value = action.payload;
     // })
-    // .addCase(fetchUserData.rejected, (state, action) => {
+    // .addCase(fetchUser.rejected, (state, action) => {
     //   state.status = 'failed';
     //   state.error = action.payload;
-    // });
+    // })
+    .addCase(fetchUser.fulfilled, (state, action) => {
+      state.status = 'succeeded';
+      state.value = action.payload;
+      state.items[0] = action.payload.name;
+      state.items[2] = action.payload.email;
+    })
+    .addCase(fetchUser.rejected, (state, action) => {
+      state.status = 'failed';
+      state.error = action.payload;
+    });
   },
 });
 

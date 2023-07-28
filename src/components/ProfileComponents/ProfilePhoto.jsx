@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebase/firebase";
 import { uploadToStorage } from "../../utils/firebaseUtils";
+import UsersPhoto from "../UsersPhoto";
+import SavedPhotos from "../SavedPhotos";
+import { useSelector } from "react-redux";
 
 export default function ProfilePhoto() {
   const navigate = useNavigate();
@@ -9,6 +12,8 @@ export default function ProfilePhoto() {
   const [initialImage, setInitialImage] = useState(imageUrl);
   const [isEditingImage, setIsEditingImage] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [activeTab, setActiveTab] = useState("photos"); //initially show user's photos
+  const items = useSelector((state) => state.user.items);
 
   useEffect(() => {
     // Fetch user's profile picture when the component is mounted
@@ -93,62 +98,159 @@ export default function ProfilePhoto() {
     navigate(`/Follower/${auth.currentUser?.uid}`); // add variable userId
   };
 
+  const [textColorPhotos, setTextColorPhotos] = useState("text-gray-400"); // set initial color to greyish
+  const [textColorLikes, setTextColorLikes] = useState("text-gray-400"); // set initial color to greyish
+
+  const handleColorChangePhotos = () => {
+    setTextColorPhotos("text-black"); // change color to black on click
+    setTextColorLikes("text-gray-400");
+    setActiveTab("photos");
+  };
+
+  const handleColorChangeLikes = () => {
+    setTextColorLikes("text-black"); // change color to black on click
+    setTextColorPhotos("text-gray-400");
+    setActiveTab("likes");
+  };
+
   return (
     <div className="userProfileContainer">
+      {/* <div className="flex flex-row justify-center"> */}
       <div>
         {isEditingImage ? (
           <div>
-            <div className="userProfileImageContainer">
-              <img src={imageUrl} alt="User" style={{ marginTop: "15px" }} />
+            <div className="w-48 h-48 overflow-hidden rounded-full mx-auto">
+              <img
+                src={imageUrl}
+                alt="User"
+                className="object-cover w-full h-full"
+              />
             </div>
-            <div className="imageInput" style={{ paddingTop: "15px" }}>
+            <div className="pt-6 flex items-center justify-center">
               <input
                 type="file"
                 name="image"
                 accept="image/*"
                 onChange={handleFileChange}
+                className="w-full"
               />
             </div>
           </div>
         ) : (
-          <div className="userProfileImageContainer">
-            <img src={imageUrl} alt="User" style={{ paddingTop: "15px" }} />
+          <div className="relative w-48 h-48 overflow-hidden rounded-full mx-auto">
+            <img
+              src={imageUrl}
+              alt="User"
+              className="object-cover w-full h-full"
+            />
+            <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center rounded-full opacity-0 hover:opacity-100 transition-opacity duration-500 ease-in-out">
+              <button
+                onClick={makeImageEditable}
+                className="p-2 bg-white bg-opacity-70 rounded-full"
+              >
+                <svg
+                  className="w-6 h-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         )}
         {isEditingImage ? (
-          <div>
-            <button className="editButton" onClick={saveImage}>
+          <div className="pt-6">
+            <button
+              className="px-4 py-2 bg-green-500 text-white rounded-md"
+              onClick={saveImage}
+            >
               Save
             </button>
-            <button className="editButton" onClick={cancelImageEdit}>
+            <button
+              className="px-4 py-2 bg-red-500 text-white rounded-md ml-4"
+              onClick={cancelImageEdit}
+            >
               Cancel
             </button>
           </div>
-        ) : (
-          <button className="editButton" onClick={makeImageEditable}>
-            Edit
-          </button>
-        )}
+        ) : null}
       </div>
       <br></br>
       <div>
-        <p>First Last</p>
-        <p>Rating</p>
+        <h2 className="text-2xl font-bold mb-2">{items[0]}</h2>
+        <p> {items[2]} </p>
+        <p>Birthday: {items[1]}</p>
+        <p>Contact: {items[3]}</p>
+      </div>
+      {/* </div> */}
+      <div className="flex justify-center space-x-8 pt-6 ml-2">
         <button
-          className="followFollowingButton"
+          className="px-6 py-2 bg-blue-500 text-white rounded-md text-sm"
           onClick={handleFollowingClick}
-          style={{ flex: "1", marginRight: "100px" }}
         >
           Following
         </button>
         <button
-          className="followFollowingButton"
+          className="px-6 py-2 bg-blue-500 text-white rounded-md text-sm"
           onClick={handleFollowerClick}
-          style={{ flex: "2", marginLeft: "100px" }}
         >
           Followers
         </button>
       </div>
+      <div className="flex justify-center space-x-8 pt-6 ml-2 border-b border-gray-300">
+        <div
+          className="flex items-center space-x-2 cursor-pointer border-b border-gray-300"
+          onClick={handleColorChangePhotos}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+            />
+          </svg>
+          <span className={textColorPhotos}>Photos</span>
+        </div>
+        <div
+          className="flex items-center space-x-2 cursor-pointer border-b border-gray-300"
+          onClick={handleColorChangeLikes}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+            />
+          </svg>
+          <span className={textColorLikes}>Likes</span>
+        </div>
+      </div>
+      {activeTab === "photos" ? (
+        <UsersPhoto userId={auth.currentUser?.uid} />
+      ) : (
+        <SavedPhotos />
+      )}
     </div>
   );
 }
