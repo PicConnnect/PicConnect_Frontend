@@ -5,9 +5,8 @@ import Masonry from "react-masonry-css"
 export default function UsersPhoto({ userId }) {
   const [photos, setPhotos] = useState([]); 
 
-  //console.log("userId from useParams:", userId);
-
-  useEffect(() => {
+  
+useEffect(() => {
     const fetchPhotos = async () => {
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}/api/photos/user/${userId}`

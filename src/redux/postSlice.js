@@ -2,12 +2,27 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // Asynchronous fetch posts function
-export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
-  const response = await axios.get(
-    `${process.env.REACT_APP_BACKEND_URL}/api/photos`
-  );
-  return response.data;
-});
+
+export const fetchPosts = createAsyncThunk("posts/fetchPosts",
+  async (searchWord = "") => {
+
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/photos`
+    );
+    return response.data;
+  });
+
+export const fetchSearchPost = createAsyncThunk(
+  "posts/fetchSearchPost", 
+  async(searchWord) => {
+    const response = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/api/photos/search`, {query: searchWord}
+      );
+      console.log(response.data)
+      return response.data;
+  }
+)
+
 
 export const fetchSinglePost = createAsyncThunk(
   "posts/fetchSinglePost",
@@ -85,6 +100,16 @@ const postSlice = createSlice({
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(fetchSearchPost.fulfilled, (state, action) => {
+        
+        state.status = 'succeeded';
+        state.posts = action.payload;
+        console.log("in addcase",state.postCardList); // Update the postCardList with searched posts
+      })
+      .addCase(fetchSearchPost.rejected, (state, action) => {
+        state.status = 'failed';
         state.error = action.error.message;
       })
 
