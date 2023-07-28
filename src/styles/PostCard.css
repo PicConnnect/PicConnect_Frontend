@@ -1,4 +1,4 @@
-.cardButton {
+/* .cardButton {
     z-index: -1;
   }
   
@@ -13,7 +13,6 @@
   }
 
   .mainImage {
-    /* border-radius: 1%;  */
     object-fit: cover;
     width: 100%;
   }
@@ -42,8 +41,53 @@
     cursor: pointer;  
   } 
   
-  /* Styling button */
+
   .likeButton {
     z-index: 1;
+  }
+   */
+
+   .card-container {
+    position: relative;
+  }
+  
+  .card-content {
+    position: relative;
+  }
+  
+  .card-img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  
+  .like-button-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background-color: rgba(0, 0, 0, 0.5); 
+    padding: 10px; 
+  }
+  
+  .card-content:hover .like-button-container {
+    opacity: 1;
+  }
+   
+  .my-masonry-grid {
+    display: -webkit-box; 
+    display: -ms-flexbox; 
+    display: flex;
+    margin-left: -16px; 
+    width: auto;
+  }
+  .my-masonry-grid_column {
+    padding-left: 16px; 
+    background-clip: padding-box;
+  }
+  
+  .my-masonry-grid_column > div { 
+    margin-bottom: 16px;
   }
   
