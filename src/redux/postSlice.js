@@ -3,6 +3,7 @@ import axios from "axios";
 
 // Asynchronous fetch posts function
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
+  console.log("testing123: ", process.env.REACT_APP_BACKEND_URL);
   const response = await axios.get(
     `${process.env.REACT_APP_BACKEND_URL}/api/photos`
   );

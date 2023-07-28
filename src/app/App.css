@@ -79,7 +79,7 @@
 }
 
 .commentBox p {
-  border-bottom: 1px solid black; 
+  border-bottom: 1px solid black;
   padding-left: 2rem;
   text-align: left;
 }
@@ -122,21 +122,22 @@
   border: 2px solid black;
 } */
 
-/* .card {
+.card-content {
   margin: 10px;
   border: 2px solid black;
-  border-radius: 3px;
+  border-radius: 8px;
+  z-index: 0;
 }
-.card:hover .overlay-button {
+
+.card-content:hover .overlay-button {
   opacity: 1;
-} */
+}
 
 .formInput {
   margin: 10px;
   align-items: end;
   list-style-position: inside;
 }
-
 
 .image-preview img {
   max-width: "300px";
@@ -409,7 +410,6 @@
 .aboutMeCategories {
   float: left;
 }
-
 
 .line {
   border: 1px solid #ccc;
