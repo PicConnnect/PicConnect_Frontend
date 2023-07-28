@@ -136,7 +136,7 @@ export default function ProfilePhoto() {
         ) : null}
       </div>
       <br></br>
-      <div className="flex justify-center space-x-8 pt-6">
+      <div className="flex justify-center space-x-8 pt-6 ml-2">
         <button
           className="px-6 py-2 bg-blue-500 text-white rounded-md text-sm"
           onClick={handleFollowingClick}
