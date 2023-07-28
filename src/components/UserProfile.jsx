@@ -29,18 +29,18 @@ const UserProfile = () => {
 
   return (
     <div className="profileContainer">
-      <div className="leftContainer">
+      <div>
         <AboutComponent></AboutComponent>
-        <BadgeComponent></BadgeComponent>
+        {/* <BadgeComponent></BadgeComponent> */}
         <SignOutButtonComponent
           handleLogout={handleLogout}
         ></SignOutButtonComponent>
       </div>
-      
+
       <div className="rightContainer">
         <div>
-          <UsersPhoto userId={userId}></UsersPhoto>
-          <SavedPhotos></SavedPhotos>
+          {/* <UsersPhoto userId={userId}></UsersPhoto> 
+            <SavedPhotos></SavedPhotos>  */}
         </div>
       </div>
     </div>
