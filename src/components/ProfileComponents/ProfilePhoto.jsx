@@ -133,6 +133,7 @@ export default function ProfilePhoto() {
                 accept="image/*"
                 onChange={handleFileChange}
                 className="w-full"
+                style={{paddingLeft:"42vw", paddingRight:"30vw"}}
               />
             </div>
           </div>

@@ -11,6 +11,7 @@ import Footer from "../components/Footer";
 import Input from "../components/Input";
 
 export default function SignUp() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   //states that stores the user data
   const [name, setName] = useState("");
@@ -18,8 +19,6 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [passwordVerification, setPasswordVerification] = useState("");
   const [passwordMismatch, setPasswordMismatch] = useState(false);
-
-  //const navigate = useNavigate();
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -59,6 +58,7 @@ export default function SignUp() {
       setEmail("");
       setPassword("");
       setPasswordVerification("");
+      navigate("/Profile");
     } catch (error) {
       console.error("Error signing up", error);
       //Display this error in UI later

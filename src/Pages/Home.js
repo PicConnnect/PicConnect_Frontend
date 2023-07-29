@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 import PostCard from "../components/PostCard";
 import { useSelector, useDispatch } from "react-redux";
 import { auth } from "../firebase/firebase";
-import { fetchPosts, fetchSearchPost, fetchUserLikes } from "../redux/postSlice";
-import "../styles/PostCard.css"
-import Masonry from "react-masonry-css"
+import {
+  fetchPosts,
+  fetchSearchPost,
+  fetchUserLikes,
+} from "../redux/postSlice";
+import "../styles/PostCard.css";
+import Masonry from "react-masonry-css";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -12,7 +16,7 @@ export default function Home() {
   const postStatus = useSelector((state) => state.posts.status);
   const postError = useSelector((state) => state.posts.error);
 
-  const [searchWord, setSearchWord] = useState('');
+  const [searchWord, setSearchWord] = useState("");
   const userId = auth.currentUser?.uid;
 
   const loadData = async () => {
@@ -56,7 +60,7 @@ export default function Home() {
     if (searchWord.trim() === "") {
       dispatch(fetchPosts());
     } else {
-      console.log("searching")
+      console.log("searching");
       dispatch(fetchSearchPost(searchWord));
     }
     console.log(postCardList);
@@ -64,48 +68,50 @@ export default function Home() {
 
   const styles = {
     container: {
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-      background: '#f0f0f0',
-      padding: '8px',
-      borderRadius: '4px',
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      background: "#f0f0f0",
+      padding: "8px",
+      borderRadius: "4px",
     },
     searchBox: {
       flex: 1,
-      padding: '8px',
-      marginRight: '8px',
-      border: '1px solid #ccc',
-      borderRadius: '4px',
-      fontSize: '16px',
+      padding: "8px",
+      marginRight: "8px",
+      border: "1px solid #ccc",
+      borderRadius: "4px",
+      fontSize: "16px",
     },
     searchButton: {
-      padding: '8px 16px',
-      border: 'none',
-      borderRadius: '4px',
-      background: '#007bff',
-      color: '#fff',
-      fontSize: '16px',
-      cursor: 'pointer',
+      padding: "8px 16px",
+      border: "none",
+      borderRadius: "4px",
+      background: "#007bff",
+      color: "#fff",
+      fontSize: "16px",
+      cursor: "pointer",
     },
   };
   return (
     <div className="p-4">
-      <div style = {styles.container}>
-        <input type="text"
+      <div style={styles.container}>
+        <input
+          type="text"
           value={searchWord}
           onChange={(e) => setSearchWord(e.target.value)}
           style={styles.searchBox}
         />
-        <button onClick={handleSearch} style={styles.searchButton}>Search</button>
+        <button onClick={handleSearch} style={styles.searchButton}>
+          Search
+        </button>
       </div>
-
+      
       <Masonry
         breakpointCols={breakpointColumnsObj}
         className="my-masonry-grid"
         columnClassName="my-masonry-grid_column"
       >
-
         {content}
       </Masonry>
     </div>
