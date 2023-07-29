@@ -36,7 +36,8 @@ const SingleView = ({ postcard, userId, postId }) => {
   const [comments, setComments] = useState([]); //state to hold comments
   const [currentComment, setCurrentComment] = useState(""); // state to hold current comment input
   const [loadingComment, setLoadinComment] = useState(true);
-  const [currentReply, setCurrentReply] = useState(""); 
+  const [currentReply, setCurrentReply] = useState("");
+  const [deletionOccured, setDeletionOccured] = useState(false); 
 
   useEffect(() => {
     dispatch(fetchSinglePost(postId));
@@ -92,7 +93,7 @@ const SingleView = ({ postcard, userId, postId }) => {
     //   socket.off('newComment'); // Remove the event listener
     //   socket.disconnect(); // Disconnect the socket
     // }
-  }, [postId, currentReply]);
+  }, [postId, currentReply, deletionOccured]);
 
   const RedirectMessage = useIfNotAuthenticated("SingleView");
   if (RedirectMessage) {
@@ -120,6 +121,21 @@ const SingleView = ({ postcard, userId, postId }) => {
 
   const handleCommentChange = (event) => {
     setCurrentComment(event.target.value);
+  };
+
+  // function to handle  deletion of comments
+  const handleDeleteComment = (event, commentId) => {
+    event.preventDefault();
+    socket.emit("deleteComment", commentId);
+    setDeletionOccured(prev => !prev);
+    console.log(`the comment with id: ${commentId} was deleted`);
+  };
+  // function to handle  deletion of comments
+  const handleDeleteReply = (event, replyId) => {
+    event.preventDefault();
+    socket.emit("deleteReply", replyId);
+    setDeletionOccured(prev => !prev);
+    console.log(`the comment with id: ${replyId} was deleted`);
   };
 
   // function to handle new reply submission
@@ -189,7 +205,7 @@ const SingleView = ({ postcard, userId, postId }) => {
               <CommentForm handleCommentChange={handleCommentChange} handleNewComment={handleNewComment} currentComment={currentComment} loading={loadingComment}></CommentForm>
               <div className="commentBox" style={{backgroundColor: "white", maxHeight: "500px", overflow: "auto"}}>
                 <h2 className="leftCentered" style={{fontWeight: "bold"}}>{loadingComment? "Loading Comments...": "Comments"}</h2>
-                <CommentList commentsArray={comments} handleReplyChange={handleReplyChange} handleNewReply={handleNewReply} currentReply={currentReply}></CommentList>
+                <CommentList handleDeleteReply={handleDeleteReply} handleDeleteComment={handleDeleteComment} commentsArray={comments} handleReplyChange={handleReplyChange} handleNewReply={handleNewReply} currentReply={currentReply}></CommentList>
               </div>
             </div>
           </div>
