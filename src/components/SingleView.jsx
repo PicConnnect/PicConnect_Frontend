@@ -93,7 +93,7 @@ const SingleView = ({ postcard, userId, postId }) => {
     //   socket.off('newComment'); // Remove the event listener
     //   socket.disconnect(); // Disconnect the socket
     // }
-  }, [postId, currentReply, deletionOccured]);
+  }, [comments]);
 
   const RedirectMessage = useIfNotAuthenticated("SingleView");
   if (RedirectMessage) {
