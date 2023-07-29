@@ -4,19 +4,23 @@ import { fetchSinglePost } from "../redux/postSlice";
 import io from "socket.io-client";
 import { useNavigate, useParams } from "react-router-dom";
 import { useIfNotAuthenticated } from "../hooks/useIfNotAuthenticated";
+import CommentList from "./Comments/CommentList";
+import CommentForm from "./Comments/CommentForm";
+
 
 let socket = null;
 
 const SingleView = ({ postcard, userId, postId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.user.value);
   const post = useSelector((state) => state.posts.currentPost); // this depends on where the fetched post data is stored in your state
-  console.log(post);
+  //console.log(post);
   const likesCount = post ? post.likesCount : 0;
-  console.log(likesCount);
+  /*console.log(likesCount);
   console.log("in another page pc", postcard);
   console.log("author name", postcard.user?.about);
-  console.log("total", postcard.tags?.length);
+  console.log("total", postcard.tags?.length);*/
 
   const url = postcard.urls;
   const allTags = [];
@@ -26,11 +30,13 @@ const SingleView = ({ postcard, userId, postId }) => {
     });
   }
 
-  console.log("This is all tags", allTags);
+  //console.log("This is all tags", allTags);
 
   //const socket = io("${process.env.REACT_APP_BACKEND_URL}", { withCredentials: true });
   const [comments, setComments] = useState([]); //state to hold comments
   const [currentComment, setCurrentComment] = useState(""); // state to hold current comment input
+  const [loadingComment, setLoadinComment] = useState(true);
+  const [currentReply, setCurrentReply] = useState(""); 
 
   useEffect(() => {
     dispatch(fetchSinglePost(postId));
@@ -58,6 +64,7 @@ const SingleView = ({ postcard, userId, postId }) => {
       socket.emit("joinRoom", postId); // currentId should be the id of the current photo
 
       socket.off("newComment"); //remove existing event listener before creating a new one
+      socket.off("newReply"); //remove existing event listener before creating a new one
 
       //event listener for incoming comments
       socket.on("newComment", (newComment) => {
@@ -65,11 +72,19 @@ const SingleView = ({ postcard, userId, postId }) => {
         setComments((oldComments) => [...oldComments, newComment]);
       });
 
+      //event listener for incoming comments
+      socket.on("newReply", (newReply) => {
+        console.log(`New reply received: ${newReply}`);
+        setComments((oldReply) => [...oldReply, newReply]);
+      });
+
       //event listener for existing comments
       socket.on("existingComments", (existingComments) => {
-        console.log(`Existing comments received: `, existingComments);
+        setLoadinComment(false);
+        console.log(`Existing comments received: `, ...existingComments);
         setComments(existingComments);
       });
+      console.log("list ins comme", comments)
     }
 
     // return () => {
@@ -77,7 +92,7 @@ const SingleView = ({ postcard, userId, postId }) => {
     //   socket.off('newComment'); // Remove the event listener
     //   socket.disconnect(); // Disconnect the socket
     // }
-  }, [postId]);
+  }, [postId, currentReply]);
 
   const RedirectMessage = useIfNotAuthenticated("SingleView");
   if (RedirectMessage) {
@@ -91,11 +106,12 @@ const SingleView = ({ postcard, userId, postId }) => {
 
   // function to handle new comment submission
   const handleNewComment = (event) => {
+    console.log("posted a comment ..", currentComment)
     event.preventDefault();
     const newCommentData = {
       roomId: postId,
       comment: currentComment,
-      userId: userId,
+      userId: currentUser?.uid,
     };
     socket.emit("newComment", newCommentData);
     console.log(`New comment submitted: ${JSON.stringify(newCommentData)}`);
@@ -104,6 +120,30 @@ const SingleView = ({ postcard, userId, postId }) => {
 
   const handleCommentChange = (event) => {
     setCurrentComment(event.target.value);
+  };
+
+  // function to handle new reply submission
+  // function to handle new reply submission
+  const handleNewReply = (event, commentId) => {
+      event.preventDefault();
+      console.log("posted a comment ..", currentReply);
+      // Create the newReplyData object with relevant information
+      const newReplyData = {
+        roomId: commentId,                 // Set the roomId to the commentId
+        reply: currentReply,               // Get the reply from the currentReply state variable
+        userId: currentUser?.uid,          // Get the userId (if available, using optional chaining)
+      };
+  
+      // Emit the "newReply" event to the socket server with newReplyData
+      socket.emit("newReply", newReplyData);
+      // Log the submitted reply data for debugging purposes
+      console.log(`New reply submitted: ${JSON.stringify(newReplyData)}`);
+      // Clear the input field by updating the currentReply state variable
+      setCurrentReply("");
+  };
+
+  const handleReplyChange = (event) => {
+    setCurrentReply(event.target.value);
   };
 
   const handleTagClick = (tag) => {
@@ -126,7 +166,7 @@ const SingleView = ({ postcard, userId, postId }) => {
 
               <p className="leftCentered">
                 {allTags.map((tag, index) => (
-                  <a href="#" onClick={() => handleTagClick(tag)}>
+                  <a href="#" onClick={() => handleTagClick(tag)} key={index}>
                     #{tag}{" "}
                   </a>
                 ))}
@@ -146,20 +186,10 @@ const SingleView = ({ postcard, userId, postId }) => {
 
               <p className="leftCentered">Location - google map api?</p>
               <p className="leftCentered">Likes: {post.likesCount}</p>
-              <form onSubmit={handleNewComment}>
-                <input
-                  type="text"
-                  value={currentComment}
-                  onChange={handleCommentChange}
-                  placeholder="Add a comment..."
-                />
-                <button type="submit">Post</button>
-              </form>
-              <div className="commentBox">
-                <h2 className="leftCentered">Comments</h2>
-                {comments.map((comment, index) => (
-                  <p key={index}>{comment.commentText}</p>
-                ))}
+              <CommentForm handleCommentChange={handleCommentChange} handleNewComment={handleNewComment} currentComment={currentComment} loading={loadingComment}></CommentForm>
+              <div className="commentBox" style={{backgroundColor: "white", maxHeight: "500px", overflow: "auto"}}>
+                <h2 className="leftCentered" style={{fontWeight: "bold"}}>{loadingComment? "Loading Comments...": "Comments"}</h2>
+                <CommentList commentsArray={comments} handleReplyChange={handleReplyChange} handleNewReply={handleNewReply} currentReply={currentReply}></CommentList>
               </div>
             </div>
           </div>
