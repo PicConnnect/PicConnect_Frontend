@@ -38,6 +38,7 @@ const SingleView = ({ postcard, userId, postId }) => {
   const [loadingComment, setLoadinComment] = useState(true);
   const [currentReply, setCurrentReply] = useState("");
   const [deletionOccured, setDeletionOccured] = useState(false); 
+  const [parentCommentAdded, setparentCommentAdded] = useState(false); 
 
   useEffect(() => {
     dispatch(fetchSinglePost(postId));
@@ -93,7 +94,7 @@ const SingleView = ({ postcard, userId, postId }) => {
     //   socket.off('newComment'); // Remove the event listener
     //   socket.disconnect(); // Disconnect the socket
     // }
-  }, [comments]);
+  }, [postId, currentReply, deletionOccured, parentCommentAdded]);
 
   const RedirectMessage = useIfNotAuthenticated("SingleView");
   if (RedirectMessage) {
@@ -117,6 +118,7 @@ const SingleView = ({ postcard, userId, postId }) => {
     socket.emit("newComment", newCommentData);
     console.log(`New comment submitted: ${JSON.stringify(newCommentData)}`);
     setCurrentComment(""); // clear the input field
+    setparentCommentAdded(prev => !prev);
   };
 
   const handleCommentChange = (event) => {
