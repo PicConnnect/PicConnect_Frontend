@@ -8,6 +8,7 @@ import Masonry from "react-masonry-css"
 
 export default function Home() {
   const dispatch = useDispatch();
+  const [testing, setTesting] = useState(true);
   const postCardList = useSelector((state) => state.posts.posts);
   const postStatus = useSelector((state) => state.posts.status);
   const postError = useSelector((state) => state.posts.error);
@@ -18,6 +19,7 @@ export default function Home() {
   const loadData = async () => {
     await dispatch(fetchPosts());
     await dispatch(fetchUserLikes(userId));
+    setTesting(true)
   };
 
   useEffect(() => {
@@ -25,7 +27,7 @@ export default function Home() {
     // dispatch(fetchUserLikes(userId))
     loadData();
     //console.log("ndngjd");
-  }, [userId]);
+  }, [loadData, userId]);
 
   let content;
 
