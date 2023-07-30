@@ -18,7 +18,7 @@ const SignUp = lazy(() => import("./../Pages/SignUp"));
 const ViewPost = lazy(() => import("../Pages/ViewPost"));
 const UsersPhoto = lazy(() => import("../components/UsersPhoto"));
 const Follower = lazy(() => import("./../Pages/Follower"));
-
+const OtherProfile = lazy(() => import("./../Pages/OtherProfile"));
 
 function App() {
   const dispatch = useDispatch();
