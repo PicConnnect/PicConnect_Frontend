@@ -30,7 +30,7 @@ export default function Comment({currentUserId, message, user, createdAt, replie
     {
       isReplying && (
         <div className="mt-1 ml-3">
-          <ReplyForm handleReplyChange={handleReplyChange} handleNewReply={handleNewReply} currentReply={currentReply} setIsReplying={setIsReplying} commentId={commentId}></ReplyForm>
+          <ReplyForm parentOwnerName={user?.name} handleReplyChange={handleReplyChange} handleNewReply={handleNewReply} currentReply={currentReply} setIsReplying={setIsReplying} commentId={commentId}></ReplyForm>
         </div>
       )
     }
