@@ -63,11 +63,20 @@ const UploadCard = () => {
     return RedirectMessage;
   }
 
+  const changeExtensionToWebP = (filename) => {
+    const parts = filename.split(".");
+    parts.pop(); //remove the current extension
+    return `${parts.join(".")}.webp`; //add the webp extension
+  }
+
   const handleFileChange = async (event) => {
     //first file in the list
     const file = event.target.files[0];
     if (!file) return;
-    setFileName(file.name);
+    // setFileName(file.name);
+
+    const orignalFileName = file.name;
+    const webpFileName = changeExtensionToWebP(orignalFileName);
 
     // Function to convert an image to WebP
     const convertToWebP = async (imageFile) => {
@@ -84,7 +93,7 @@ const UploadCard = () => {
           ctx.drawImage(image, 0, 0);
 
           canvas.toBlob((blob) => {
-            const webpFile = new File([blob], "converted.webp", {
+            const webpFile = new File([blob], webpFileName, {
               type: "image/webp",
             });
             resolve(webpFile);
@@ -108,7 +117,7 @@ const UploadCard = () => {
         finalFile = await convertToWebP(jpegFile);
         setImageUrl(URL.createObjectURL(finalFile));
         setConversionInProgress(false);
-        setFileName("converted.webp");
+        setFileName(webpFileName);
       } catch (error) {
         setConversionInProgress(false);
         console.error("Error converting HEIC to JPEG to WebP:", error);
@@ -129,7 +138,7 @@ const UploadCard = () => {
         // If the file is a HEIC image, convert it to JPEG first
         if (file.type === "image/heic") {
           const jpegData = await heic2any({ blob: file, toType: "image/jpeg" });
-          imageFileToConvert = new File([jpegData], "converted.jpg", {
+          imageFileToConvert = new File([jpegData], webpFileName, {
             type: "image/jpeg",
           });
         }
@@ -138,7 +147,7 @@ const UploadCard = () => {
         setWebpFile(convertedWebPFile);
         setImageUrl(URL.createObjectURL(convertedWebPFile));
         setConversionInProgress(false);
-        setFileName("converted.webp");
+        setFileName(webpFileName);
       } catch (error) {
         setConversionInProgress(false);
         console.error("Error converting to WebP:", error);
@@ -197,6 +206,7 @@ const UploadCard = () => {
   const handlePhotoDetailChange = (event) => {
     setphotoDetails(event.target.value);
   };
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
