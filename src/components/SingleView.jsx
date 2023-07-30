@@ -123,6 +123,7 @@ const SingleView = ({ postcard, userId, postId }) => {
             src={url}
             // className="card-img-top"
             alt="..."
+            loading="lazy"
           />
           <div className="card-body font-metrophobic text-lg">
             <div className="singleViewBody">
