@@ -124,6 +124,7 @@ export default function ProfilePhoto() {
                 src={imageUrl}
                 alt="User"
                 className="object-cover w-full h-full"
+                loading="lazy"
               />
             </div>
             <div className="pt-6 flex items-center justify-center">
@@ -142,6 +143,7 @@ export default function ProfilePhoto() {
               src={imageUrl}
               alt="User"
               className="object-cover w-full h-full"
+              loading="lazy"
             />
             <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center rounded-full opacity-0 hover:opacity-100 transition-opacity duration-500 ease-in-out">
               <button

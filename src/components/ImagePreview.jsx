@@ -11,6 +11,7 @@ const ImagePreview = ({ imageUrl }) => (
           maxHeight: "700px",
         }}
         alt="Preview"
+        loading="lazy"
       />
     )}
   </div>
