@@ -169,6 +169,10 @@ const SingleView = ({ postcard, userId, postId }) => {
     console.log("Clicked this ", tag);
   };
 
+  const navigateToProfile = () => {
+    navigate(`/OtherProfile/${postcard.user?.id}`);
+  }
+
   return (
     <center>
       <div>
@@ -181,7 +185,23 @@ const SingleView = ({ postcard, userId, postId }) => {
           />
           <div className="card-body font-metrophobic text-lg">
             <div className="singleViewBody">
-              <p className="leftCentered">Author: {postcard.user?.name}</p>
+              {/* <p className="leftCentered">Author: {postcard.user?.name}</p> */}
+              <p className="leftCentered">
+                
+                <div className="flex items-start space-x-4">
+                <div onClick={navigateToProfile}>
+                  <img 
+                    src={postcard.user?.profilePicUrl}
+                    alt={postcard.user?.name}
+                    className="w-7 h-7 rounded-full cursor-pointer"
+                  />
+                </div>
+                <div onClick={navigateToProfile}>
+                  <span className="">{postcard.user?.name}</span>
+                </div>
+              </div>
+              </p>
+              
 
               <p className="leftCentered">
                 {allTags.map((tag, index) => (
