@@ -8,12 +8,9 @@ import ReplyForm from './ReplyForm';
 
 const dateFormatter = new Intl.DateTimeFormat(undefined, {dateStyle: "medium", timeStyle: "short"});
 export default function Comment({currentUserId, message, user, createdAt, replies, currentReply, handleReplyChange, handleNewReply, commentId, handleDeleteComment, handleDeleteReply}) {
-  //const currentUserId = useSelector((state) => state.user.value);
-  console.log("this is my current user Id", currentUserId)
   const childComment = replies;
   const [areChildrenHidden, setAreChildrenHidden] = useState(false);
   const [isReplying, setIsReplying] = useState(false);
-  console.log("were inside a comment and this is its reply"+message, childComment);
   const deleteComment = (event) => {
     handleDeleteComment(event, commentId);
   }
