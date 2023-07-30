@@ -30,7 +30,7 @@ export default function SignIn() {
     event.preventDefault();
     try {
       await signInWithEmail(email, password, dispatch);
-      navigate("/profile");
+      navigate("/Profile");
     } catch (error) {
       console.error("Error signing in", error);
       // Display this error in UI later
@@ -40,7 +40,7 @@ export default function SignIn() {
   const handleSignInWithProvider = async (signInMethod) => {
     try {
       await signInMethod(dispatch); //try to sign in with google
-      navigate("/profile"); // If sign in is successful, navigate to the profile page
+      navigate("/Profile"); // If sign in is successful, navigate to the profile page
     } catch (error) {
       console.error("Error signing in with Google", error);
     }

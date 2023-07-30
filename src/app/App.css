@@ -398,7 +398,7 @@
 
 .line {
   border: 1px solid #ccc;
-  margin-left: auto;
+  margin-left: 10px;
 }
 
 /* Formating button */
@@ -466,3 +466,9 @@
   background: #b2dbbf;
   width: 40%;
 }
+
+.aboutMeButton:hover {
+  background-color: white;
+  opacity: 70%;
+}
+
