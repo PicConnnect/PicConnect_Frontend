@@ -6,7 +6,7 @@ import { auth } from "../firebase/firebase";
 import { fetchUserLikes, fetchPosts } from "../redux/postSlice";
 import Masonry from "react-masonry-css";
 
-export default function SavedPhotos() {
+export default function SavedPhotos({removeButton}) {
   // const [likedPhotos, setLikedPhotos] = useState([]);
   // const [isLoading, setIsLoading] = useState(true);
   // const [error, setError] = useState(null);
@@ -65,7 +65,7 @@ export default function SavedPhotos() {
               userId={userId}
               url={photo.urls}
               size="small"
-              removeButton={true}
+              removeButton={removeButton}
               userLikedPhotos={true}
             />
           ))}

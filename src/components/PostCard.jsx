@@ -68,13 +68,18 @@ const PostCard = ({
     event.stopPropagation();
 
     try {
-      const response = await axios.delete(
-        `http://localhost:8000/api/photos/${postId}`
+      const confirm = window.confirm(
+        "Are you sure you want to delete selected post"
       );
+
+      if (confirm) {
+        const response = await axios.delete(
+          `http://localhost:8000/api/photos/${postId}`
+        );
+      }
     } catch (error) {
       console.error("Error deleting photo:", error);
     }
-
   };
 
   return (

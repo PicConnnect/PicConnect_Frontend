@@ -4,7 +4,7 @@ import { updateUserNameInBackend, fetchUser } from "../../redux/userSlice";
 
 import ProfilePhoto from "./ProfilePhoto";
 
-export default function AboutComponent() {
+export default function AboutComponent({removeButton}) {
   const dispatch = useDispatch();
   const userStatus = useSelector((state) => state.user.status);
 
@@ -26,7 +26,7 @@ export default function AboutComponent() {
   return (
     <div className="aboutContainer flex">
       <div className="flex items-center space-x-4 mt-4">
-        <ProfilePhoto></ProfilePhoto>
+        <ProfilePhoto removeButton = {removeButton}></ProfilePhoto>
       </div>
     </div>
   );
