@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import PostCard from './PostCard';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import PostCard from "./PostCard";
 //import axios from 'axios';
 import { auth } from "../firebase/firebase";
-import { fetchUserLikes, fetchPosts } from '../redux/postSlice';
-import Masonry from 'react-masonry-css'
+import { fetchUserLikes, fetchPosts } from "../redux/postSlice";
+import Masonry from "react-masonry-css";
 
 export default function SavedPhotos() {
   // const [likedPhotos, setLikedPhotos] = useState([]);
@@ -16,10 +16,8 @@ export default function SavedPhotos() {
 
   const [loading, setLoading] = useState(true);
 
-
-
   const likedPhotoIds = useSelector((state) => state.posts.likedPhotoIds);
-  console.log(likedPhotoIds)
+  console.log(likedPhotoIds);
   const allPosts = useSelector((state) => state.posts.posts);
   console.log(allPosts);
   // const likesStatus = useSelector((state) => state.posts.likesStatus);
@@ -27,19 +25,17 @@ export default function SavedPhotos() {
 
   const likedPosts = allPosts.filter((post) => likedPhotoIds.includes(post.id));
 
-  useEffect(() => {
+  const loadData = async () => {
     if (userId) {
-      const loadData = async () => {
-        await dispatch(fetchPosts());
-        await dispatch(fetchUserLikes(userId));
-        setLoading(false);
-      };
-  
-      loadData();
+      await dispatch(fetchPosts());
+      await dispatch(fetchUserLikes(userId));
+      setLoading(false);
     }
-  }, [dispatch, userId]);
-  
+  };
 
+  useEffect(() => {
+    loadData();
+  }, [loadData, userId]);
 
   console.log(`likedPhotoIds: ${JSON.stringify(likedPhotoIds)}`);
   console.log(`likedPosts: ${JSON.stringify(likedPosts)}`);
@@ -48,37 +44,35 @@ export default function SavedPhotos() {
     default: 3,
     1100: 2,
     700: 1,
-    500: 1
+    500: 1,
   };
 
   if (loading) {
-    return <div>Loading...</div> 
+    return <div>Loading...</div>;
   } else {
-
-  return (
-    <div className="usersLikedPhotos mt-4">
+    return (
+      <div className="usersLikedPhotos mt-4">
         {/* <h1 className="heading">User's Liked Photos</h1> */}
         <Masonry
           breakpointCols={breakpointColumnsObj}
           className="my-masonry-grid"
           columnClassName="my-masonry-grid_column"
         >
-          {likedPosts.map(photo => (
-            <PostCard 
-              key={photo.id} 
-              postId={photo.id} 
-              userId={userId} 
-              url={photo.urls} 
-              size="small" 
-              removeButton={true} 
-              userLikedPhotos={true} 
+          {likedPosts.map((photo) => (
+            <PostCard
+              key={photo.id}
+              postId={photo.id}
+              userId={userId}
+              url={photo.urls}
+              size="small"
+              removeButton={true}
+              userLikedPhotos={true}
             />
           ))}
         </Masonry>
-    </div>
-  );
- }
-
+      </div>
+    );
+  }
 
   // return (
   //   <div  className="usersLikedPhotos">

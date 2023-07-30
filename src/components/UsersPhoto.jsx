@@ -5,21 +5,21 @@ import Masonry from "react-masonry-css"
 export default function UsersPhoto({ userId }) {
   const [photos, setPhotos] = useState([]); 
 
-  
+  const fetchPhotos = async () => {
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/api/photos/user/${userId}`
+    );
+    if (!response.ok) {
+      console.log("Response:", response);
+      throw new Error("Failed to fetch photos");
+    }
+    const data = await response.json();
+    setPhotos(data);
+  };
+
 useEffect(() => {
-    const fetchPhotos = async () => {
-      const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/api/photos/user/${userId}`
-      );
-      if (!response.ok) {
-        console.log("Response:", response);
-        throw new Error("Failed to fetch photos");
-      }
-      const data = await response.json();
-      setPhotos(data);
-    };
     fetchPhotos();
-  }, [userId]);
+  }, [fetchPhotos, userId]);
 
   let content;
 
