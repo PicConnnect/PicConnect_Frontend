@@ -31,7 +31,7 @@ export default function Home() {
     // dispatch(fetchUserLikes(userId))
     loadData();
     //console.log("ndngjd");
-  }, [loadData, userId]);
+  }, [userId]);
 
   let content;
 
@@ -65,7 +65,7 @@ export default function Home() {
       console.log("searching");
       dispatch(fetchSearchPost(searchWord));
     }
-    console.log(postCardList);
+    console.log("this is ",postCardList);
   };
 
   const styles = {

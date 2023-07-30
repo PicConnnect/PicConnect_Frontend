@@ -171,7 +171,7 @@ export default function ProfilePhoto({removeButton}) {
     // Perform validation on the input values
     const isValid = info.every((item, index) => {
       const pattern = new RegExp(inputPatterns[index]);
-        console.log(pattern.test(item));
+        console.log("pattern",pattern.test(item));
       return pattern.test(item);
     });
     if (isValid) {
@@ -179,7 +179,7 @@ export default function ProfilePhoto({removeButton}) {
       // If the name has changed, update it in the backend
       if (info[0] !== initialItems[0]) {
         const result = dispatch(updateUserNameInBackend(auth.currentUser?.uid, info[0]));
-        console.log(result)
+        console.log("pattern",result)
       }
     } else {
       // Show an error message or handle invalid inputs

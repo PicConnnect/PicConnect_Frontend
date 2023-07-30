@@ -17,9 +17,9 @@ export default function SavedPhotos({removeButton}) {
   const [loading, setLoading] = useState(true);
 
   const likedPhotoIds = useSelector((state) => state.posts.likedPhotoIds);
-  console.log(likedPhotoIds);
+  console.log("They r liked photo ids ",likedPhotoIds);
   const allPosts = useSelector((state) => state.posts.posts);
-  console.log(allPosts);
+  console.log("They r allPhotos",allPosts);
   // const likesStatus = useSelector((state) => state.posts.likesStatus);
   // console.log(likesStatus)
 
