@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import CustomChooseFileButton from "./CustomChooseFileButton";
 
 const UploadCard = () => {
+  const [webpFile, setWebpFile] = useState(null);
   // Get the file upload progress from the Redux store
   const isUploading = useSelector(
     (state) => state.fileUploadProgress.isUploading
@@ -62,37 +63,94 @@ const UploadCard = () => {
     return RedirectMessage;
   }
 
+  const changeExtensionToWebP = (filename) => {
+    const parts = filename.split(".");
+    parts.pop(); //remove the current extension
+    return `${parts.join(".")}.webp`; //add the webp extension
+  }
+
   const handleFileChange = async (event) => {
     //first file in the list
     const file = event.target.files[0];
     if (!file) return;
-    setFileName(file.name);
+    // setFileName(file.name);
 
-    //handle file conversion from heic to jpg
+    const orignalFileName = file.name;
+    const webpFileName = changeExtensionToWebP(orignalFileName);
+
+    // Function to convert an image to WebP
+    const convertToWebP = async (imageFile) => {
+      const imageUrl = URL.createObjectURL(imageFile);
+      return new Promise((resolve, reject) => {
+        const image = new Image();
+        image.src = imageUrl;
+
+        image.onload = () => {
+          const canvas = document.createElement("canvas");
+          canvas.width = image.width;
+          canvas.height = image.height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(image, 0, 0);
+
+          canvas.toBlob((blob) => {
+            const webpFile = new File([blob], webpFileName, {
+              type: "image/webp",
+            });
+            resolve(webpFile);
+          }, "image/webp");
+        };
+
+        image.onerror = () => reject(new Error("Conversion failed"));
+      });
+    };
+
+    let finalFile = file;
+
+    // Handle file conversion from HEIC to JPEG, then to WebP
     if (file.type === "image/heic") {
       try {
         setConversionInProgress(true);
-        const startTime = Date.now();
-        const jpegData = await heic2any({
-          blob: file,
-          toType: "image/jpeg",
-        });
-        const endTime = Date.now();
-        setConversionInProgress(false);
+        const jpegData = await heic2any({ blob: file, toType: "image/jpeg" });
         const jpegFile = new File([jpegData], "converted.jpg", {
           type: "image/jpeg",
         });
-        setImageUrl(URL.createObjectURL(jpegFile));
-        setConvertedImage(jpegFile);
-        setFileName("converted.jpg");
-        console.log(
-          "Conversion Time:",
-          (endTime - startTime) / 1000,
-          "seconds"
-        );
+        finalFile = await convertToWebP(jpegFile);
+        setImageUrl(URL.createObjectURL(finalFile));
+        setConversionInProgress(false);
+        setFileName(webpFileName);
       } catch (error) {
         setConversionInProgress(false);
-        console.error("Error converting HEIC to JPEG:", error);
+        console.error("Error converting HEIC to JPEG to WebP:", error);
+        return;
+      }
+    }
+
+    // Handle file conversion from JPEG or PNG to WebP
+    if (
+      file.type === "image/jpeg" ||
+      file.type === "image/png" ||
+      file.type === "image/heic"
+    ) {
+      try {
+        setConversionInProgress(true);
+        let imageFileToConvert = file; // By default, use the original file for conversion
+
+        // If the file is a HEIC image, convert it to JPEG first
+        if (file.type === "image/heic") {
+          const jpegData = await heic2any({ blob: file, toType: "image/jpeg" });
+          imageFileToConvert = new File([jpegData], webpFileName, {
+            type: "image/jpeg",
+          });
+        }
+
+        const convertedWebPFile = await convertToWebP(imageFileToConvert);
+        setWebpFile(convertedWebPFile);
+        setImageUrl(URL.createObjectURL(convertedWebPFile));
+        setConversionInProgress(false);
+        setFileName(webpFileName);
+      } catch (error) {
+        setConversionInProgress(false);
+        console.error("Error converting to WebP:", error);
         return;
       }
     }
@@ -103,13 +161,11 @@ const UploadCard = () => {
       // When FileReader finishes reading the file data, this will be executed
       reader.onload = async function (e) {
         // Data URL representing the file's data
-        if (file.type !== "image/heic") {
-          setImageUrl(e.target.result);
-        }
+        setImageUrl(e.target.result);
 
-        // Create FormData and append the file to it
+        // Create FormData and append the original file to it for metadata extraction
         const formData = new FormData();
-        formData.append("photo", file);
+        formData.append("photo", file); // Use the original file here
         try {
           // Make a POST request with the FormData object
           const response = await axios.post(
@@ -127,7 +183,7 @@ const UploadCard = () => {
           setphotoDetails(
             response.data.Make
               ? `Make: ${response.data.Make}, Model: ${response.data.Model}, Exposure Time: ${response.data.ExposureTime}, ISO: ${response.data.ISO}, 
-          Focal Length: ${response.data.FocalLength}`
+        Focal Length: ${response.data.FocalLength}`
               : "No metadata found for this photo!"
           );
           console.log("this is response on file change", response.data);
@@ -135,8 +191,8 @@ const UploadCard = () => {
           console.error("Error uploading image:", error);
         }
       };
-      //can use this as a source in an img tag to preveiw the picture
-      reader.readAsDataURL(file);
+      // Can use this as a source in an img tag to preview the picture
+      reader.readAsDataURL(file); // Read the original file
     }
   };
 
@@ -151,18 +207,17 @@ const UploadCard = () => {
     setphotoDetails(event.target.value);
   };
 
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    //get the file from the form
-    const file = event.target.image.files[0];
-    if (file) {
+
+    if (webpFile) {
       let downloadURL;
-      if (file.type === "image/heic") {
-        downloadURL = await uploadToStorage(convertedImage, "images");
+      try {
+        downloadURL = await uploadToStorage(webpFile, "images");
         console.log("File available at", downloadURL);
-      } else {
-        downloadURL = await uploadToStorage(file, "images");
-        console.log("File available at", downloadURL);
+      } catch (error) {
+        console.error("Error uploading webP image:", error);
       }
 
       const newPhoto = {
@@ -229,6 +284,7 @@ const UploadCard = () => {
     stripeAnimationDuration: "20s",
     type: "striped",
   };
+
   return (
     <div>
       <Modal
@@ -359,7 +415,7 @@ const UploadCard = () => {
                 id="upload"
                 type="file"
                 name="image"
-                accept="image/jpeg, image/png, image/heic"
+                accept="image/jpeg, image/png, image/heic, image/webp"
                 onChange={handleFileChange}
                 style={{ display: "none" }}
               />

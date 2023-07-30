@@ -72,18 +72,6 @@
   margin: 3px;
 }
 
-.commentBox {
-  background-color: antiquewhite;
-  border: 2px double black;
-  margin: 3px;
-}
-
-.commentBox p {
-  border-bottom: 1px solid black;
-  padding-left: 2rem;
-  text-align: left;
-}
-
 .backButton {
   background-color: transparent;
   border-color: black;
@@ -124,7 +112,7 @@
 
 .card-content {
   margin: 10px;
-  border: 2px solid black;
+  /* border: 2px solid black; */
   border-radius: 8px;
   z-index: 0;
 }
