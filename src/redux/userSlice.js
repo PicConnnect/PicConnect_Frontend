@@ -52,6 +52,19 @@ export const fetchUser = createAsyncThunk(
   }
 );
 
+export const fetchOtherUser = createAsyncThunk(
+  'user/fetchOtherUser', 
+  async(userId, { rejectWithValue }) => {
+    try{
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}`);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  } 
+)
+
 export const userSlice = createSlice({
   name: "user",
   initialState: {
@@ -95,7 +108,19 @@ export const userSlice = createSlice({
     .addCase(fetchUser.rejected, (state, action) => {
       state.status = 'failed';
       state.error = action.payload;
+    })
+
+    .addCase(fetchOtherUser.fulfilled, (state, action) => {
+      state.status = 'succeeded';
+      state.value = action.payload;
+      // state.items[0] = action.payload.name;
+      // state.items[2] = action.payload.email;
+    })
+    .addCase(fetchOtherUser.rejected, (state, action) => {
+      state.status = 'failed';
+      state.error = action.payload;
     });
+
   },
 });
 

@@ -19,6 +19,7 @@ const ViewPost = lazy(() => import("../Pages/ViewPost"));
 const UsersPhoto = lazy(() => import("../components/UsersPhoto"));
 const Follower = lazy(() => import("./../Pages/Follower"));
 
+
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
@@ -78,7 +79,7 @@ function App() {
           <Route path="/Following/:userId" element={<Following></Following>}></Route>
           <Route path="/Follower/:userId" element={<Follower></Follower>}></Route>
           <Route path="/Upload" element={<Upload></Upload>}></Route>
-          <Route path="/Profile/:userId" element={<UsersPhoto />}></Route>
+          <Route path="/OtherProfile/:userId" element={<OtherProfile></OtherProfile>}></Route>
           <Route path="/Profile" element={<Profile></Profile>}></Route>
           <Route path="/SignIn" element={<SignIn />}></Route>
           <Route path="/SignUp" element={<SignUp />}></Route>
