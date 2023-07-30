@@ -7,7 +7,7 @@ import SavedPhotos from "../SavedPhotos";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUserNameInBackend, fetchUser } from "../../redux/userSlice";
 
-export default function ProfilePhoto() {
+export default function ProfilePhoto({removeButton}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState(null);
@@ -415,9 +415,9 @@ export default function ProfilePhoto() {
         </div>
       </div>
       {activeTab === "photos" ? (
-        <UsersPhoto userId={auth.currentUser?.uid} />
+        <UsersPhoto userId={auth.currentUser?.uid} removeButton={removeButton} />
       ) : (
-        <SavedPhotos />
+        <SavedPhotos removeButton={removeButton}/>
       )}
     </div>
   );
