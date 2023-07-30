@@ -30,7 +30,7 @@ const UserProfile = () => {
   return (
     <div className="profileContainer">
       <div>
-        <AboutComponent></AboutComponent>
+        <AboutComponent removeButton={true}></AboutComponent>
         {/* <BadgeComponent></BadgeComponent> */}
         <SignOutButtonComponent
           handleLogout={handleLogout}
