@@ -115,7 +115,7 @@ const SingleView = ({ postcard, userId, postId }) => {
   };
 
   const navigateToProfile = () => {
-    navigate(`/Profile/${postcard.user?.id}`);
+    navigate(`/OtherProfile/${postcard.user?.id}`);
   }
 
   return (
