@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PostCard from "./PostCard";
 import Masonry from "react-masonry-css"
 
-export default function UsersPhoto({ userId }) {
+export default function UsersPhoto({ userId,removeButton }) {
   const [photos, setPhotos] = useState([]); 
 
   const fetchPhotos = async () => {
@@ -33,7 +33,7 @@ useEffect(() => {
         size="small"
         title={photo.title}
         postId={photo.id}
-        removeButton={true}
+        removeButton={removeButton}
         userLikedPhotos={false}
       />
     ));
