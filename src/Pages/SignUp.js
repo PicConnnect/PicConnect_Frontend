@@ -1,20 +1,24 @@
 import "./../index.css";
 import React, { useState } from "react";
-import { signUpWithEmail, signInWithGoogle, signInWithFacebook } from "../firebase/firebase";
+import {
+  signUpWithEmail,
+  signInWithGoogle,
+  signInWithFacebook,
+} from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import Footer from "../components/Footer";
 import Input from "../components/Input";
 
 export default function SignUp() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   //states that stores the user data
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVerification, setPasswordVerification] = useState("");
-
-  //const navigate = useNavigate();
+  const [passwordMismatch, setPasswordMismatch] = useState(false);
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -35,9 +39,12 @@ export default function SignUp() {
     event.preventDefault();
 
     if (password !== passwordVerification) {
+      setPasswordMismatch(true);
       console.log("The passwords do not match");
       //dispaly the error in UI later
       return; //terminate early if password doesn't match
+    } else {
+      setPasswordMismatch(false);
     }
 
     try {
@@ -51,6 +58,7 @@ export default function SignUp() {
       setEmail("");
       setPassword("");
       setPasswordVerification("");
+      navigate("/Profile");
     } catch (error) {
       console.error("Error signing up", error);
       //Display this error in UI later
@@ -88,6 +96,9 @@ export default function SignUp() {
             onChange={handlePasswordVerificationChange}
             label="Confirm Your Password"
           />
+          {passwordMismatch ? (
+            <p style={{ color: "red" }}>PASSWORDS DO NOT MATCH</p>
+          ): <p></p>}
           <button
             type="submit"
             className="w-full h-10 mt-10 bg-black text-white"
