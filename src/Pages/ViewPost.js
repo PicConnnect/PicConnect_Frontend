@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import SingleView from "../components/SingleView";
 import { useIfNotAuthenticated } from "../hooks/useIfNotAuthenticated";
 import Footer from "../components/Footer";
@@ -15,14 +15,14 @@ export default function ViewPost() {
       await axios
         .get(`${process.env.REACT_APP_BACKEND_URL}/api/photos/${currentId}`)
         .then((response) => {
-          console.log("This is postcard Data: ", postCardData);
+          console.log("This is postcard Data: ", response.data);
           setPostCardData(response.data);
         });
     } catch (error) {
       console.log(error);
     }
   };
-
+  
   useEffect(() => {
     fetchPostCardData();
   }, []);
