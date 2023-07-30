@@ -151,7 +151,9 @@ export default function ProfilePhoto() {
   const handleInputChange = (index, event) => {
     const updatedItems = [...items];
     updatedItems[index] = event.target.value;
+    console.log("This is printing the changes : ", updatedItems[index], updatedItems)
     setInfo(updatedItems);
+    console.log("this is new info: ", info);
   };
 
   const makeListEditable = (e) => {
@@ -167,17 +169,17 @@ export default function ProfilePhoto() {
   const saveList = (e) => {
     e.preventDefault();
     // Perform validation on the input values
-    const isValid = items.every((item, index) => {
+    const isValid = info.every((item, index) => {
       const pattern = new RegExp(inputPatterns[index]);
-      //   console.log(pattern.test(item));
+        console.log(pattern.test(item));
       return pattern.test(item);
     });
-
     if (isValid) {
       setIsEditing(false);
       // If the name has changed, update it in the backend
       if (info[0] !== initialItems[0]) {
-        dispatch(updateUserNameInBackend(auth.currentUser?.uid, items[0]));
+        const result = dispatch(updateUserNameInBackend(auth.currentUser?.uid, info[0]));
+        console.log(result)
       }
     } else {
       // Show an error message or handle invalid inputs
@@ -276,15 +278,9 @@ export default function ProfilePhoto() {
                   marginTop: isEditing ? "10px" : "0",
                 }}
               >
-                {isEditing ? (
                   <label htmlFor={itemsName[index]}>
                     {itemsName[index]}:
                   </label>
-                ) : (
-                  <p></p>
-                )}
-
-                {isEditing ? (
                   <input
                     className="line"
                     type={inputType[index]}
@@ -302,9 +298,6 @@ export default function ProfilePhoto() {
                       event.target.setCustomValidity("");
                     }}
                   />
-                ) : (
-                  <p>{item}</p>
-                )}
               </div> 
             )) : info.slice(1, items.length).map((item, index) => (
               <div
@@ -316,35 +309,7 @@ export default function ProfilePhoto() {
                   marginBottom: isEditing ? "2px" : "0",
                 }}
               >
-                {isEditing ? (
-                  <label htmlFor={itemsName[index]}>
-                    {itemsName[index]}:
-                  </label>
-                ) : (
-                  <p></p>
-                )}
-
-                {isEditing ? (
-                  <input
-                    className="line"
-                    type={inputType[index]}
-                    name={itemsName[index]}
-                    value={item}
-                    onChange={(event) => handleInputChange(index, event)}
-                    pattern={inputPatterns[index]}
-                    required
-                    onInvalid={(event) => {
-                      event.target.setCustomValidity(
-                        `Please follow the format ${patternString[index]}`
-                      );
-                    }}
-                    onInput={(event) => {
-                      event.target.setCustomValidity("");
-                    }}
-                  />
-                ) : (
                   <p>{item}</p>
-                )}
               </div> 
             )) }
             {isEditing ? (
