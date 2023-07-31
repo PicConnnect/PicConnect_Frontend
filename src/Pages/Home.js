@@ -139,7 +139,7 @@ export default function Home() {
               type="search"
               id="default-search"
               class="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-white dark:border-white shadow-md dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-5"
-              placeholder="Search Mockups, Logos..."
+              placeholder="Search"
               value={searchWord}
               onChange={(e) => setSearchWord(e.target.value)}
               required
