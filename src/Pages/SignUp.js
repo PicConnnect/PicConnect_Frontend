@@ -20,19 +20,14 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [passwordVerification, setPasswordVerification] = useState("");
   const [passwordMismatch, setPasswordMismatch] = useState(false);
+  const[errorMessage, setErrorMessage] = useState(false);
   const user = useSelector((state) => state.user.value);
-  //console.log(user);
-
-
-  // useEffect(() => {
-
-  // },[user])
 
   if (user.id) {
     navigate.push("/Profile");
   }
   // console.log(auth && auth.currentUser && auth.currentUser.uid);
-  
+
   const handleNameChange = (event) => {
     setName(event.target.value);
   };
@@ -60,12 +55,17 @@ export default function SignUp() {
       setPasswordMismatch(false);
     }
 
-    try {
-       await signUpWithEmail(email, password, name, dispatch);
-      // await user.sendEmailVerification();
-      //DOOOO: Show message to user to check their email for verification
-      //ALSO DECIDE ON WHERE TO NAVIGATE USER
+    if (password.length < 6) {
+      setErrorMessage(true);
+      console.error("Password should be at least 6 characters long");
+      // Here you can set some state variable to show this error on the UI
+      return; //terminate early if password is too short
+    } else {
+      setErrorMessage(false);
+    }
 
+    try {
+      await signUpWithEmail(email, password, name, dispatch);
       // Reset the form only if sign up is successful
       setName("");
       setEmail("");
@@ -73,7 +73,7 @@ export default function SignUp() {
       setPasswordVerification("");
       navigate("/Profile");
     } catch (error) {
-      console.error("Error signing up", error);
+      console.log(setErrorMessage)
       //Display this error in UI later
     }
   };
@@ -111,7 +111,14 @@ export default function SignUp() {
           />
           {passwordMismatch ? (
             <p style={{ color: "red" }}>PASSWORDS DO NOT MATCH</p>
-          ): <p></p>}
+          ) : (
+            <p></p>
+          )}
+          {errorMessage ? (
+            <p style={{ color: "red" }}>Password should be at least 6 characters long</p>
+          ) : (
+            <p></p>
+          ) }
           <button
             type="submit"
             className="w-full h-10 mt-10 bg-black text-white"
