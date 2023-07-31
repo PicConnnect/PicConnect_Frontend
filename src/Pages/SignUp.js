@@ -1,14 +1,15 @@
 import "./../index.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   signUpWithEmail,
   signInWithGoogle,
   signInWithFacebook,
 } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Footer from "../components/Footer";
 import Input from "../components/Input";
+import { auth } from "../firebase/firebase";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -19,7 +20,19 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [passwordVerification, setPasswordVerification] = useState("");
   const [passwordMismatch, setPasswordMismatch] = useState(false);
+  const user = useSelector((state) => state.user.value);
+  //console.log(user);
 
+
+  // useEffect(() => {
+
+  // },[user])
+
+  if (user.id) {
+    navigate.push("/Profile");
+  }
+  // console.log(auth && auth.currentUser && auth.currentUser.uid);
+  
   const handleNameChange = (event) => {
     setName(event.target.value);
   };
@@ -48,8 +61,8 @@ export default function SignUp() {
     }
 
     try {
-      const { user } = await signUpWithEmail(email, password, name, dispatch);
-      await user.sendEmailVerification();
+       await signUpWithEmail(email, password, name, dispatch);
+      // await user.sendEmailVerification();
       //DOOOO: Show message to user to check their email for verification
       //ALSO DECIDE ON WHERE TO NAVIGATE USER
 
@@ -105,17 +118,6 @@ export default function SignUp() {
           >
             Sign Up
           </button>
-          <span className="italic">
-            By continuing you agree to the{" "}
-            <a href="" className="underline">
-              Terms of Services
-            </a>{" "}
-            and{" "}
-            <a href="" className="underline">
-              {" "}
-              Privacy
-            </a>
-          </span>
           <button
             onClick={() => signInWithGoogle()}
             className="w-full h-10 mt-10 bg-black text-white"

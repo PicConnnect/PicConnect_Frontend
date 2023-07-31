@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 //prettier-ignore
-import { getAuth, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, sendEmailVerification,} from "firebase/auth";
+import { getAuth, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile,} from "firebase/auth";
 import { setUserData } from "../redux/userSlice";
 import { useDispatch } from "react-redux";
 import { getStorage } from "firebase/storage";
@@ -108,7 +108,7 @@ export const signUpWithEmail = async (
     );
 
     await updateProfile(user, { displayName });
-    await sendEmailVerification(user);
+    // await sendEmailVerification(user);
     const token = await user.getIdToken(true);
     sendTokenToBackend(token);
     // Dispatch only necessary properties
