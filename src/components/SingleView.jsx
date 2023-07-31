@@ -221,22 +221,7 @@ const SingleView = ({ postcard, userId, postId }) => {
                     <h1 className="text-3xl lg:text-4xl font-semibold text-gray-800 dark:text-white">
                     Photo Details
                     </h1>
-                     <p className="text-base leading-normal text-gray-600 dark:text-white mt-2">
-                      You don't just want to be comfortable sitting in a bar
-                      stool—you want to be comfortable shimmying it up to the
-                      bar, closer to your lover, or back slightly to include a
-                      third person in the conversation.
-                    </p>
-                    {/*<p className="text-3xl font-medium text-gray-600 dark:text-white mt-8 md:mt-10">
-                    </p>
-                    <div className="flex items-center flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6 lg:space-x-8 mt-8 md:mt-16">
-                      <button className="w-full md:w-3/5 border border-gray-800 text-base font-medium leading-none text-white uppercase py-6 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 bg-gray-800 text-white dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200">
-                        Add to Cart
-                      </button>
-                      <button className="w-full md:w-2/5 border border-gray-800 text-base font-medium leading-none text-gray-800 dark:text-white uppercase py-6 bg-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 dark:bg-transparent dark:border-white dark:text-white focus:ring-gray-800 hover:bg-gray-800 hover:text-white dark:hover:bg-gray-800">
-                        View Details
-                      </button>
-                    </div> */}
+
                     <div className="mt-6 scrollable-container" style={{ maxHeight: "500px", overflow: "auto" }}
 >
 
