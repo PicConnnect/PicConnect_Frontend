@@ -7,6 +7,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { setUserData } from "../redux/userSlice";
 import { auth, sendTokenToBackend, } from "../firebase/firebase";
 import Footer from "../components/Footer";
+import Navbar from "../components/navbar";
 
 // Use lazy to dynamically import your page components
 const Home = lazy(() => import("./../Pages/Home"));
@@ -49,18 +50,15 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <nav className="p-4 font-merriweather text-lg">
+      <Navbar />
+
+        {/* <nav className="p-4 font-merriweather text-lg">
           <ul className="flex justify-between font-bold">
             <li>
               <Link to="/" className="home-link">
                 Home
               </Link>
             </li>
-            {/* <li>
-              <Link to="/Following" className="following-link">
-                Following
-              </Link>
-            </li> */}
             <li>
               <Link to="/Upload" className="upload-link">
                 Upload
@@ -72,7 +70,7 @@ function App() {
               </Link>
             </li>
           </ul>
-        </nav>
+        </nav> */}
         <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route path="/" element={<Home></Home>}></Route>
