@@ -6,8 +6,9 @@ import UsersPhoto from "../UsersPhoto";
 import SavedPhotos from "../SavedPhotos";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import FollowUser from "./FollowUser";
 
-export default function ProfilePhoto( userId ) {
+export default function ProfilePhoto( {userId} ) {
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState(null);
   const [userData, setUserData] = useState("");
@@ -20,7 +21,7 @@ export default function ProfilePhoto( userId ) {
     console.log("herein pp userData",userId);
     const fetchProfilePic = async () => {
     const response = await axios.get(
-      `${process.env.REACT_APP_BACKEND_URL}/api/users/${userId.userId}`
+      `${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}`
     );
   
     setImageUrl(response.data.profilePicUrl);
@@ -78,20 +79,9 @@ export default function ProfilePhoto( userId ) {
         <p>Contact: {userData.phoneNumber? userData.phoneNumber : "123-456-7890"}</p>
       </div>
       {/* </div> */}
-      {/* <div className="flex justify-center space-x-8 pt-6 ml-2">
-        <button
-          className="px-6 py-2 bg-blue-500 text-white rounded-md text-sm"
-          onClick={handleFollowingClick}
-        >
-          Following
-        </button>
-        <button
-          className="px-6 py-2 bg-blue-500 text-white rounded-md text-sm"
-          onClick={handleFollowerClick}
-        >
-          Followers
-        </button>
-      </div> */}
+      <div className="flex justify-center space-x-8 pt-6 ml-2">
+       <FollowUser targetUser={userId}></FollowUser>
+      </div> 
       <div className="flex justify-center space-x-8 pt-6 ml-2 border-b border-gray-300">
         <div
           className="flex items-center space-x-2 cursor-pointer border-b border-gray-300"

@@ -10,11 +10,10 @@ export default function OtherProfile() {
 //   //check to see if user logged in
 //   const notLoggedInMessage = useIfNotAuthenticated();
 //   //if not logged in
-  
 
   return (
     <div style={{marginBottom: '5%'}}>
-      <OtherUserProfile user={userId} />
+      <OtherUserProfile userId={userId} />
     </div>
   );
 }

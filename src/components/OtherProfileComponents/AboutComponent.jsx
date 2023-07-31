@@ -4,7 +4,7 @@ import { updateUserNameInBackend, fetchUser } from "../../redux/userSlice";
 
 import ProfilePhoto from "./ProfilePhoto";
 
-export default function AboutComponent( userId ) {
+export default function AboutComponent( {userId} ) {
   const dispatch = useDispatch();
   const userStatus = useSelector((state) => state.user.status);
 
@@ -18,15 +18,11 @@ export default function AboutComponent( userId ) {
   if (userStatus === "loading") {
     return <div>Loading...</div>; // or some other loading indicator
   }
-
-  if (userStatus === "failed") {
-    return <div>Error loading user data.</div>; // or some other error message
-  }
-
+console.log("AboutComp userId: ", userId)
   return (
-    <div className="aboutContainer flex">
-      <div className="flex items-center space-x-4 mt-4">
-        <ProfilePhoto userId = {userId.userId.user}></ProfilePhoto>
+    <div>
+      <div>
+        <ProfilePhoto userId = {userId}></ProfilePhoto>
       </div>
     </div>
   );
