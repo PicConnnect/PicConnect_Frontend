@@ -139,6 +139,14 @@ export const signInWithEmail = async (email, password, dispatch) => {
       })
     );
   } catch (error) {
-    console.error("Error:", error);
+    //console.error("Error:", error);
+    let errorMessage = error.message;
+    if (error.code === "auth/wrong-password") {
+      errorMessage = "Incorrect password. Please try again.";
+    } else if (error.code === "auth/user-not-found") {
+      errorMessage = "No user found with this email. Please try again or sign up.";
+    }
+
+    throw errorMessage;
   }
 };
