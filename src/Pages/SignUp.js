@@ -78,7 +78,7 @@ export default function SignUp() {
     }
   };
   return (
-    <div className="bg-[#EAE6DE] h-screen">
+    <div className=" h-screen">
       <h1 className="text-4xl p-5">Register User</h1>
       <div className="flex justify-center">
         <form onSubmit={handleSubmit} className="flex flex-col w-1/2">

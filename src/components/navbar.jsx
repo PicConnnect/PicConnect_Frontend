@@ -7,10 +7,13 @@ import { useAuth } from "../hooks/useAuth";
 const Navbar = () => {
   const [open, setOpen] = useState(true);
   const user = useAuth();
+  const [logIn, setLogIn] = useState(true);
 
   const handleToggle = () => {
     setOpen((prevState) => !prevState);
   };
+
+
 
   const handleLogout = () => {
     signOut(auth)
@@ -110,14 +113,22 @@ const Navbar = () => {
                 >
                   Sign Out
                 </Link>
-                ) : (
-                  <Link to="signin"
-                  className="px-4 py-2 mt-2 text-sm font-semibold text-blue-600 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                   >
-                  Sign In
+                ) : logIn ? (
+                  <Link
+                    to="signin"
+                    onClick={()=>setLogIn(false)}
+                    className="px-4 py-2 mt-2 text-sm font-semibold text-blue-600 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                  >
+                    Sign In
                   </Link>
-                
-                
+                ) : (
+                  <Link
+                    to="signup"
+                    onClick={()=>setLogIn(true)}
+                    className="px-4 py-2 mt-2 text-sm font-semibold text-blue-600 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                  >
+                    Sign Up
+                  </Link>
                 )}
                 
               </nav>
