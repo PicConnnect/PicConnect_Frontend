@@ -1,27 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { auth } from "../firebase/firebase";
+import axios from "axios";
 
 export const updateUserNameInBackend = createAsyncThunk(
   "user/updateUserNameInBackend",
   async (payload, { rejectWithValue }) => {
     try {
-      const { userId, newName } = payload;
-      const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ name: newName }), // Specify the attribute you want to update
-        }
-      );
 
-      if (!response.ok) {
-        throw new Error("Server Error");
-      }
-
-      const data = await response.json();
+      const {data} = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/users/${payload.id}`, payload)
+  
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -33,18 +20,14 @@ export const fetchUser = createAsyncThunk(
   'user/fetchUser',
   async (_, { rejectWithValue }) => { 
     try {
+      console.log("fetching user....")
       const userId = auth.currentUser?.uid;
       if (!userId) {
         throw new Error('User ID not found');
       }
       
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}`);
-      console.log(response);
-      if (!response.ok) {
-        throw new Error('Server Error');
-      }
-      
-      const data = await response.json();
+      const {data} = await axios(`${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}`);
+   
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -85,6 +68,7 @@ export const userSlice = createSlice({
       })
       .addCase(updateUserNameInBackend.fulfilled, (state, action) => {
         state.status = "succeeded";
+        state.value = action.payload;
         state.value.displayName = action.payload.name;
       })
       .addCase(updateUserNameInBackend.rejected, (state, action) => {
@@ -100,10 +84,15 @@ export const userSlice = createSlice({
     //   state.error = action.payload;
     // })
     .addCase(fetchUser.fulfilled, (state, action) => {
+      console.log("Fulfilled: ", action.payload)
       state.status = 'succeeded';
       state.value = action.payload;
       state.items[0] = action.payload.name;
+      state.items[1] = action.payload.birthday;
       state.items[2] = action.payload.email;
+      state.items[3] = action.payload.phoneNumber;
+
+      state.items.forEach((data) => console.log(data))
     })
     .addCase(fetchUser.rejected, (state, action) => {
       state.status = 'failed';
