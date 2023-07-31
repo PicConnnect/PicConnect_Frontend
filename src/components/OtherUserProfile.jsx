@@ -10,10 +10,8 @@ import "../styles/UploadCard.css";
 // import BadgeComponent from "./ProfileComponents/BadgeComponent";
 import AboutComponent from "./OtherProfileComponents/AboutComponent";
 
-const OtherUserProfile = ( userId ) => {
+const OtherUserProfile = ( {userId} ) => {
   const navigate = useNavigate();
-
-  console.log("in jsx")
 
   return (
     <div className="profileContainer">
