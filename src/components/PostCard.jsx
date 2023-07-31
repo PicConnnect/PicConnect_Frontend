@@ -29,7 +29,7 @@ const PostCard = ({
 
   // Get the likedPhotoIds from the Redux store
   const likedPhotoIds = useSelector((state) => state.posts.likedPhotoIds);
-  console.log("likedPhotoIds", likedPhotoIds);
+  // console.log("likedPhotoIds", likedPhotoIds);
 
   // Use the useAuth hook to get the current user
   const user = useAuth();
@@ -47,9 +47,10 @@ const PostCard = ({
     event.stopPropagation();
     //console.log("Testing like and unlike");
 
-    const userId = userRef.current.uid;
+    const userId = userRef.current?.uid? userRef.current?.uid : userRef.current?.id;
 
     // console.log(`Current isLiked: ${isLiked}`);
+    console.log("userIdd: ", userRef.current)
     console.log(`Post ID: ${postId}`);
 
     if (likedPhotoIds.includes(postId)) {
