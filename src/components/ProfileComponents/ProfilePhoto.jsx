@@ -7,7 +7,7 @@ import LikedPhotos from "../LikedPhotos";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUserNameInBackend, fetchUser } from "../../redux/userSlice";
 
-export default function ProfilePhoto({removeButton}) {
+export default function ProfilePhoto({ removeButton }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState(null);
@@ -30,6 +30,7 @@ export default function ProfilePhoto({removeButton}) {
       setInitialImage(user.profilePicUrl);
     };
     fetchProfilePic();
+    dispatch(fetchUser());
   }, []);
 
   const makeImageEditable = () => {
@@ -46,11 +47,11 @@ export default function ProfilePhoto({removeButton}) {
         selectedFile,
         "profile-pictures"
       );
-      console.log("File available at", downloadURL);
+      // console.log("File available at", downloadURL);
 
       // Call backend API to save image URL
       const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/api/users/profile-picture`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/usemakers/profile-picture`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -151,15 +152,16 @@ export default function ProfilePhoto({removeButton}) {
   const handleInputChange = (index, event) => {
     const updatedItems = [...items];
     updatedItems[index] = event.target.value;
-    console.log("This is printing the changes : ", updatedItems[index], updatedItems)
+    // console.log("This is printing the changes : ", updatedItems[index], updatedItems)
     setInfo(updatedItems);
-    console.log("this is new info: ", info);
+    // console.log("this is new info: ", info);
   };
 
   const makeListEditable = (e) => {
     e.preventDefault();
     setInitialItems([...info]);
     setIsEditing(true);
+    setInfo([...items])
   };
 
   const cancelEdit = () => {
@@ -171,16 +173,34 @@ export default function ProfilePhoto({removeButton}) {
     // Perform validation on the input values
     const isValid = info.every((item, index) => {
       const pattern = new RegExp(inputPatterns[index]);
-        console.log("pattern",pattern.test(item));
+      // console.log("pattern",pattern.test(item));
       return pattern.test(item);
     });
+    console.log("Info on submit: ", info, isValid);
     if (isValid) {
       setIsEditing(false);
       // If the name has changed, update it in the backend
-      if (info[0] !== initialItems[0]) {
-        const result = dispatch(updateUserNameInBackend(auth.currentUser?.uid, info[0]));
-        console.log("pattern",result)
+
+      // If current user doesn't exist, then abort action
+      if (!auth.currentUser) {
+        return;
       }
+
+      console.log("authUser: ", auth.currentUser);
+      const updatedUserInfo = {
+        name: info[0],
+        phoneNumber: info[3],
+        birthday: info[1],
+        email: info[2],
+      };
+
+      const result = dispatch(
+        updateUserNameInBackend({
+          ...updatedUserInfo,
+          id: auth.currentUser.uid,
+        })
+      );
+      console.log("pattern", result);
     } else {
       // Show an error message or handle invalid inputs
       console.log("Invalid inputs");
@@ -268,52 +288,55 @@ export default function ProfilePhoto({removeButton}) {
           <h2 className="text-2xl font-bold ">{items[0]}</h2>
           {/* <p> {items[2]} </p>
           <p>Birthday: {items[1]}</p>
-          <p>Contact: {items[3]}</p> */}
+          <p>Contact: {items[3]}</p>
+          <br></br> <br></br> */}
           <form>
-            {isEditing ? info.map((item, index) => (
-              <div
-                key={index}
-                className="flex"
-                style={{
-                  alignContent: "center",
-                  justifyContent: "center",
-                  marginTop: isEditing ? "10px" : "0",
-                }}
-              >
-                  <label htmlFor={itemsName[index]}>
-                    {itemsName[index]}:
-                  </label>
-                  <input
-                    className="line"
-                    type={inputType[index]}
-                    name={itemsName[index]}
-                    value={item}
-                    onChange={(event) => handleInputChange(index, event)}
-                    pattern={inputPatterns[index]}
-                    required
-                    onInvalid={(event) => {
-                      event.target.setCustomValidity(
-                        `Please follow the format ${patternString[index]}`
-                      );
+            {isEditing
+              ? info.map((item, index) => (
+                  <div
+                    key={index}
+                    className="flex"
+                    style={{
+                      alignContent: "center",
+                      justifyContent: "center",
+                      marginTop: isEditing ? "10px" : "0",
                     }}
-                    onInput={(event) => {
-                      event.target.setCustomValidity("");
+                  >
+                    <label htmlFor={itemsName[index]}>
+                      {itemsName[index]}:
+                    </label>
+                    <input
+                      className="line"
+                      type={inputType[index]}
+                      name={itemsName[index]}
+                      value={item}
+                      onChange={(event) => handleInputChange(index, event)}
+                      pattern={inputPatterns[index]}
+                      required
+                      onInvalid={(event) => {
+                        event.target.setCustomValidity(
+                          `Please follow the format ${patternString[index]}`
+                        );
+                      }}
+                      onInput={(event) => {
+                        event.target.setCustomValidity("");
+                      }}
+                    />
+                  </div>
+                ))
+              : items.slice(1, items.length).map((item, index) => (
+                  <div
+                    key={index}
+                    className="flex"
+                    style={{
+                      alignContent: "center",
+                      justifyContent: "center",
+                      marginBottom: isEditing ? "2px" : "0",
                     }}
-                  />
-              </div> 
-            )) : info.slice(1, items.length).map((item, index) => (
-              <div
-                key={index}
-                className="flex"
-                style={{
-                  alignContent: "center",
-                  justifyContent: "center",
-                  marginBottom: isEditing ? "2px" : "0",
-                }}
-              >
-                  <p>{item}</p>
-              </div> 
-            )) }
+                  >
+                    <p>{item}</p>
+                  </div>
+                ))}
             {isEditing ? (
               <div className="pt-6">
                 <button
@@ -415,7 +438,10 @@ export default function ProfilePhoto({removeButton}) {
         </div>
       </div>
       {activeTab === "photos" ? (
-        <UsersPhoto userId={auth.currentUser?.uid} removeButton={removeButton} />
+        <UsersPhoto
+          userId={auth.currentUser?.uid}
+          removeButton={removeButton}
+        />
       ) : (
         <LikedPhotos removeButton={removeButton}/>
       )}
