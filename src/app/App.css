@@ -472,3 +472,28 @@
   opacity: 70%;
 }
 
+.scrollable-container::-webkit-scrollbar {
+  /* display: none;  */
+}
+
+.scrollable-container::-webkit-scrollbar {
+  width: 8px; /* Set the width of the scrollbar */
+}
+
+.scrollable-container::-webkit-scrollbar-thumb {
+  background-color: #888; /* Set the color of the scrollbar thumb (the draggable part) */
+  border-radius: 4px; /* Add some border-radius for a rounded look */
+}
+
+.scrollable-container::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Set the color of the scrollbar thumb on hover */
+}
+
+.scrollable-container::-webkit-scrollbar {
+  /* Other styles from previous steps... */
+  position: absolute;
+  padding-left: 10px;;
+  right: 0px;
+  top: 10px;
+  /* Adjust 'right' and 'top' values as needed to position the scrollbar */
+}
