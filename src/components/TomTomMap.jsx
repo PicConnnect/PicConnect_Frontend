@@ -26,6 +26,6 @@ const TomTomMap = ({lat,lng}) => {
     }, [lat,lng]);
 
     //render use ref to avoid unnecessary rerender
-    return <div ref = {mapContainerRef} style={{ width: '100%', height: '500px' }}/>
+    return <div ref = {mapContainerRef} style={{ width: '90%', height: '200px' }}/>
 };
 export default TomTomMap
