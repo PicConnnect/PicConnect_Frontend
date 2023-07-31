@@ -208,7 +208,7 @@ export default function ProfilePhoto({ removeButton }) {
   };
 
   return (
-    <div className="userProfileContainer">
+    <div className="userProfileContainer p-4">
       {/* <div className="flex flex-row justify-center"> */}
       <div>
         {isEditingImage ? (
