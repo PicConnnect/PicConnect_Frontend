@@ -27,6 +27,7 @@ export default function FollowUser({ targetUser }) {
   // Function to follow a user
 const followUser = async (id, followerID) => {
     try {
+      console.log(currentUser);
       const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/users/${followerID}/addFollower/${id}`);
       if(response.status === 200){
         setIsFollowingUser(true);
@@ -79,8 +80,8 @@ const followUser = async (id, followerID) => {
         <p>{error}</p>
       ) : (
         <div>
-            {isFollowingUser?  <button className="px-6 py-2 bg-blue-500 text-white rounded-md text-sm" onClick={()=> unfollowUser(currentUser?.uid, targetUser)}>Unfollow</button> :  
-            <button className="px-6 py-2 bg-blue-500 text-white rounded-md text-sm" onClick={()=> followUser(currentUser?.uid, targetUser)}>Follow</button>
+            {isFollowingUser?  <button className="px-6 py-2 bg-blue-500 text-white rounded-md text-sm" onClick={()=> unfollowUser(currentUser?.uid? currentUser?.uid : currentUser?.id, targetUser)}>Unfollow</button> :  
+            <button className="px-6 py-2 bg-blue-500 text-white rounded-md text-sm" onClick={()=> followUser(currentUser?.uid? currentUser?.uid : currentUser?.id, targetUser)}>Follow</button>
             }
         </div>
       )}
