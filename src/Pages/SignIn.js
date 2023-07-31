@@ -50,7 +50,7 @@ export default function SignIn() {
     }
   };
   return (
-    <div className="bg-[#EAE6DE] h-screen">
+    <div className=" h-screen">
       <h1 className="text-4xl p-5">Login</h1>
       <div className="flex justify-center">
         <form onSubmit={handleSignIn} className="flex flex-col w-1/2">
@@ -83,10 +83,10 @@ export default function SignIn() {
           >
             Sign in with Google
           </button>
-          <br></br>
+
           <button
             onClick={() => handleSignInWithProvider(signInWithFacebook)}
-            className="w-full h-10 mt-10 bg-black text-white"
+            className="w-full h-10 mt-5 bg-black text-white"
           >
             Sign in with Facebook
           </button>
