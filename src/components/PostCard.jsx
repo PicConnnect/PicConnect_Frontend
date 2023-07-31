@@ -19,9 +19,11 @@ const PostCard = ({
   removeButton,
   likeButton,
   userLikedPhotos,
+  fetchPhotos
 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
 
   //useRef to hold the current user value
   const userRef = useRef();
@@ -77,6 +79,7 @@ const PostCard = ({
         const response = await axios.delete(
           `http://localhost:8000/api/photos/${postId}`
         );
+        fetchPhotos();
       }
     } catch (error) {
       console.error("Error deleting photo:", error);

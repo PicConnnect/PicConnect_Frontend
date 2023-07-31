@@ -19,7 +19,7 @@ export default function UsersPhoto({ userId,removeButton }) {
 
 useEffect(() => {
     fetchPhotos();
-  }, [fetchPhotos, userId]);
+  }, [userId]);
 
   let content;
 
@@ -35,6 +35,7 @@ useEffect(() => {
         postId={photo.id}
         removeButton={removeButton}
         userLikedPhotos={false}
+        fetchPhotos = {fetchPhotos}
       />
     ));
   }
