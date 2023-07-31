@@ -25,7 +25,6 @@ const UserProfile = () => {
   return (
     <div>
       <AboutComponent removeButton={true}></AboutComponent>
-      <SignOutButtonComponent handleLogout={handleLogout}></SignOutButtonComponent>
     </div>
   );
 };
