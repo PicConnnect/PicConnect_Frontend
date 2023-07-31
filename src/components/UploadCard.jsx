@@ -56,6 +56,8 @@ const UploadCard = () => {
   const onOpenFailFileUpload = () => setFailFileUpload(true);
   const onCloseFailFileUpload = () => setFailFileUpload(false);
 
+  const isModalOpen = openNoMetadata || successFileUload || failFileUload || isUploading;
+
   //check to see if user logged in
   const RedirectMessage = useIfNotAuthenticated("Upload");
   //if not logged in
@@ -460,7 +462,7 @@ const UploadCard = () => {
           />
 
           <div style={{ position: "relative" }}>
-            <button className="submitButton" type="submit" value="Submit">
+            <button className="submitButton" type="submit" value="Submit" disabled={isModalOpen}>
               Submit
             </button>
             {exifData?.Make === undefined || imageUrl === "" ? (

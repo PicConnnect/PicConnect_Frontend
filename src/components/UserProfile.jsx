@@ -4,7 +4,6 @@ import { auth } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import "../styles/UploadCard.css";
 import AboutComponent from "./ProfileComponents/AboutComponent";
-import SignOutButtonComponent from "./ProfileComponents/SignOutButtonComponent";
 
 const UserProfile = () => {
   const navigate = useNavigate();

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebase/firebase";
 import { uploadToStorage } from "../../utils/firebaseUtils";
 import UsersPhoto from "../UsersPhoto";
-import SavedPhotos from "../SavedPhotos";
+import LikedPhotos from "../LikedPhotos";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUserNameInBackend, fetchUser } from "../../redux/userSlice";
 
@@ -443,7 +443,7 @@ export default function ProfilePhoto({ removeButton }) {
           removeButton={removeButton}
         />
       ) : (
-        <SavedPhotos removeButton={removeButton} />
+        <LikedPhotos removeButton={removeButton}/>
       )}
     </div>
   );

@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebase";
+import { useAuth } from "../hooks/useAuth";
 
 const Navbar = () => {
   const [open, setOpen] = useState(true);
+  const user = useAuth();
 
   const handleToggle = () => {
     setOpen((prevState) => !prevState);
@@ -22,6 +24,8 @@ const Navbar = () => {
       });
   };
 
+
+
   return (
     <>
       <script
@@ -33,8 +37,8 @@ const Navbar = () => {
           <div className="w-full text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800">
             <div className="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
               <div className="flex flex-row items-center justify-between p-4">
-                <Link
-                  href="#"
+                <Link to="/"
+                  // href="#"
                   className="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline"
                   style={{ display: "flex" }}
                 >
@@ -96,14 +100,26 @@ const Navbar = () => {
                 >
                   Profile
                 </Link>
+                { user ? (
                 <Link
                   className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                  href="/"
+                  // href="/"
+                  to="/"
                 onClick={handleLogout}
                   style={{ color: "red" }}
                 >
                   Sign Out
                 </Link>
+                ) : (
+                  <Link to="signin"
+                  className="px-4 py-2 mt-2 text-sm font-semibold text-blue-600 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                   >
+                  Sign In
+                  </Link>
+                
+                
+                )}
+                
               </nav>
             </div>
           </div>

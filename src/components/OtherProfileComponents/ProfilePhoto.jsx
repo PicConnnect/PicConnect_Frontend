@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebase/firebase";
 import { uploadToStorage } from "../../utils/firebaseUtils";
 import UsersPhoto from "../UsersPhoto";
-import SavedPhotos from "../SavedPhotos";
+import LikedPhotos from "../LikedPhotos";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import FollowUser from "./FollowUser";
@@ -127,7 +127,7 @@ export default function ProfilePhoto( {userId} ) {
       {activeTab === "photos" ? (
         <UsersPhoto userId={userData.id} />
       ) : (
-        <SavedPhotos />
+        <LikedPhotos />
       )}
     </div>
   );

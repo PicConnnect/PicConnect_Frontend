@@ -15,6 +15,8 @@ export default function SignIn() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -32,7 +34,9 @@ export default function SignIn() {
       await signInWithEmail(email, password, dispatch);
       navigate("/Profile");
     } catch (error) {
-      console.error("Error signing in", error);
+      // console.error("Error signing in", error);
+      setErrorMessage(error);
+
       // Display this error in UI later
     }
   };
@@ -65,24 +69,13 @@ export default function SignIn() {
               label="Password"
             />
           </div>
-
+          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
           <button
             type="submit"
             className="w-full h-10 mt-10 bg-black text-white"
           >
             Sign In
           </button>
-          <span className="italic">
-            By continuing you agree to the{" "}
-            <a href="#" className="underline">
-              Terms of Services
-            </a>{" "}
-            and{" "}
-            <a href="#" className="underline">
-              {" "}
-              Privacy
-            </a>
-          </span>
 
           <button
             onClick={() => handleSignInWithProvider(signInWithGoogle)}

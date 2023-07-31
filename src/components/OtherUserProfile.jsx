@@ -5,7 +5,7 @@ import { auth } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import "../styles/UploadCard.css";
 // import UsersPhoto from "./UsersPhoto";
-// import SavedPhotos from "./SavedPhotos";
+// import LikedPhotos from "./LikedPhotos";
 // import ProfilePhoto from "./ProfileComponents/ProfilePhoto";
 // import BadgeComponent from "./ProfileComponents/BadgeComponent";
 import AboutComponent from "./OtherProfileComponents/AboutComponent";
@@ -23,7 +23,7 @@ const OtherUserProfile = ( {userId} ) => {
       <div className="rightContainer">
         <div>
           {/* <UsersPhoto userId={userId}></UsersPhoto> 
-            <SavedPhotos></SavedPhotos>  */}
+            <LikedPhotos></LikedPhotos>  */}
         </div>
       </div>
     </div>

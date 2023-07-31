@@ -6,7 +6,7 @@ import { auth } from "../firebase/firebase";
 import { fetchUserLikes, fetchPosts } from "../redux/postSlice";
 import Masonry from "react-masonry-css";
 
-export default function SavedPhotos({removeButton}) {
+export default function LikedPhotos({removeButton}) {
 
   const dispatch = useDispatch();
   const userId = auth.currentUser?.uid;
