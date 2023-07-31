@@ -35,7 +35,7 @@ export default function SavedPhotos({removeButton}) {
 
   useEffect(() => {
     loadData();
-  }, [loadData, userId]);
+  }, [userId]);
 
   console.log(`likedPhotoIds: ${JSON.stringify(likedPhotoIds)}`);
   console.log(`likedPosts: ${JSON.stringify(likedPosts)}`);
