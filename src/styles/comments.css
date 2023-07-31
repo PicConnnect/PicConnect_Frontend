@@ -1,6 +1,6 @@
 .commentBox {
   background-color: antiquewhite;
-  border: 2px solid blue;
+  border: 2px solid rgb(59, 130, 246);
   margin: 3px;
   overflow-y: auto;
   border-radius: .5rem;
@@ -14,7 +14,7 @@
 
 .comment {
   padding: .75rem;
-  border: 2px solid blue;
+  border: 2px solid rgb(59, 130, 246);
   border-radius: .5rem;
   margin-top: .75rem;
   margin-bottom: .75rem;
@@ -102,17 +102,17 @@
   padding: .5em;
   font-size: inherit;
   font-family: inherit;
-  border: 2px solid blue;
+  border: 2px solid rgb(59, 130, 246);
   line-height: 1.4;
 }
 
 .message-input:focus {
-  border-color: blue;
+  border-color: rgb(59, 130, 246);
   outline: none;
 }
 .post-button {
   --hue: 235;
-  --color: blue;
+  --color: rgb(59, 130, 246);
   padding: .5em 1em;
   background: var(--color);
   border: none;
