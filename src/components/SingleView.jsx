@@ -7,7 +7,6 @@ import { useIfNotAuthenticated } from "../hooks/useIfNotAuthenticated";
 import TomTomMap from "./TomTomMap";
 import CommentList from "./Comments/CommentList";
 import CommentForm from "./Comments/CommentForm";
-import SingleView2 from "./SingleView2";
 
 let socket = null;
 
