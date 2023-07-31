@@ -52,8 +52,6 @@ const PostCard = ({
     const userId = userRef.current?.uid? userRef.current?.uid : userRef.current?.id;
 
     // console.log(`Current isLiked: ${isLiked}`);
-    console.log("userIdd: ", userRef.current)
-    console.log(`Post ID: ${postId}`);
 
     if (likedPhotoIds.includes(postId)) {
       dispatch(unlikePost({ postId: postId, userId: userId }));

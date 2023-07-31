@@ -58,7 +58,8 @@ export default function Home() {
     500: 1,
   };
 
-  const handleSearch = async () => {
+  const handleSearch = async (event) => {
+    event.preventDefault();
     if (searchWord.trim() === "") {
       dispatch(fetchPosts());
     } else {
