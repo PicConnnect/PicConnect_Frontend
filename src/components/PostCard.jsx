@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { likePost, unlikePost } from "../redux/postSlice";
 import { useAuth } from "../hooks/useAuth";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import FormInput from "./FormInput";
 import "../styles/UploadCard.css";
 import "../styles/PostCard.css";
@@ -85,13 +86,12 @@ const PostCard = ({
   };
 
   return (
-    <div className="card-container grid gap-4">
+    <div className="card-container grid gap-4 aspect-h-4 aspect-w-3 md:aspect-h-2 md:aspect-w-3">
       <div onClick={handleViewClick} className="card-content">
-        <img
-          className="card-img h-auto max-w-full rounded-md"
+        <LazyLoadImage
+          className="card-img h-auto max-w-full rounded-md "
           src={url}
           alt="Thumbnail"
-          loading="lazy"
         />
         {removeButton && (
           <button
