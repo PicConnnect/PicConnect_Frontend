@@ -91,7 +91,6 @@ const PostCard = ({
           className="card-img h-auto max-w-full rounded-md"
           src={url}
           alt="Thumbnail"
-          loading="lazy"
         />
         {removeButton && (
           <button
