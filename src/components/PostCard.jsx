@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { likePost, unlikePost } from "../redux/postSlice";
 import { useAuth } from "../hooks/useAuth";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import FormInput from "./FormInput";
 import "../styles/UploadCard.css";
 import "../styles/PostCard.css";
@@ -91,6 +92,7 @@ const PostCard = ({
         <LazyLoadImage
           className="card-img h-auto max-w-full rounded-md "
           src={url}
+          effect="blur"
           alt="Thumbnail"
         />
         {removeButton && (
