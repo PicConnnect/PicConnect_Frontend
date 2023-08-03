@@ -6,18 +6,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { setUserData } from "../redux/userSlice";
 import { auth, sendTokenToBackend, } from "../firebase/firebase";
-import Home from "./../Pages/Home";
-import Following from "./../Pages/Following";
-import Upload from "./../Pages/Upload";
-import Profile from "./../Pages/Profile";
-import SignIn from "./../Pages/SignIn";
-import SignUp from "./../Pages/SignUp";
-import ViewPost from "../Pages/ViewPost";
 import Footer from "../components/Footer";
-import UsersPhoto from "../components/UsersPhoto";
-import Follower from "./../Pages/Follower";
-import OtherProfile from "../Pages/OtherProfile";
 import Navbar from "../components/navbar";
+
+const Home = lazy(() => import("./../Pages/Home"));
+const Following = lazy(() => import("./../Pages/Following"));
+const Upload = lazy(() => import("./../Pages/Upload"));
+const Profile = lazy(() => import("./../Pages/Profile"));
+const SignIn = lazy(() => import("./../Pages/SignIn"));
+const SignUp = lazy(() => import("./../Pages/SignUp"));
+const ViewPost = lazy(() => import("../Pages/ViewPost"));
+const UsersPhoto = lazy(() => import("../components/UsersPhoto"));
+const Follower = lazy(() => import("./../Pages/Follower"));
+const OtherProfile = lazy(() => import("./../Pages/OtherProfile"));
 
 
 function App() {
