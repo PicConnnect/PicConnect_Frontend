@@ -1,0 +1,25 @@
+container {
+    display: "flex";
+    flex-direction: "row";
+    align-items: "center";
+    background: "#f0f0f0";
+    padding: "8px";
+    border-radius: "4px";
+}
+searchBox {
+    flex: 1;
+    padding: "8px";
+    margin-right: "8px";
+    border: "1px solid #ccc";
+    border-radius: "4px";
+    font-size: "16px";
+}
+searchButton {
+    padding: "8px 16px";
+    border: "none";
+    border-radius: "4px";
+    background: "#007bff";
+    color: "#fff";
+    font-size: "16px";
+    cursor: "pointer";
+}

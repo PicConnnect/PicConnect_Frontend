@@ -87,7 +87,7 @@ const PostCard = ({
   };
 
   return (
-    <div className="card-container grid gap-4 aspect-h-4 aspect-w-3 md:aspect-h-2 md:aspect-w-3">
+    <div className="card-container grid gap-4">
       <div onClick={handleViewClick} className="card-content">
         <LazyLoadImage
           className="card-img h-auto max-w-full rounded-md "
