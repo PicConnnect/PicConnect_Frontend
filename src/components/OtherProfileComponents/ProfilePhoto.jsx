@@ -127,7 +127,7 @@ export default function ProfilePhoto( {userId} ) {
       {activeTab === "photos" ? (
         <UsersPhoto userId={userData.id} />
       ) : (
-        <LikedPhotos />
+        <LikedPhotos userId={userId} />
       )}
     </div>
   );

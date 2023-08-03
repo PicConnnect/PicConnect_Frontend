@@ -7,7 +7,7 @@ import LikedPhotos from "../LikedPhotos";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUserNameInBackend, fetchUser } from "../../redux/userSlice";
 
-export default function ProfilePhoto({ removeButton }) {
+export default function ProfilePhoto({ removeButton, userId }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState(null);
@@ -443,7 +443,7 @@ export default function ProfilePhoto({ removeButton }) {
           removeButton={removeButton}
         />
       ) : (
-        <LikedPhotos removeButton={removeButton}/>
+        <LikedPhotos userId={auth.currentUser?.uid}/>
       )}
     </div>
   );
