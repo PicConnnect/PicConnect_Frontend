@@ -6,10 +6,12 @@ import { auth } from "../firebase/firebase";
 import { fetchUserLikes, fetchPosts } from "../redux/postSlice";
 import Masonry from "react-masonry-css";
 
-export default function LikedPhotos() {
+export default function LikedPhotos({ userId }) {
 
   const dispatch = useDispatch();
-  const userId = auth.currentUser?.uid;
+  const currentUserId = auth.currentUser?.uid;
+
+  const showLikeButton = userId === currentUserId;
 
   const [loading, setLoading] = useState(true);
 
@@ -55,7 +57,7 @@ export default function LikedPhotos() {
               userId={userId}
               url={photo.urls}
               size="small"
-              likeButton={true}
+              likeButton={showLikeButton}
               userLikedPhotos={true}
             />
           ))}
