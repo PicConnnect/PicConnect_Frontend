@@ -9,9 +9,14 @@ module.exports = {
       },
       colors: {
         'red-oxide': '#671818',
-      }
+      },
+      corePlugins: {
+        aspectRatio: false,
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+  ],
 }
 

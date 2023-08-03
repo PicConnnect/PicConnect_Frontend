@@ -7,6 +7,7 @@ import {
   fetchSearchPost,
   fetchUserLikes,
 } from "../redux/postSlice";
+import "../styles/Home.css"
 import "../styles/PostCard.css";
 import Masonry from "react-masonry-css";
 
@@ -69,47 +70,10 @@ export default function Home() {
     console.log("this is ", postCardList);
   };
 
-  const styles = {
-    container: {
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "center",
-      background: "#f0f0f0",
-      padding: "8px",
-      borderRadius: "4px",
-    },
-    searchBox: {
-      flex: 1,
-      padding: "8px",
-      marginRight: "8px",
-      border: "1px solid #ccc",
-      borderRadius: "4px",
-      fontSize: "16px",
-    },
-    searchButton: {
-      padding: "8px 16px",
-      border: "none",
-      borderRadius: "4px",
-      background: "#007bff",
-      color: "#fff",
-      fontSize: "16px",
-      cursor: "pointer",
-    },
-  };
+
+
   return (
     <div className="p-4">
-      {/* <div style={styles.container}>
-        <input
-          type="text"
-          value={searchWord}
-          onChange={(e) => setSearchWord(e.target.value)}
-          style={styles.searchBox}
-        />
-        <button onClick={handleSearch} style={styles.searchButton}>
-          Search
-        </button>
-      </div> */}
-
       <div class="max-w-2xl mx-auto">
         <form>
           <label

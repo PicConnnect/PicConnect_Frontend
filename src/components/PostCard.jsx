@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { likePost, unlikePost } from "../redux/postSlice";
 import { useAuth } from "../hooks/useAuth";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import FormInput from "./FormInput";
 import "../styles/UploadCard.css";
 import "../styles/PostCard.css";
@@ -75,7 +77,7 @@ const PostCard = ({
 
       if (confirm) {
         const response = await axios.delete(
-          `http://localhost:8000/api/photos/${postId}`
+          `${process.env.REACT_APP_BACKEND_URL}/api/photos/${postId}`
         );
         fetchPhotos();
       }
@@ -87,11 +89,11 @@ const PostCard = ({
   return (
     <div className="card-container grid gap-4">
       <div onClick={handleViewClick} className="card-content">
-        <img
-          className="card-img h-auto max-w-full rounded-md"
+        <LazyLoadImage
+          className="card-img h-auto max-w-full rounded-md "
           src={url}
+          effect="blur"
           alt="Thumbnail"
-          loading="lazy"
         />
         {removeButton && (
           <button
