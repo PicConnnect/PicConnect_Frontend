@@ -77,7 +77,7 @@ const PostCard = ({
 
       if (confirm) {
         const response = await axios.delete(
-          `http://localhost:8000/api/photos/${postId}`
+          `${process.env.REACT_APP_BACKEND_URL}/api/photos/${postId}`
         );
         fetchPhotos();
       }
