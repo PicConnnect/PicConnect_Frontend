@@ -26,6 +26,8 @@ const PostCard = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [isVisible, setIsVisible] = useState(true);
+
 
   //useRef to hold the current user value
   const userRef = useRef();
@@ -86,7 +88,12 @@ const PostCard = ({
     }
   };
 
+  const handleImageError = () => {
+    setIsVisible(false);
+  };
+
   return (
+    isVisible && (
     <div className="card-container grid gap-4">
       <div onClick={handleViewClick} className="card-content">
         <LazyLoadImage
@@ -94,6 +101,7 @@ const PostCard = ({
           src={url}
           effect="blur"
           alt="Thumbnail"
+          onError={handleImageError}
         />
         {removeButton && (
           <button
@@ -134,6 +142,7 @@ const PostCard = ({
         )}
       </div>
     </div>
+    )
   );
 };
 
