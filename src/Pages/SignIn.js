@@ -1,8 +1,4 @@
-import {
-  signInWithGoogle,
-  signInWithFacebook,
-  signInWithEmail,
-} from "../firebase/firebase";
+import { signInWithGoogle, signInWithFacebook, signInWithEmail } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux'
 import React, { useState } from "react";

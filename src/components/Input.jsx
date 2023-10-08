@@ -11,7 +11,7 @@ export default function Input ({ type, value, onChange, label, className }) {
         value={value}
         onChange={onChange}
         required
-        className="w-full h-10"
+        className="w-full h-10 border-solid border-2 border-zinc-400"
       />
     </div>
   );
