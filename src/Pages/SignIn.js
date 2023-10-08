@@ -56,6 +56,7 @@ export default function SignIn() {
               value={email}
               onChange={handleEmailChange}
               label="Email Address"
+              autocomplete="username"
             />
 
             <Input
@@ -63,6 +64,7 @@ export default function SignIn() {
               value={password}
               onChange={handlePasswordChange}
               label="Password"
+              autocomplete="current-password"
             />
           </div>
           {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
