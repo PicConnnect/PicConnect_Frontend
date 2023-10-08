@@ -29,19 +29,19 @@ To run Pic Connect locally on your machine, follow these steps:
 
 1. Clone the repository:
 
-   git clone https://github.com/PicConnnect/PicConnect_Frontend.git
+   `git clone https://github.com/PicConnnect/PicConnect_Frontend.git`
 
 2. Change into the project directory:
 
-    cd pic-connect-frontend
+    `cd pic-connect-frontend`
 
 3. Install the required dependencies:
 
-    npm install
+    `npm install`
 
 4. Start the development server:
 
-   npm start
+   `npm start`
 
 5. Open your browser and navigate to `http://localhost:3000` to access the Pic Connect application.
 
