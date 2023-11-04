@@ -53,7 +53,7 @@ const Navbar = () => {
                   />
                   <h1 style={{ marginTop: "14px", marginLeft: "10px" }}>
                     {" "}
-                    PicConnect AI{" "}
+                    PicConnect{" "}
                   </h1>
                 </Link>
                 <button
@@ -130,7 +130,7 @@ const Navbar = () => {
                     Sign Up
                   </Link>
                 )}
-                
+
               </nav>
             </div>
           </div>
