@@ -44,9 +44,9 @@ const Navbar = () => {
                 <img
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoFauVAESNmRE5Og3zMDkV_kcf6g18VHTgBPVtIsiTysto_tPpCi4BDK0pUI7pvuPaJbQ&usqp=CAU"
                   alt="Logo"
-                  className="h-8 w-8 mr-2"
+                  className="w-20 mr-2 "
                 />
-                <span className="font-semibold text-gray-500 text-lg">
+                <span className="text-black-500 text-xl">
                   PicConnect
                 </span>
               </Link>
@@ -55,26 +55,27 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-1">
             <Link
               to="/"
-              className="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300"
+              className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
             >
               Home
             </Link>
             <Link
               to="/upload"
-              className="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300"
+              className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
             >
               Upload
             </Link>
             <Link
               to="/profile"
-              className="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300"
+              className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
             >
               Profile
             </Link>
             {user ? (
               <button
                 onClick={handleLogout}
-                className="py-4 px-2 text-red-500 font-semibold hover:text-red-400 transition duration-300"
+                style={{ color: "red" }}
+                className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
               >
                 Sign Out
               </button>
@@ -93,7 +94,7 @@ const Navbar = () => {
               onClick={() => setIsOpen(!isOpen)}
             >
               <svg
-                className="w-6 h-6 text-gray-500 hover:text-green-500"
+                className="w-6 h-6 text-gray-500 hover:text-violet-"
                 x-show="!showMenu"
                 fill="none"
                 strokeLinecap="round"
@@ -157,6 +158,7 @@ const Navbar = () => {
       </div>
     </nav>
   );
+
 };
 
 export default Navbar;
