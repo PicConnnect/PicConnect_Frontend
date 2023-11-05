@@ -51,7 +51,7 @@ export default function ProfilePhoto({ removeButton, userId }) {
 
       // Call backend API to save image URL
       const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/api/usemakers/profile-picture`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/users/profile-picture`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

@@ -7,7 +7,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { setUserData } from "../redux/userSlice";
 import { auth, sendTokenToBackend, } from "../firebase/firebase";
 import Footer from "../components/Footer";
-import Navbar from "../components/navbar";
+import Navbar from "../components/Navbar";
 
 const Home = lazy(() => import("./../Pages/Home"));
 const Following = lazy(() => import("./../Pages/Following"));
@@ -24,7 +24,7 @@ const OtherProfile = lazy(() => import("./../Pages/OtherProfile"));
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
-  
+
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
