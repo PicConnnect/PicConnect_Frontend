@@ -6,7 +6,7 @@ const FollowersList = () => {
   const [followerList, setFollowerList] = useState([]);
   const currentPath = window.location.pathname;
   const userId = currentPath.substring(currentPath.lastIndexOf("/") + 1);
-  const fetchFollowerList = () => axios.get(`http://localhost:8000/api/users/Followers/${userId}`).then((response) => {
+  const fetchFollowerList = () => axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/users/Followers/${userId}`).then((response) => {
     if(response.status >= 200 && response.status < 300){
       console.log('Request was successful!');
       console.log('Response data:', response.data.follower_id);

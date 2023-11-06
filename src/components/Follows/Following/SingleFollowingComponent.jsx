@@ -2,11 +2,11 @@ import React from "react";
 import axios from "axios";
 
 const SingleFollowingComponent = ({data, currentUserId, fetchFollowingList}) => {
-  const followingUserId = data.id; 
+  const followingUserId = data.id;
   const unfollow = (() => {
     if(data){
       try {
-        axios.delete(`http://localhost:8000/api/users/${followingUserId}/deleteFollower/${currentUserId}`)
+        axios.delete(`${process.env.REACT_APP_BACKEND_URL}0/api/users/${followingUserId}/deleteFollower/${currentUserId}`)
         .then(() => {
           fetchFollowingList();
         }).catch(() => {
@@ -20,7 +20,7 @@ const SingleFollowingComponent = ({data, currentUserId, fetchFollowingList}) => 
   const handleOnClick = (() => {
     unfollow();
   });
-  
+
   return (
     <div>
       <div className="followerContainer">
