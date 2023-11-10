@@ -1,4 +1,9 @@
 # Pic Connect - Frontend 
+<img width="1440" alt="image" src="https://github.com/PicConnnect/PicConnect_Frontend/assets/106124483/3555f08d-6421-44f1-85c6-18c3e42b9e67">
+<img width="1440" alt="image" src="https://github.com/PicConnnect/PicConnect_Frontend/assets/106124483/d3979a52-cf07-4c60-a891-17de756a15de">
+<img width="1440" alt="image" src="https://github.com/PicConnnect/PicConnect_Frontend/assets/106124483/828095d5-854d-4ee3-8a04-8c76836eccc9">
+<img width="1440" alt="image" src="https://github.com/PicConnnect/PicConnect_Frontend/assets/106124483/50107547-1550-4781-be90-5b4e55257fbd">
+
 #### <a href="https://github.com/PicConnnect/PicConnect_backend">Click to see backend repo</a>
 Welcome to the Pic Connect frontend repository! This web app allows users to log in, post photos, leave comments, like and follow each other. One of the main features of Pic Connect is the integration of the TomTom map to display the location where each photo was taken. This ReadMe will provide an overview of the project, setup instructions, key features, and some helpful tips for development.
 <details>
