@@ -62,6 +62,8 @@ To run Pic Connect locally on your machine, follow these steps:
 
 - TomTom Map Integration: Photos are displayed on a map using the TomTom API, allowing users to visualize the photo locations.
 
+- Search: Users can search by the image title. 
+
 ## Technologies Used
 
 - React JS: The frontend is built using React to create a dynamic and responsive user interface.
@@ -71,6 +73,12 @@ To run Pic Connect locally on your machine, follow these steps:
 - Tailwind CSS: Tailwind CSS is utilized for styling and ensuring a clean and consistent user interface.
 
 - TomTom Map API: The TomTom API is integrated to display photo locations on an interactive map.
+
+- Socket IO: Socket IO is utilized to display real time comments and likes.
+
+- Firebase Storage: Firebase storage is used to store uploaded images and links to images for the database.
+
+- Firebase Authentication: Firebase Authentication is utilized to implement Google, Facebook, email-password authentication in the website. 
 
 [contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
 [contributors-url]: https://github.com/PicConnnect/PicConnect_Frontend/graphs/contributors
